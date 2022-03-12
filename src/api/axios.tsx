@@ -2,7 +2,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:3000';
 
 export default axios.create({
-    baseURL: 'https://bank-app-pcafe-stage.herokuapp.com/'
+    baseURL: 'https://bank-app-pcafe-api-stage.herokuapp.com'
 });
 
 export const axiosPrivate = axios.create({

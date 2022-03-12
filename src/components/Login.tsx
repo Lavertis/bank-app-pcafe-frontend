@@ -35,7 +35,7 @@ const Login: FC<LoginProps> = () => {
             }
            
             
-            axios.post('https://bank-app-pcafe-stage.herokuapp.com/api/Auth/authenticate', {userName: userName, password: password}, { withCredentials: true }).then((response) => {
+            axios.post('https://bank-app-pcafe-api-stage.herokuapp.com/api/Auth/authenticate', {userName: userName, password: password}, { withCredentials: true }).then((response) => {
                 const accessToken = response.data.jwtToken;
               dispatch({ authToken: accessToken})
                if(response.status === 200){

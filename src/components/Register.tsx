@@ -64,7 +64,7 @@ const Register: FC<RegisterProps> = () => {
     var isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
     var isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
     
-    axios.post('https://bank-app-pcafe-stage.herokuapp.com/api/Employee/create', { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
+    axios.post('https://bank-app-pcafe-api-stage.herokuapp.com/api/Employee/create', { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
       'Content-Type': 'application/json',
         "Authorization": "Bearer " + authToken
     } }).then((response) => {
