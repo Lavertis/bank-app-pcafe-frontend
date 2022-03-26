@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import React, { FC } from 'react';
-import axios from 'axios';
-import {AuthContext} from '../context/AuthProvider';
-import { useContext } from 'react';
+import instance from '../api/axios';
 
 
 
-interface RegisterProps { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface RegisterProps{}
 const Register: FC<RegisterProps> = () => {
     const[userName, setUserName] = useState<string>();
     const[password, setPassword] = useState<string>();
@@ -16,10 +15,10 @@ const Register: FC<RegisterProps> = () => {
     const[gender, setGender] = useState<string>();
     const[dateOfEmployment, setDateOfEmployment] = useState<string>();
     const[dateOfBirth, setDateOfBirth] = useState<string>();
-    const { authToken } = useContext(AuthContext); 
+    const authToken = localStorage.getItem('accessToken');
 
-
-  const onSubmit = async (e: { preventDefault: () => void; }) => {
+    const REGISTER_URL = '/api/Employee/create'
+    const onSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
     
@@ -61,12 +60,12 @@ const Register: FC<RegisterProps> = () => {
     
 
 
-    var isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
-    var isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
+    const isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
+    const isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
     
-    axios.post('https://bank-app-pcafe-api-stage.herokuapp.com/api/Employee/create', { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
+    instance.post(REGISTER_URL, { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
       'Content-Type': 'application/json',
-        "Authorization": "Bearer " + authToken
+      "Authorization": "Bearer " + authToken
     } }).then((response) => {
       //const accessToken = response.data.jwtToken;
       console.log(response);

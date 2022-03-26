@@ -1,25 +1,24 @@
 import axios from '../api/axios';
-import useAuth from './useAuth';
+
+import {  useState } from 'react';
 
 const useRefreshToken = () => {
-    const { authToken, dispatch } = useAuth();
+    const [refreshToken, setReToken] = useState<string>(localStorage.getItem('refreshToken'))
+    const [authToken, setAuthToken] = useState()
 
     const refresh = async () => {
         const response = await axios.get('https://bank-app-pcafe-stage.herokuapp.com/api/Auth/refresh-token', {
             withCredentials: true
         });
-        console.log(authToken)
-        dispatch({authToken: response.data.accessToken})
+        setReToken(response.data.refreshToken)
+        setAuthToken(response.data.jwtToken)
+        localStorage.setItem('refreshToken', refreshToken)
+        localStorage.setItem('accessToken', authToken)
         
-        return response.data.accessToken;
+        return response.data.refreshToken;
     }
     return refresh;
 };
 
 export default useRefreshToken;
 
-//dispatch({authToken} => {
-          //  console.log(JSON.stringify(authToken));
-            //console.log(response.data.accessToken);
-            //return { ...prev, accessToken: response.data.accessToken }
-       // });
