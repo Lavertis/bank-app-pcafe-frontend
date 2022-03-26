@@ -1,8 +1,9 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://bank-app-pcafe-api-stage.herokuapp.com';
 
-export default axios.create({
-    baseURL: 'https://bank-app-pcafe-api-stage.herokuapp.com'
+const instance = axios.create({
+    baseURL: BASE_URL,
+    withCredentials: true
 });
 
 export const axiosPrivate = axios.create({
@@ -10,3 +11,5 @@ export const axiosPrivate = axios.create({
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true
 });
+
+export default instance

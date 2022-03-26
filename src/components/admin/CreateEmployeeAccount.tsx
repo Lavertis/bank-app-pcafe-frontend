@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import React, { FC } from 'react';
-import axios from 'axios';
-import {AuthContext} from '../context/AuthProvider';
-import { useContext } from 'react';
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+const REGISTER_URL = '/api/Employee/create'
 
 
-
-interface RegisterProps { }
-const Register: FC<RegisterProps> = () => {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface RegisterProps{}
+export const CreateEmployeeAccount: FC<RegisterProps> = () => {
+  
+    const axiosPrivate = useAxiosPrivate();
     const[userName, setUserName] = useState<string>();
     const[password, setPassword] = useState<string>();
     const[firstName, setFirstName] = useState<string>();
@@ -16,16 +17,14 @@ const Register: FC<RegisterProps> = () => {
     const[gender, setGender] = useState<string>();
     const[dateOfEmployment, setDateOfEmployment] = useState<string>();
     const[dateOfBirth, setDateOfBirth] = useState<string>();
-    const { authToken } = useContext(AuthContext); 
 
-
-  const onSubmit = async (e: { preventDefault: () => void; }) => {
+    const onSubmit =  (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
     
-    /*
     
-      if (!userName) {
+    
+    if (!userName) {
       alert('Login field empty')
       return
     }
@@ -57,25 +56,30 @@ const Register: FC<RegisterProps> = () => {
         alert('Datw of birth field empty')
         return
     }
-      */
+    
+      
     
 
-
-    var isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
-    var isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
-    
-    axios.post('https://bank-app-pcafe-api-stage.herokuapp.com/api/Employee/create', { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
-      'Content-Type': 'application/json',
-        "Authorization": "Bearer " + authToken
-    } }).then((response) => {
-      //const accessToken = response.data.jwtToken;
-      console.log(response);
- 
+    const isoDateEmployment = new Date(dateOfEmployment).toISOString();
+    const isoDateBirth = new Date(dateOfBirth).toISOString();
+    const accountProps = {
+      userName: userName, 
+      password: password, 
+      firstName: firstName, 
+      lastName: lastName, 
+      salary: salary, 
+      gender: gender, 
+      dateOfEmployment: isoDateEmployment, 
+      dateOfBirth: isoDateBirth
+    }
+    axiosPrivate.post(REGISTER_URL,  accountProps ).then((response) => {
+      console.log(response.status);
+      (response.status === 200) ? console.log("Udalo sie utworzyć użytkownika"): console.log("Cos poszlo nie tak")
+      
    
     });
 
-    
-  
+
     setUserName('')
     setPassword('')
     setFirstName('')
@@ -88,9 +92,12 @@ const Register: FC<RegisterProps> = () => {
 
 
   return(
-    <form onSubmit={onSubmit}>
-          <label htmlFor="userName">
-              <input id="userName"
+    <div className='flex h-screen w-full'>
+    <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+          <label className ='form-label-input'
+          htmlFor="userName">
+              <input className ='form-input'
+                id="userName"
                 value={userName}
                 type="text"
                 placeholder="userName"
@@ -98,8 +105,10 @@ const Register: FC<RegisterProps> = () => {
                 onBlur={(e) => setUserName(e.target.value)}
               />
               </label>
-              <label htmlFor="password">
-              <input id="password"
+              <label className ='form-label-input'
+              htmlFor="password">
+              <input className ='form-input'
+              id="password"
                 value={password}
                 type="text"
                 placeholder="password"
@@ -107,8 +116,10 @@ const Register: FC<RegisterProps> = () => {
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-          <label htmlFor="firstName">
-              <input id="firstName"
+          <label className ='form-label-input'
+          htmlFor="firstName">
+              <input className ='form-input'
+              id="firstName"
                 value={firstName}
                 type="text"
                 placeholder="First name"
@@ -116,8 +127,10 @@ const Register: FC<RegisterProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
-          <label htmlFor="lastName">
-              <input id="lastName"
+          <label className ='form-label-input'
+          htmlFor="lastName">
+              <input className ='form-input'
+              id="lastName"
                 value={lastName}
                 type="text"
                 placeholder="Last name"
@@ -125,8 +138,10 @@ const Register: FC<RegisterProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label htmlFor="salary">
-              <input id="salary"
+          <label className ='form-label-input'
+          htmlFor="salary">
+              <input className ='form-input'
+              id="salary"
                 value={salary}
                 type="text"
                 placeholder="Salary"
@@ -134,8 +149,10 @@ const Register: FC<RegisterProps> = () => {
                 onBlur={(e) => setSalary(e.target.value)}
               />
           </label>
-          <label htmlFor="gender">
-              <input id="gender"
+          <label className ='form-label-input'
+          htmlFor="gender">
+              <input className ='form-input'
+              id="gender"
                 value={gender}
                 type="text"
                 placeholder="Gender"
@@ -143,29 +160,32 @@ const Register: FC<RegisterProps> = () => {
                 onBlur={(e) => setGender(e.target.value)}
               />
           </label>
-          <label htmlFor="dateOfEmployment">
-              <input id="dateOfEmployment"
+          <label className ='form-label-input'
+          htmlFor="dateOfEmployment">
+              <input className ='form-input'
+                id="dateOfEmployment"
                 value={dateOfEmployment}
                 type="date"
                 onChange={(e) => setDateOfEmployment(e.target.value)}
                 onBlur={(e) => setDateOfEmployment(e.target.value)}
               />
           </label>
-          <label htmlFor="dateOfBirth">
-              <input id="dateOfBirth"
+          <label className ='form-label-input'
+          htmlFor="dateOfBirth">
+              <input className ='form-input'
+              id="dateOfBirth"
                 value={dateOfBirth}
                 type="date"
-                onChange={(e) => setDateOfEmployment(e.target.value)}
-                onBlur={(e) => setDateOfEmployment(e.target.value)}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                onBlur={(e) => setDateOfBirth(e.target.value)}
               />
           </label>
           
          
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
       </form>
+      </div>
 
 
   );
 }
-
-export default Register;
