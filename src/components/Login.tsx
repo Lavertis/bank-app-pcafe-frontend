@@ -43,6 +43,7 @@ const Login: FC<LoginProps> = () => {
               const refreshToken = response.data.refreshToken;
               localStorage.setItem('accessToken', accessToken)
               localStorage.setItem('refreshToken', refreshToken)
+              console.log("acc")
 
               const user: string = jwt(accessToken)
               if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Admin'){
