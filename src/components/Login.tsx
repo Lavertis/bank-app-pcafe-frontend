@@ -6,6 +6,7 @@ import  instance  from '../api/axios';
 //import Props from '../context/AuthProvider';
 //import { json } from 'stream/consumers';
 import jwt from 'jwt-decode'
+import Logo from "./Logo"
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface LoginProps {}
@@ -58,29 +59,39 @@ const Login: FC<LoginProps> = () => {
           }
 
   return (
-      <form onSubmit={onSubmit}>
-          <label htmlFor="userName">
-              <input id="userName"
+    <div>
+      <div className='absolute left-40 '>
+        <Logo />
+      </div>
+      <div className='flex h-screen w-full'>
+      <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+          <label className ='block text-gray-700 text-sm font-bold mb-2' htmlFor="userName">
+            Login
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                id="userName"
                 value={userName}
                 type="text"
                 placeholder="userName"
                 onChange={(e) => setUserName(e.target.value)}
                 onBlur={(e) => setUserName(e.target.value)}
               />
-              <input id="password"
+          </label>
+          <label className ='block text-gray-700 text-sm font-bold mb-2' htmlFor="password">
+            Password
+              <input  className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' 
+                id="password"
                 value={password}
-                type="text"
+                type="password"
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-         <button value='Login'>Submit</button>
-
-        
-         
-        
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' value='Login'>Submit</button>
       </form>
+      </div>
+    </div>
+      
   
   );
 };
