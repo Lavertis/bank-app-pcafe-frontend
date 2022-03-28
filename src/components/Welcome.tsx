@@ -6,11 +6,6 @@ import Logo from "./Logo"
 
 const Welcome = () => {
 
-    const moveTOLoginPage = () =>{
-        <Link to={"/Login"}></Link>
-
-    }
-
   return (
     <div >
       <div className='relative h-8 w-full bg-peru-300'>
