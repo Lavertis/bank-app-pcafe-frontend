@@ -1,6 +1,6 @@
 import { useState} from 'react';
 import React, { FC } from 'react';
-import {  useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import  instance  from '../api/axios';
 //import { isNamedImports } from 'typescript'
 //import Props from '../context/AuthProvider';
@@ -18,11 +18,12 @@ const LOGIN = '/api/Auth/authenticate'
 const Login: FC<LoginProps> = () => {
 
 
-        const navigate = useNavigate();
-        const location = useLocation();
-        const from = location.state || "/register";
+        
         const[userName, setUserName] = useState<string>("");
         const[password, setPassword] = useState<string>("");
+        const navigate = useNavigate();
+        const location = useLocation();
+        const from = location.state || "/admin/WelcomeAdmin";
 
     
         const onSubmit = async (e: { preventDefault: () => void; }) => {
@@ -44,14 +45,18 @@ const Login: FC<LoginProps> = () => {
               const refreshToken = response.data.refreshToken;
               localStorage.setItem('accessToken', accessToken)
               localStorage.setItem('refreshToken', refreshToken)
-              console.log("acc")
+
 
               const user: string = jwt(accessToken)
+              console.log(typeof(user))
               if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Admin'){
-                console.log("Przejscie do strony dla admina")
+                console.log("Przejscie do strony dla admina");
+                navigate(from, { replace: true });
+                //<Link to='../admin/WelcomeAdmin'></Link>
               }
               if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Employee'){
                 console.log("Przejscie do strony dla employee")
+                navigate(from, { replace: true });
               }
               });
               //await authenticate()
@@ -61,7 +66,7 @@ const Login: FC<LoginProps> = () => {
   return (
     <div>
       <div className='absolute left-40 '>
-        <Logo />
+      <Logo />
       </div>
       <div className='flex h-screen w-full'>
       <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
