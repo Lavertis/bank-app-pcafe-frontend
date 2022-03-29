@@ -4,10 +4,10 @@ import useRefreshToken from "./useRefreshToken";
 
 const useAxiosPrivate = () => {
     const refresh = useRefreshToken();
+    //const { authToken } = useAuth();
     const authToken  = localStorage.getItem('accessToken');
 
     useEffect(() => {
-
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
                 if (!config.headers['Authorization']) {
