@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AccountInfo } from '../../types/accountInfo';
-import { UserInfo } from './UserInfo';
+import {TransferInfo} from './TransferInfo';
 
-const GET_USERS = '/api/Employee'
-const GetUsers = () => {
+const GET_TRANSFERS= '/api/User'
+const GetTransfers = () => {
     const [account, setAccount] = useState<AccountInfo | null>(null);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const GetUsers = () => {
 
         const getUsers = async () => {
             try {
-                const response= await axiosPrivate.get(GET_USERS, {
+                const response= await axiosPrivate.get(GET_TRANSFERS, {
                     signal: controller.signal
                 });
                 isMounted && setAccount(response.data);
@@ -68,16 +68,13 @@ const GetUsers = () => {
             {account && Object.keys(account).map(
             (c)=>{
                 let acc = account[c]
-                return <UserInfo account={acc} key={acc.id}/>
+                return <TransferInfo account={acc} key={acc.id}/>
             }
-            )}
-                  
-          </tbody>
-           
-            
+            )}        
+          </tbody>   
           </table>
           
   )
 }
 
-export default GetUsers
+export default GetTransfers

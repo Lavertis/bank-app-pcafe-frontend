@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import { AccountInfo } from '../../types/accountInfo';
-import { UserInfo } from './UserInfo';
+import { AccountInfo } from '../../../types/accountInfo';
+import {BankAccountInfo} from './BankAccountInfo';
 
-const GET_USERS = '/api/Employee'
-const GetUsers = () => {
+const GET_BANK_ACC = '/api/Account';
+const GetBankAccounts = () => {
     const [account, setAccount] = useState<AccountInfo | null>(null);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const GetUsers = () => {
 
         const getUsers = async () => {
             try {
-                const response= await axiosPrivate.get(GET_USERS, {
+                const response= await axiosPrivate.get(GET_BANK_ACC, {
                     signal: controller.signal
                 });
                 isMounted && setAccount(response.data);
@@ -68,7 +68,7 @@ const GetUsers = () => {
             {account && Object.keys(account).map(
             (c)=>{
                 let acc = account[c]
-                return <UserInfo account={acc} key={acc.id}/>
+                return <BankAccountInfo account={acc} key={acc.id}/>
             }
             )}
                   
@@ -80,4 +80,4 @@ const GetUsers = () => {
   )
 }
 
-export default GetUsers
+export default GetBankAccounts

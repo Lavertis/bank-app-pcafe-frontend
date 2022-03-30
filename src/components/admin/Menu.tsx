@@ -8,9 +8,7 @@ const Menu = () => {
           <Link to={"/admin/GetUserById"}><div>Select by id</div></Link>
           <Link to={"/admin/CreateEmployeeAccount"}><div>CreateUser</div></Link>
           <Link to={"/admin/UpdateUser"}><div>UpdateUser</div></Link>
-          <Link to={"/admin/DeleteEmployee"}><div>DeleteUser</div></Link>
-          
-          
+          <Link to={"/admin/DeleteEmployee"}><div>DeleteUser</div></Link>  
       </div>
     
   )

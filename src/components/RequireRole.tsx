@@ -1,6 +1,6 @@
 import React from 'react'
 import jwt from 'jwt-decode'
-import { useLocation, Navigate, Outlet, } from "react-router-dom";
+import { Outlet, } from "react-router-dom";
 
 const RequireRole = ({allowedRole}) => {
     console.log(allowedRole);
@@ -14,8 +14,6 @@ const RequireRole = ({allowedRole}) => {
     abc
     {console.log(role)}
     {console.log(allowedRole)}
-    {console.log("Siema")}
-    {console.log("Siema")}
     
     {role===allowedRole} ? <Outlet /> : console.log(role)
     </>

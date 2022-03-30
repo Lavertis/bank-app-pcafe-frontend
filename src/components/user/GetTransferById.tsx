@@ -1,20 +1,18 @@
 import React from 'react'
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-//import { AccountInfo } from '../../types/accountInfo';
+import { TransferProps } from '../../types/accountInfo';
+import { TransferInfo } from './TransferInfo';
 
-
-const Delete_URL = 'api/Employee/delete';
+const GET_TRANSFER_BY_ID= '/api/Transfer/'
 type FormProps = {
-  onSubmit: (n: string) =>void;
+  onSubmit: (n: string, link:string) =>void;
 }
-
-
 const Form = ({onSubmit}: FormProps) =>{
   const [userId, setUserId] = useState("")
   const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
-    onSubmit(userId)
+    onSubmit(userId,  GET_TRANSFER_BY_ID)
   }
 
   return (
@@ -32,27 +30,27 @@ const Form = ({onSubmit}: FormProps) =>{
   )
 }
 
-
-const DeleteEmployee = () =>{
-  //const [account,setAccount ] = useState<AccountInfo | null>(null)
+const GetTransferById = () =>{
+    
+  const [account,setAccount ] = useState<TransferProps | null>(null)
   const axiosPrivate = useAxiosPrivate();
 
-  const handleSubmit = async (n:string) =>{
-    const response = await axiosPrivate.delete(`${Delete_URL}/${n}`)
+  const handleSubmit = async (n:string, link:string) =>{
+    const response = await axiosPrivate.get(link+n)
     console.log(response)
-    //setAccount(response.data)
-    return (
-        <p>Podane konto zostalo usuniete</p>
-    );
+    setAccount(response.data)
   }
 
   return(
      <main>
-         <Form onSubmit={handleSubmit} />
+       <Form onSubmit={handleSubmit} />
+       <section>
+        {account && <TransferInfo account={account} />}
+       </section>
      </main>
 
   )
 
 }
 
-export default DeleteEmployee
+export default GetTransferById

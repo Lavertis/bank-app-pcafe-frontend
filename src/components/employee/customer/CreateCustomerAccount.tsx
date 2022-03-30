@@ -1,23 +1,25 @@
 import { useState } from 'react'
 import React, { FC } from 'react';
-import { axiosPrivate } from '../../api/axios';
+import { axiosPrivate } from '../../../api/axios'
 
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RegisterProps{}
-const CreateEmployeeAccount: FC<RegisterProps> = () => {
-    const[userName, setUserName] = useState<string>();
-    const[password, setPassword] = useState<string>();
-    const[firstName, setFirstName] = useState<string>();
-    const[lastName, setLastName] = useState<string>();
-    const[salary, setSalary] = useState<string>();
-    const[gender, setGender] = useState<string>();
-    const[dateOfEmployment, setDateOfEmployment] = useState<string>();
-    const[dateOfBirth, setDateOfBirth] = useState<string>();
+const CreateCustomerAccount: FC<RegisterProps> = () => {
+    const[userName, setUserName] = useState<string>("");
+    const[password, setPassword] = useState<string>("");
+    const[firstName, setFirstName] = useState<string>("");
+    const[secondName, setSecondName] = useState<string>("");
+    const[lastName, setLastName] = useState<string>("");
+    const[nationalId, setNationalId] = useState<string>("");
+    const[dateOfBirth, setDateOfBirth] = useState<string>("");
+    const[cityOfBirth, setCityOfBirth] = useState<string>("");
+    const[fathersName, setFathersName] = useState<string>("");
+
     const authToken = localStorage.getItem('accessToken');
 
-    const REGISTER_URL = '/api/Employee/create'
+    const REGISTER_URL = '/api/Customer/create'
     const onSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
@@ -60,10 +62,10 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
     
 
 
-    const isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
+    //const isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
     const isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
     
-    axiosPrivate.post(REGISTER_URL, { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
+    axiosPrivate.post(REGISTER_URL, { userName: userName, password: password, firstName: firstName, secondName: secondName, lastName: lastName, nationalId: nationalId, dateOfBirth: isoDateBirth, cityOfBirth: cityOfBirth, fathersName: fathersName}, { withCredentials: true, headers: {
       'Content-Type': 'application/json',
       "Authorization": "Bearer " + authToken
     } }).then((response) => {
@@ -79,9 +81,7 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
     setPassword('')
     setFirstName('')
     setLastName('')
-    setSalary('')
-    setGender('')
-    setDateOfEmployment('')
+
     setDateOfBirth('')
   }
 
@@ -115,6 +115,15 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
+          <label htmlFor="secondName">
+              <input id="secondName"
+                value={secondName}
+                type="text"
+                placeholder="second name"
+                onChange={(e) => setSecondName(e.target.value)}
+                onBlur={(e) => setSecondName(e.target.value)}
+              />
+          </label>
           <label htmlFor="lastName">
               <input id="lastName"
                 value={lastName}
@@ -124,30 +133,13 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label htmlFor="salary">
-              <input id="salary"
-                value={salary}
+          <label htmlFor="nationalId">
+              <input id="nationalId"
+                value={nationalId}
                 type="text"
-                placeholder="Salary"
-                onChange={(e) => setSalary(e.target.value)}
-                onBlur={(e) => setSalary(e.target.value)}
-              />
-          </label>
-          <label htmlFor="gender">
-              <input id="gender"
-                value={gender}
-                type="text"
-                placeholder="Gender"
-                onChange={(e) => setGender(e.target.value)}
-                onBlur={(e) => setGender(e.target.value)}
-              />
-          </label>
-          <label htmlFor="dateOfEmployment">
-              <input id="dateOfEmployment"
-                value={dateOfEmployment}
-                type="date"
-                onChange={(e) => setDateOfEmployment(e.target.value)}
-                onBlur={(e) => setDateOfEmployment(e.target.value)}
+                placeholder="National Id"
+                onChange={(e) => setNationalId(e.target.value)}
+                onBlur={(e) => setNationalId(e.target.value)}
               />
           </label>
           <label htmlFor="dateOfBirth">
@@ -158,6 +150,25 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setDateOfBirth(e.target.value)}
               />
           </label>
+          <label htmlFor="cityOfBirth">
+              <input id="cityOfBirth"
+                value={cityOfBirth}
+                type="text"
+                placeholder="City of birth"
+                onChange={(e) => setCityOfBirth(e.target.value)}
+                onBlur={(e) => setCityOfBirth(e.target.value)}
+              />
+          </label>
+          <label htmlFor="fathersName">
+              <input id="fathersName"
+                value={fathersName}
+                type="text"
+                placeholder="Fathers name"
+                onChange={(e) => setFathersName(e.target.value)}
+                onBlur={(e) => setFathersName(e.target.value)}
+              />
+          </label>
+          
           
          
           <button>Submit</button>
@@ -167,4 +178,4 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
   );
 }
 
-export default CreateEmployeeAccount;
+export default CreateCustomerAccount;

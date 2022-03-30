@@ -56,7 +56,12 @@ const Login: FC<LoginProps> = () => {
               }
               if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Employee'){
                 console.log("Przejscie do strony dla employee")
-                navigate(from, { replace: true });
+                navigate('/employee/WelcomeEmployee', { replace: true });
+              }
+
+              if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Customer'){
+                console.log("Przejscie do strony dla Customer")
+                navigate('/user/WelcomeUser', { replace: true });
               }
               });
               //await authenticate()

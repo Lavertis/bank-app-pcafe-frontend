@@ -1,6 +1,4 @@
 import React from 'react'
-import GetUsers from './GetUsers'
-import GetUserById from './GetUserById'
 import Menu from './Menu'
 
 const WelcomeAdmin = () => {

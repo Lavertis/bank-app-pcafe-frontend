@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from "react";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-//import { AccountInfo } from '../../types/accountInfo';
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { Customer } from '../../../types/accountInfo';
+import { CustomerInfo } from './CustomerInfo';
 
 
-const Delete_URL = 'api/Employee/delete';
+const USER_URL = 'api/Customer/'
 type FormProps = {
   onSubmit: (n: string) =>void;
 }
@@ -26,6 +27,7 @@ const Form = ({onSubmit}: FormProps) =>{
       value={userId} 
       onChange={(e)=>setUserId(e.target.value)}
       onBlur={(e)=>setUserId(e.target.value)}/>
+     
       <input type="submit" />
      </div>
      </form>
@@ -33,26 +35,27 @@ const Form = ({onSubmit}: FormProps) =>{
 }
 
 
-const DeleteEmployee = () =>{
-  //const [account,setAccount ] = useState<AccountInfo | null>(null)
+const GetCustomerById = () =>{
+  const [account,setAccount ] = useState<Customer | null>(null)
   const axiosPrivate = useAxiosPrivate();
 
   const handleSubmit = async (n:string) =>{
-    const response = await axiosPrivate.delete(`${Delete_URL}/${n}`)
+    const response = await axiosPrivate.get(`${USER_URL}${n}`)
     console.log(response)
-    //setAccount(response.data)
-    return (
-        <p>Podane konto zostalo usuniete</p>
-    );
+    setAccount(response.data)
+    console.log("siema")
   }
 
   return(
      <main>
-         <Form onSubmit={handleSubmit} />
+       <Form onSubmit={handleSubmit} />
+       <section>
+        {account && <CustomerInfo account={account} />}
+       </section>
      </main>
 
   )
 
 }
 
-export default DeleteEmployee
+export default GetCustomerById

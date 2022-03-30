@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
 import { useState } from 'react'
-import { axiosPrivate } from '../../api/axios';
+import { axiosPrivate } from '../../../api/axios';
 
-const REGISTER_URL = '/api/Employee/update'
+const UPDATE_URL = '/api/Customer/update/'
 interface UpdateProps{}
-const UpdateUser: FC<UpdateProps> = () => {
+const UpdateCustomer: FC<UpdateProps> = () => {
 
-    const[userName, setUserName] = useState<string>();
-    const[password, setPassword] = useState<string>();
-    const[firstName, setFirstName] = useState<string>();
-    const[lastName, setLastName] = useState<string>();
-    const[salary, setSalary] = useState<string>();
+    const[userName, setUserName] = useState<string>("");
+    const[password, setPassword] = useState<string>("");
+    const[firstName, setFirstName] = useState<string>("");
+    const[secondName, setSecondName] = useState<string>("");
+    const[lastName, setLastName] = useState<string>("");
     const[id, setId] = useState<string>();
     const authToken = localStorage.getItem('accessToken');
 
@@ -54,7 +54,7 @@ const UpdateUser: FC<UpdateProps> = () => {
       }
         */
       
-      axiosPrivate.patch(`${REGISTER_URL}/${id}`, { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary}, { withCredentials: true, headers: {
+      axiosPrivate.patch(`${UPDATE_URL + id}`, { userName: userName, password: password, firstName: firstName, lastName: lastName, secondName: secondName}, { withCredentials: true, headers: {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + authToken
       } }).then((response) => {
@@ -69,8 +69,8 @@ const UpdateUser: FC<UpdateProps> = () => {
       setUserName('')
       setPassword('')
       setFirstName('')
+      setSecondName('')
       setLastName('')
-      setSalary('')
     }
 
     
@@ -113,6 +113,15 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
+          <label htmlFor="secondName">
+              <input id="secondName"
+                value={secondName}
+                type="text"
+                placeholder="secondName"
+                onChange={(e) => setSecondName(e.target.value)}
+                onBlur={(e) => setSecondName(e.target.value)}
+              />
+          </label>
           <label htmlFor="lastName">
               <input id="lastName"
                 value={lastName}
@@ -122,19 +131,10 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label htmlFor="salary">
-              <input id="salary"
-                value={salary}
-                type="text"
-                placeholder="Salary"
-                onChange={(e) => setSalary(e.target.value)}
-                onBlur={(e) => setSalary(e.target.value)}
-              />
-          </label>
           <button>Submit</button>
 
     </form>
   )
 }
 
-export default UpdateUser
+export default UpdateCustomer
