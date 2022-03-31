@@ -87,9 +87,12 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
 
 
   return(
-    <form onSubmit={onSubmit}>
-          <label htmlFor="userName">
-              <input id="userName"
+    <div className='flex h-screen w-full'>
+    <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="userName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="userName"
                 value={userName}
                 type="text"
                 placeholder="userName"
@@ -97,8 +100,10 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setUserName(e.target.value)}
               />
               </label>
-              <label htmlFor="password">
-              <input id="password"
+              <label className ='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor="password">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="password"
                 value={password}
                 type="text"
                 placeholder="password"
@@ -106,8 +111,10 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-          <label htmlFor="firstName">
-              <input id="firstName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="firstName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="firstName"
                 value={firstName}
                 type="text"
                 placeholder="First name"
@@ -115,8 +122,10 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
-          <label htmlFor="lastName">
-              <input id="lastName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="lastName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="lastName"
                 value={lastName}
                 type="text"
                 placeholder="Last name"
@@ -124,8 +133,10 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label htmlFor="salary">
-              <input id="salary"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="salary">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="salary"
                 value={salary}
                 type="text"
                 placeholder="Salary"
@@ -133,8 +144,10 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setSalary(e.target.value)}
               />
           </label>
-          <label htmlFor="gender">
-              <input id="gender"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="gender">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="gender"
                 value={gender}
                 type="text"
                 placeholder="Gender"
@@ -142,16 +155,20 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setGender(e.target.value)}
               />
           </label>
-          <label htmlFor="dateOfEmployment">
-              <input id="dateOfEmployment"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="dateOfEmployment">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="dateOfEmployment"
                 value={dateOfEmployment}
                 type="date"
                 onChange={(e) => setDateOfEmployment(e.target.value)}
                 onBlur={(e) => setDateOfEmployment(e.target.value)}
               />
           </label>
-          <label htmlFor="dateOfBirth">
-              <input id="dateOfBirth"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="dateOfBirth">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="dateOfBirth"
                 value={dateOfBirth}
                 type="date"
                 onChange={(e) => setDateOfBirth(e.target.value)}
@@ -160,8 +177,9 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
           </label>
           
          
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
       </form>
+      </div>
 
 
   );

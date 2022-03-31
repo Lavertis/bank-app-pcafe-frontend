@@ -12,7 +12,7 @@ const Menu = () => {
           <Link to={"/employee/account/CreateBankAccount"}><div>AddBankAccount</div></Link> 
           <Link to={"/employee/account/GetBankAccounts"}><div>GetBankAccounts</div></Link>   
           <Link to={"/employee/account/GetBankAccountById"}><div>GetBankAccountById</div></Link>
-          <Link to={"/employee/account/UpdateAccount"}><div>UpdateAccount</div></Link>
+          <Link to={"/employee/account/UpdateBankAccount"}><div>UpdateAccount</div></Link>
       </div>
     
   )

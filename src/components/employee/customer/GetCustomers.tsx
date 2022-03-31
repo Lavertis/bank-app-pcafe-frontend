@@ -41,15 +41,44 @@ const GetCustomers = () => {
 
     
   return (
-        <main>
+        <table>
+            <thead className="border-b">
+            <tr>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                Id
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                User Name
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                First Name
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                Second Name
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                Last Name
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                National Id
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                City Of Birth
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                Fathers Name
+              </th>
+            </tr>
+          </thead>
+          <tbody>
             {account && Object.keys(account).map(
                 (c)=>{
                     let acc = account[c]
                 return <CustomerInfo account={acc} key={acc.id}/>
             }
                 )}
-            
-        </main>
+          </tbody>  
+        </table>
   )
 }
 

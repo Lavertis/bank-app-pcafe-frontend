@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import { useState } from 'react'
 import { axiosPrivate } from '../../../api/axios';
 
-const REGISTER_URL = '/api/Employee/update'
+const REGISTER_URL = '/api/Account/update'
 interface UpdateProps{}
-const UpdateAccount: FC<UpdateProps> = () => {
+const UpdateBankAccount: FC<UpdateProps> = () => {
     const[id, setId] = useState<number>();
     const[balance, setBalance] = useState<number>();
     const[transferLimit, setTransferLimit] = useState<number>();
@@ -63,17 +63,21 @@ const UpdateAccount: FC<UpdateProps> = () => {
   
       
     
-      setBalance(0)
-      setTransferLimit(0)
-      setIsActive(true)
+     
     }
 
     
   return (
-    
-    <form onSubmit={onSubmit}>
-        <label htmlFor="id">
-              <input id="id"
+    <div className='flex h-screen w-full'>
+
+
+    <form onSubmit={onSubmit}
+    className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '
+    >
+        <label className ='block text-gray-700 text-sm font-bold mb-2'
+        htmlFor="id">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="id"
                 value={id}
                 type="text"
                 placeholder="id"
@@ -81,8 +85,10 @@ const UpdateAccount: FC<UpdateProps> = () => {
                 onBlur={(e) => setId(+e.target.value)}
               />
               </label>
-         <label htmlFor="balance">
-              <input id="balance"
+         <label className ='block text-gray-700 text-sm font-bold mb-2'
+         htmlFor="balance">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="balance"
                 value={balance}
                 type="number"
                 placeholder="balance"
@@ -90,8 +96,10 @@ const UpdateAccount: FC<UpdateProps> = () => {
                 onBlur={(e) => setBalance(+e.target.value)}
               />
               </label>
-              <label htmlFor="transferLimit">
-              <input id="transferLimit"
+              <label className ='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor="transferLimit">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="transferLimit"
                 value={transferLimit}
                 type="text"
                 placeholder="transferLimit"
@@ -99,21 +107,23 @@ const UpdateAccount: FC<UpdateProps> = () => {
                 onBlur={(e) => setTransferLimit(+e.target.value)}
               />
           </label>
-          <label htmlFor="theme">
-          Theme
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="theme">
+          Is Active
           <select
             value={`${isActive}`}
-            onChange={(e) => setIsActive(!!e.target.value)}
-            onBlur={(e) => setIsActive(!!e.target.value)}
+            onClick={(e) => setIsActive(!!e.target)}
+            
           >
-            <option value="False">Peru</option>
-            <option value="True">Dark Blue</option>
+            <option value="False">False</option>
+            <option value="True">True</option>
           </select>
         </label>
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
 
     </form>
+    </div>
   )
 }
 
-export default UpdateAccount
+export default UpdateBankAccount

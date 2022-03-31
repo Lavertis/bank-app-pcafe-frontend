@@ -82,9 +82,12 @@ const CreateBankAccount: FC<RegisterProps> = () => {
 
 
   return(
-    <form onSubmit={onSubmit}>
-          <label htmlFor="number">
-              <input id="number"
+    <div className='flex h-screen w-full'>
+    <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="number">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="number"
                 value={number}
                 type="text"
                 placeholder="number"
@@ -92,8 +95,11 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setNumber(e.target.value)}
               />
               </label>
-              <label htmlFor="balance">
-              <input id="balance"
+              <label 
+              className ='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor="balance">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="balance"
                 value={balance}
                 type="number"
                 placeholder="balance"
@@ -101,8 +107,10 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setBalance(+e.target.value)}
               />
           </label>
-          <label htmlFor="transferLimit">
-              <input id="transferLimit"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="transferLimit">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="transferLimit"
                 value={transferLimit}
                 type="number"
                 placeholder="transferLimit"
@@ -110,8 +118,10 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setTransferLimit(+e.target.value)}
               />
           </label>
-          <label htmlFor="accountTypeId">
-              <input id="accountTypeId"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="accountTypeId">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="accountTypeId"
                 value={accountTypeId}
                 type="number"
                 placeholder="Last name"
@@ -119,8 +129,10 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setAccountTypeId(+e.target.value)}
               />
           </label>
-          <label htmlFor="currencyId">
-              <input id="currencyId"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="currencyId">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="currencyId"
                 value={currencyId}
                 type="number"
                 placeholder="National Id"
@@ -128,19 +140,19 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setCurrencyId(+e.target.value)}
               />
           </label>
-          <label htmlFor="customerId">
-              <input id="customerId"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="customerId">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="customerId"
                 value={customerId}
                 type="date"
                 onChange={(e) => setCustomerId(e.target.value)}
                 onBlur={(e) => setCustomerId(e.target.value)}
               />
           </label>
-          
-          
-         
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
       </form>
+      </div>
 
 
   );

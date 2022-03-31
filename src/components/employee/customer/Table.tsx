@@ -1,24 +1,20 @@
 import * as React from 'react';
 
-export const Table = ({ children }: { children: React.ReactNode }) => {
+export const TableRow = ({ children }: { children: React.ReactNode }) => {
   return (
-    <table>
-      <tbody>{children}</tbody>
-    </table>
+    <tr className="border-b">
+      {children}
+    </tr>
   );
 };
 
-export const TableRow = ({
-  heading,
+export const TableCell = ({
   value
 }: {
-  heading: string;
+
   value: string | number;
 }) => {
   return (
-    <tr>
-      <th>{heading}</th>
-      <td>{value}</td>
-    </tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r" >{value}</td>
   );
 };

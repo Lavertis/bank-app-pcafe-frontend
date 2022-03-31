@@ -87,9 +87,13 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
 
 
   return(
-    <form onSubmit={onSubmit}>
-          <label htmlFor="userName">
-              <input id="userName"
+    <div className='flex h-screen w-full'>
+
+    <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="userName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="userName"
                 value={userName}
                 type="text"
                 placeholder="userName"
@@ -97,8 +101,10 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setUserName(e.target.value)}
               />
               </label>
-              <label htmlFor="password">
-              <input id="password"
+              <label className ='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor="password">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="password"
                 value={password}
                 type="text"
                 placeholder="password"
@@ -106,8 +112,10 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-          <label htmlFor="firstName">
-              <input id="firstName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="firstName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="firstName"
                 value={firstName}
                 type="text"
                 placeholder="First name"
@@ -115,8 +123,10 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
-          <label htmlFor="secondName">
-              <input id="secondName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="secondName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="secondName"
                 value={secondName}
                 type="text"
                 placeholder="second name"
@@ -124,8 +134,10 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setSecondName(e.target.value)}
               />
           </label>
-          <label htmlFor="lastName">
-              <input id="lastName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="lastName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="lastName"
                 value={lastName}
                 type="text"
                 placeholder="Last name"
@@ -133,8 +145,10 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label htmlFor="nationalId">
-              <input id="nationalId"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="nationalId">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="nationalId"
                 value={nationalId}
                 type="text"
                 placeholder="National Id"
@@ -142,16 +156,20 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setNationalId(e.target.value)}
               />
           </label>
-          <label htmlFor="dateOfBirth">
-              <input id="dateOfBirth"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="dateOfBirth">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="dateOfBirth"
                 value={dateOfBirth}
                 type="date"
                 onChange={(e) => setDateOfBirth(e.target.value)}
                 onBlur={(e) => setDateOfBirth(e.target.value)}
               />
           </label>
-          <label htmlFor="cityOfBirth">
-              <input id="cityOfBirth"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="cityOfBirth">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="cityOfBirth"
                 value={cityOfBirth}
                 type="text"
                 placeholder="City of birth"
@@ -159,8 +177,10 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setCityOfBirth(e.target.value)}
               />
           </label>
-          <label htmlFor="fathersName">
-              <input id="fathersName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="fathersName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="fathersName"
                 value={fathersName}
                 type="text"
                 placeholder="Fathers name"
@@ -171,8 +191,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
           
           
          
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
       </form>
+      </div>
 
 
   );

@@ -75,10 +75,12 @@ const UpdateCustomer: FC<UpdateProps> = () => {
 
     
   return (
-    
-    <form onSubmit={onSubmit}>
-        <label htmlFor="id">
-              <input id="id"
+    <div className='flex h-screen w-full'>
+    <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+        <label className ='block text-gray-700 text-sm font-bold mb-2'
+        htmlFor="id" >
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="id"
                 value={id}
                 type="text"
                 placeholder="id"
@@ -86,8 +88,10 @@ const UpdateCustomer: FC<UpdateProps> = () => {
                 onBlur={(e) => setId(e.target.value)}
               />
               </label>
-         <label htmlFor="userName">
-              <input id="userName"
+         <label className ='block text-gray-700 text-sm font-bold mb-2'
+         htmlFor="userName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="userName"
                 value={userName}
                 type="text"
                 placeholder="userName"
@@ -95,8 +99,10 @@ const UpdateCustomer: FC<UpdateProps> = () => {
                 onBlur={(e) => setUserName(e.target.value)}
               />
               </label>
-              <label htmlFor="password">
-              <input id="password"
+              <label className ='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor="password">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="password"
                 value={password}
                 type="text"
                 placeholder="password"
@@ -104,8 +110,10 @@ const UpdateCustomer: FC<UpdateProps> = () => {
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-          <label htmlFor="firstName">
-              <input id="firstName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="firstName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="firstName"
                 value={firstName}
                 type="text"
                 placeholder="First name"
@@ -113,8 +121,10 @@ const UpdateCustomer: FC<UpdateProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
-          <label htmlFor="secondName">
-              <input id="secondName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="secondName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="secondName"
                 value={secondName}
                 type="text"
                 placeholder="secondName"
@@ -122,8 +132,10 @@ const UpdateCustomer: FC<UpdateProps> = () => {
                 onBlur={(e) => setSecondName(e.target.value)}
               />
           </label>
-          <label htmlFor="lastName">
-              <input id="lastName"
+          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          htmlFor="lastName">
+              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id="lastName"
                 value={lastName}
                 type="text"
                 placeholder="Last name"
@@ -131,9 +143,10 @@ const UpdateCustomer: FC<UpdateProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
 
     </form>
+    </div>
   )
 }
 
