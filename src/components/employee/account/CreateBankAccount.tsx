@@ -84,9 +84,9 @@ const CreateBankAccount: FC<RegisterProps> = () => {
   return(
     <div className='flex h-screen w-full'>
     <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="number">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="number"
                 value={number}
                 type="text"
@@ -96,9 +96,9 @@ const CreateBankAccount: FC<RegisterProps> = () => {
               />
               </label>
               <label 
-              className ='block text-gray-700 text-sm font-bold mb-2'
+              className ='form-label-input'
               htmlFor="balance">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="balance"
                 value={balance}
                 type="number"
@@ -107,9 +107,9 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setBalance(+e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="transferLimit">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="transferLimit"
                 value={transferLimit}
                 type="number"
@@ -118,9 +118,9 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setTransferLimit(+e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="accountTypeId">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="accountTypeId"
                 value={accountTypeId}
                 type="number"
@@ -129,9 +129,9 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setAccountTypeId(+e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="currencyId">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="currencyId"
                 value={currencyId}
                 type="number"
@@ -140,9 +140,9 @@ const CreateBankAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setCurrencyId(+e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="customerId">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="customerId"
                 value={customerId}
                 type="date"

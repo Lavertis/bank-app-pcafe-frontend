@@ -74,9 +74,9 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
     <form onSubmit={onSubmit}
     className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '
     >
-        <label className ='block text-gray-700 text-sm font-bold mb-2'
+        <label className ='form-label-input'
         htmlFor="id">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="id"
                 value={id}
                 type="text"
@@ -85,9 +85,9 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
                 onBlur={(e) => setId(+e.target.value)}
               />
               </label>
-         <label className ='block text-gray-700 text-sm font-bold mb-2'
+         <label className ='form-label-input'
          htmlFor="balance">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="balance"
                 value={balance}
                 type="number"
@@ -96,9 +96,9 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
                 onBlur={(e) => setBalance(+e.target.value)}
               />
               </label>
-              <label className ='block text-gray-700 text-sm font-bold mb-2'
+              <label className ='form-label-input'
               htmlFor="transferLimit">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="transferLimit"
                 value={transferLimit}
                 type="text"
@@ -107,7 +107,7 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
                 onBlur={(e) => setTransferLimit(+e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="theme">
           Is Active
           <select
@@ -115,7 +115,7 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
             onClick={(e) => setIsActive(!!e.target)}
             
           >
-            <option value="False">False</option>
+            <option className='form-input' value="False">False</option>
             <option value="True">True</option>
           </select>
         </label>

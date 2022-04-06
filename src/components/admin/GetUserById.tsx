@@ -26,8 +26,8 @@ const Form = ({onSubmit}: FormProps) =>{
     className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '
     onSubmit={handleSubmit}
     >
-    <label className ='block text-gray-700 text-sm font-bold mb-2'>
-      <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+    <label className ='form-label-input'>
+      <input className ='form-input'
       placeholder='podaj id'
       value={userId} 
       onChange={(e)=>setUserId(e.target.value)}

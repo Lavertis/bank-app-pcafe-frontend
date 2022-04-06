@@ -77,9 +77,9 @@ const UpdateUser: FC<UpdateProps> = () => {
   return (
     <div className='flex h-screen w-full'>
     <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
-        <label className ='block text-gray-700 text-sm font-bold mb-2'
+        <label className ='form-label-input'
         htmlFor="id">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="id"
                 value={id}
                 type="text"
@@ -88,9 +88,9 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setId(e.target.value)}
               />
               </label>
-         <label className ='block text-gray-700 text-sm font-bold mb-2'
+         <label className ='form-label-input'
          htmlFor="userName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="userName"
                 value={userName}
                 type="text"
@@ -99,8 +99,9 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setUserName(e.target.value)}
               />
               </label>
-              <label htmlFor="password">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <label className='form-label-input'
+              htmlFor="password">
+              <input className ='form-input'
               id="password"
                 value={password}
                 type="text"
@@ -109,9 +110,9 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="firstName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="firstName"
                 value={firstName}
                 type="text"
@@ -120,9 +121,9 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="lastName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="lastName"
                 value={lastName}
                 type="text"
@@ -131,9 +132,10 @@ const UpdateUser: FC<UpdateProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="salary">
-              <input id="salary"
+              <input className='form-input'
+              id="salary"
                 value={salary}
                 type="text"
                 placeholder="Salary"

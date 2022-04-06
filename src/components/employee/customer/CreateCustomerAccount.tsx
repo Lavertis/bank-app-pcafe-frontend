@@ -90,9 +90,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
     <div className='flex h-screen w-full'>
 
     <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input '
           htmlFor="userName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="userName"
                 value={userName}
                 type="text"
@@ -101,9 +101,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setUserName(e.target.value)}
               />
               </label>
-              <label className ='block text-gray-700 text-sm font-bold mb-2'
+              <label className ='form-label-input'
               htmlFor="password">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="password"
                 value={password}
                 type="text"
@@ -112,9 +112,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setPassword(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="firstName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="firstName"
                 value={firstName}
                 type="text"
@@ -123,9 +123,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setFirstName(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="secondName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="secondName"
                 value={secondName}
                 type="text"
@@ -134,9 +134,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setSecondName(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="lastName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="lastName"
                 value={lastName}
                 type="text"
@@ -145,9 +145,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setLastName(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="nationalId">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="nationalId"
                 value={nationalId}
                 type="text"
@@ -156,9 +156,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setNationalId(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="dateOfBirth">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="dateOfBirth"
                 value={dateOfBirth}
                 type="date"
@@ -166,9 +166,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setDateOfBirth(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="cityOfBirth">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input '
               id="cityOfBirth"
                 value={cityOfBirth}
                 type="text"
@@ -177,9 +177,9 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
                 onBlur={(e) => setCityOfBirth(e.target.value)}
               />
           </label>
-          <label className ='block text-gray-700 text-sm font-bold mb-2'
+          <label className ='form-label-input'
           htmlFor="fathersName">
-              <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              <input className ='form-input'
               id="fathersName"
                 value={fathersName}
                 type="text"

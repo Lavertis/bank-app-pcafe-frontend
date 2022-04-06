@@ -25,10 +25,10 @@ const Form = ({onSubmit}: FormProps) =>{
     onSubmit={handleSubmit}
     >
       <label htmlFor='id'
-      className ='block text-gray-700 text-sm font-bold mb-2'>
+      className ='form-label-input'>
       
       
-      <input className ='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+      <input className ='form-input'
       placeholder='podaj id'
       value={userId} 
       onChange={(e)=>setUserId(e.target.value)}

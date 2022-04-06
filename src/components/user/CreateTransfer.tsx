@@ -79,18 +79,22 @@ const CreateTransfer: FC<RegisterProps> = () => {
 
 
   return(
-    <form onSubmit={onSubmit}>
-          <label htmlFor="amount">
-              <input id="amount"
+    <div className='flex h-screen w-full'>
+    <form onSubmit={onSubmit} className='m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 '>
+          <label className='form-label-input'
+          htmlFor="amount">
+              <input className='form-input' 
+              id="amount"
                 value={amount}
                 type="text"
                 placeholder="number"
                 onChange={(e) => setAmount(+e.target.value)}
                 onBlur={(e) => setAmount(+e.target.value)}
               />
-              </label>
-              <label htmlFor="receiverAccountNumber">
-              <input id="receiverAccountNumber"
+          </label>
+              <label className='form-label-input'
+              htmlFor="receiverAccountNumber">
+              <input className='form-input' id="receiverAccountNumber"
                 value={receiverAccountNumber}
                 type="text"
                 placeholder="receiverAccountNumber"
@@ -98,8 +102,9 @@ const CreateTransfer: FC<RegisterProps> = () => {
                 onBlur={(e) => setReceiverAccountNumber(e.target.value)}
               />
           </label>
-          <label htmlFor="receiverName">
-              <input id="receiverName"
+          <label className='form-label-input'
+          htmlFor="receiverName">
+              <input className='form-input' id="receiverName"
                 value={receiverName}
                 type="text"
                 placeholder="receiverName"
@@ -107,8 +112,9 @@ const CreateTransfer: FC<RegisterProps> = () => {
                 onBlur={(e) => setReceiverName(e.target.value)}
               />
           </label>
-          <label htmlFor="description">
-              <input id="description"
+          <label className='form-label-input'
+          htmlFor="description">
+              <input className='form-input' id="description"
                 value={description}
                 type="text"
                 placeholder="Last name"
@@ -116,8 +122,9 @@ const CreateTransfer: FC<RegisterProps> = () => {
                 onBlur={(e) => setDescription(e.target.value)}
               />
           </label>
-          <label htmlFor="accountId">
-              <input id="accountId"
+          <label className='form-label-input'
+          htmlFor="accountId">
+              <input className='form-input' id="accountId"
                 value={accountId}
                 type="text"
                 placeholder="accountId"
@@ -125,8 +132,9 @@ const CreateTransfer: FC<RegisterProps> = () => {
                 onBlur={(e) => setAccountId(+e.target.value)}
               />
           </label>
-          <button>Submit</button>
+          <button className ='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Submit</button>
       </form>
+      </div>
 
 
   );

@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AccountInfo } from '../../types/accountInfo';
 import {TransferInfo} from './TransferInfo';
 
-const GET_TRANSFERS= '/api/User'
+const GET_TRANSFERS= '/api/Transfer'
 const GetTransfers = () => {
     const [account, setAccount] = useState<AccountInfo | null>(null);
     const axiosPrivate = useAxiosPrivate();
