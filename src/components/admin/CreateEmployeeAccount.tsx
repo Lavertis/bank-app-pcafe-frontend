@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import React, { FC } from 'react';
-import { axiosPrivate } from '../../api/axios';
+//import { axiosPrivate } from '../../api/axios';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 
@@ -16,7 +16,7 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
     const[gender, setGender] = useState<string>();
     const[dateOfEmployment, setDateOfEmployment] = useState<string>();
     const[dateOfBirth, setDateOfBirth] = useState<string>();
-    const authToken = localStorage.getItem('accessToken');
+    //const authToken = localStorage.getItem('accessToken');
     const axiosPrivate = useAxiosPrivate();
 
     const REGISTER_URL = '/api/Employee/create'
@@ -67,7 +67,7 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
     
     axiosPrivate.post(REGISTER_URL, { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
 
-      
+
     } }).then((response) => {
       //const accessToken = response.data.jwtToken;
       console.log(response);
