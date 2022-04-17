@@ -6,6 +6,7 @@ import { UserInfo } from './UserInfo';
 
 
 const GET_USER_URL = '/api/Employee/';
+
 type FormProps = {
   onSubmit: (n: string) =>void;
 }
@@ -43,7 +44,7 @@ const Form = ({onSubmit}: FormProps) =>{
 }
 
 
-const GetUserById = () =>{
+export const GetUserById = () =>{
   const [account,setAccount ] = useState<AccountInfo | null>(null)
   const axiosPrivate = useAxiosPrivate();
 
@@ -51,7 +52,6 @@ const GetUserById = () =>{
     const response = await axiosPrivate.get(`${GET_USER_URL}${n}`)
     console.log(response)
     setAccount(response.data)
-    console.log("siema")
   }
 
   return(
@@ -66,4 +66,3 @@ const GetUserById = () =>{
 
 }
 
-export default GetUserById

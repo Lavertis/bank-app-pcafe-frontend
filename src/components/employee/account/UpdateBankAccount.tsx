@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { useState } from 'react'
-import { axiosPrivate } from '../../../api/axios';
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const REGISTER_URL = '/api/Account/update'
 interface UpdateProps{}
-const UpdateBankAccount: FC<UpdateProps> = () => {
+export const UpdateBankAccount: FC<UpdateProps> = () => {
+    const axiosPrivate = useAxiosPrivate();
     const[id, setId] = useState<number>();
     const[balance, setBalance] = useState<number>();
     const[transferLimit, setTransferLimit] = useState<number>();
@@ -15,47 +16,33 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
       e.preventDefault()
   
       
-      /*
       
-        if (!userName) {
+      
+      if (!id) {
         alert('Login field empty')
         return
       }
-      if (!password) {
+      if (!balance) {
         alert('Password field empty')
         return
       }
-      if (!firstName) {
+      if (!transferLimit) {
         alert('First name field empty')
         return
       }
-      if (!lastName) {
+      if (!isActive) {
           alert('Last name field empty')
           return
       }
-      if (!salary) {
-          alert('Salary field empty')
-          return
+     
+        
+      const bankAccountProps = {
+        balance: balance,
+        transferLimit: transferLimit,
+        isActive: isActive
       }
-      if (!gender) {
-          alert('Gender field empty')
-          return
-      }
-      if (!dateOfEmployment) {
-          alert('Date of employment field empty')
-          return
-      }
-      if (!dateOfBirth) {
-          alert('Datw of birth field empty')
-          return
-      }
-        */
-      
-      axiosPrivate.patch(`${REGISTER_URL}/${id}`, { balance: balance, transferLimit: transferLimit, isActive: isActive}, { withCredentials: true, headers: {
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + authToken
-      } }).then((response) => {
-        //const accessToken = response.data.jwtToken;
+      axiosPrivate.patch(`${REGISTER_URL}/${id}`, bankAccountProps).then((response) => {
+        
         console.log(response);
    
      
@@ -125,5 +112,3 @@ const UpdateBankAccount: FC<UpdateProps> = () => {
     </div>
   )
 }
-
-export default UpdateBankAccount

@@ -1,5 +1,5 @@
 import { TransferProps} from '../../types/accountInfo';
-import { TableCell, TableRow } from './Table';
+import { TableCell, TableRow } from '../../DOMComponents/Table';
 
 export const TransferInfo = ({
   account

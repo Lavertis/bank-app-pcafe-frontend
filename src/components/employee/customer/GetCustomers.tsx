@@ -7,7 +7,7 @@ import { CustomerInfo } from './CustomerInfo';
 
 
 const CUSTOMER_URL = '/api/Customer';
-const GetCustomers = () => {
+export const GetCustomers = () => {
     const [account, setAccount] = useState<AccountInfo | null>(null);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -15,29 +15,14 @@ const GetCustomers = () => {
 
 
     useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
-
-        const getUsers = async () => {
-            try {
-                const response= await axiosPrivate.get(CUSTOMER_URL, {
-                    signal: controller.signal
-                });
-                isMounted && setAccount(response.data);
-
-            } catch (err) {
-                console.error(err);
-                navigate('/login', { state: { from: location }, replace: true });
-            }
-        }
+      (async () =>{
         
-        getUsers();
-        
-        return () => {
-            isMounted = false;
-            controller.abort();
-        }
-    }, [])
+        const response = await axiosPrivate.get(CUSTOMER_URL);
+        (response.status===403) ? navigate('/login', { state: { from: location }, replace: true }) : 
+        setAccount(response.data)
+    })()
+  }, [])
+  
 
     
   return (
@@ -81,5 +66,3 @@ const GetCustomers = () => {
         </table>
   )
 }
-
-export default GetCustomers

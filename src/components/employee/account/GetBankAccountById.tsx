@@ -43,7 +43,7 @@ const Form = ({onSubmit}: FormProps) =>{
 }
 
 
-const GetAccountById = () =>{
+export const GetBankAccountById = () =>{
   const [account,setAccount ] = useState<BankAccount | null>(null)
   const axiosPrivate = useAxiosPrivate();
 
@@ -64,5 +64,3 @@ const GetAccountById = () =>{
   )
 
 }
-
-export default GetAccountById

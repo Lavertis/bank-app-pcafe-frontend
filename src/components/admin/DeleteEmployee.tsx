@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-//import { AccountInfo } from '../../types/accountInfo';
 
 
 const Delete_URL = 'api/Employee/delete';
@@ -10,7 +9,7 @@ type FormProps = {
 }
 
 
-const Form = ({onSubmit}: FormProps) =>{
+ const Form = ({onSubmit}: FormProps) =>{
   const [userId, setUserId] = useState("")
   const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
@@ -40,14 +39,12 @@ const Form = ({onSubmit}: FormProps) =>{
 }
 
 
-const DeleteEmployee = () =>{
-  //const [account,setAccount ] = useState<AccountInfo | null>(null)
+export const DeleteEmployee = () =>{
   const axiosPrivate = useAxiosPrivate();
 
   const handleSubmit = async (n:string) =>{
     const response = await axiosPrivate.delete(`${Delete_URL}/${n}`)
     console.log(response)
-    //setAccount(response.data)
     return (
         <p>Podane konto zostalo usuniete</p>
     );
@@ -62,4 +59,3 @@ const DeleteEmployee = () =>{
 
 }
 
-export default DeleteEmployee

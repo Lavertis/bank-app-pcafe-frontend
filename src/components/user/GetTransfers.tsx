@@ -6,7 +6,7 @@ import { AccountInfo } from '../../types/accountInfo';
 import {TransferInfo} from './TransferInfo';
 
 const GET_TRANSFERS= '/api/Transfer'
-const GetTransfers = () => {
+export const GetTransfers = () => {
     const [account, setAccount] = useState<AccountInfo | null>(null);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -14,28 +14,14 @@ const GetTransfers = () => {
 
 
     useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
 
-        const getUsers = async () => {
-            try {
-                const response= await axiosPrivate.get(GET_TRANSFERS, {
-                    signal: controller.signal
-                });
-                isMounted && setAccount(response.data);
 
-            } catch (err) {
-                console.error(err);
-                navigate('/login', { state: { from: location }, replace: true });
-            }
-        }
+      (async () =>{
         
-        getUsers();
-        
-        return () => {
-            isMounted = false;
-            controller.abort();
-        }
+          const response = await axiosPrivate.get(GET_TRANSFERS);
+          (response.status===403) ? navigate('/login', { state: { from: location }, replace: true }) : 
+          setAccount(response.data)
+      })()
     }, [])
 
     
@@ -76,5 +62,3 @@ const GetTransfers = () => {
           
   )
 }
-
-export default GetTransfers

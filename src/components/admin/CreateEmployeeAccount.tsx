@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import React, { FC } from 'react';
-//import { axiosPrivate } from '../../api/axios';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-
+const REGISTER_URL = '/api/Employee/create'
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RegisterProps{}
-const CreateEmployeeAccount: FC<RegisterProps> = () => {
+export const CreateEmployeeAccount: FC<RegisterProps> = () => {
+  
+    const axiosPrivate = useAxiosPrivate();
     const[userName, setUserName] = useState<string>();
     const[password, setPassword] = useState<string>();
     const[firstName, setFirstName] = useState<string>();
@@ -16,17 +17,14 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
     const[gender, setGender] = useState<string>();
     const[dateOfEmployment, setDateOfEmployment] = useState<string>();
     const[dateOfBirth, setDateOfBirth] = useState<string>();
-    //const authToken = localStorage.getItem('accessToken');
-    const axiosPrivate = useAxiosPrivate();
 
-    const REGISTER_URL = '/api/Employee/create'
-    const onSubmit = async (e: { preventDefault: () => void; }) => {
+    const onSubmit =  (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
     
-    /*
     
-      if (!userName) {
+    
+    if (!userName) {
       alert('Login field empty')
       return
     }
@@ -58,25 +56,30 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
         alert('Datw of birth field empty')
         return
     }
-      */
+    
+      
     
 
-
-    const isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
-    const isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
-    
-    axiosPrivate.post(REGISTER_URL, { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary, gender: gender, dateOfEmployment: isoDateEmployment, dateOfBirth: isoDateBirth}, { withCredentials: true, headers: {
-
-
-    } }).then((response) => {
-      //const accessToken = response.data.jwtToken;
-      console.log(response);
- 
+    const isoDateEmployment = new Date(dateOfEmployment).toISOString();
+    const isoDateBirth = new Date(dateOfBirth).toISOString();
+    const accountProps = {
+      userName: userName, 
+      password: password, 
+      firstName: firstName, 
+      lastName: lastName, 
+      salary: salary, 
+      gender: gender, 
+      dateOfEmployment: isoDateEmployment, 
+      dateOfBirth: isoDateBirth
+    }
+    axiosPrivate.post(REGISTER_URL,  accountProps ).then((response) => {
+      console.log(response.status);
+      (response.status === 200) ? console.log("Udalo sie utworzyć użytkownika"): console.log("Cos poszlo nie tak")
+      
    
     });
 
-    
-  
+
     setUserName('')
     setPassword('')
     setFirstName('')
@@ -94,7 +97,7 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
           <label className ='form-label-input'
           htmlFor="userName">
               <input className ='form-input'
-              id="userName"
+                id="userName"
                 value={userName}
                 type="text"
                 placeholder="userName"
@@ -160,7 +163,7 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
           <label className ='form-label-input'
           htmlFor="dateOfEmployment">
               <input className ='form-input'
-              id="dateOfEmployment"
+                id="dateOfEmployment"
                 value={dateOfEmployment}
                 type="date"
                 onChange={(e) => setDateOfEmployment(e.target.value)}
@@ -186,5 +189,3 @@ const CreateEmployeeAccount: FC<RegisterProps> = () => {
 
   );
 }
-
-export default CreateEmployeeAccount;

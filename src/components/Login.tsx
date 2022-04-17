@@ -1,32 +1,28 @@
 import { useState} from 'react';
 import React, { FC } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import  instance  from '../api/axios';
-//import { isNamedImports } from 'typescript'
-//import Props from '../context/AuthProvider';
-//import { json } from 'stream/consumers';
 import jwt from 'jwt-decode'
 import Logo from "./Logo"
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+
 interface LoginProps {}
 
 const LOGIN = '/api/Auth/authenticate'
 
 
 
-const Login: FC<LoginProps> = () => {
+export const Login: FC<LoginProps> = () => {
 
 
         
         const[userName, setUserName] = useState<string>("");
         const[password, setPassword] = useState<string>("");
         const navigate = useNavigate();
-        const location = useLocation();
-        const from = location.state || "/admin/WelcomeAdmin";
+        
 
     
-        const onSubmit = async (e: { preventDefault: () => void; }) => {
+        const onSubmit = (e: { preventDefault: () => void; }) => {
             e.preventDefault()
             if (!userName) {
               alert('Login field empty')
@@ -38,34 +34,35 @@ const Login: FC<LoginProps> = () => {
             }
            
             
-            instance.post(LOGIN, {userName: userName, password: password}, { withCredentials: true }).then((response) => {
-
+            instance.post(LOGIN, {userName: userName, password: password}).then((response) => {
 
               const accessToken = response.data.jwtToken;
               const refreshToken = response.data.refreshToken;
               localStorage.setItem('accessToken', accessToken)
               localStorage.setItem('refreshToken', refreshToken)
-
-
               const user: string = jwt(accessToken)
-              console.log(typeof(user))
-              if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Admin'){
-                console.log("Przejscie do strony dla admina");
-                navigate(from, { replace: true });
-                //<Link to='../admin/WelcomeAdmin'></Link>
-              }
-              if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Employee'){
-                console.log("Przejscie do strony dla employee")
-                navigate('/employee/WelcomeEmployee', { replace: true });
-              }
+              const Role = user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
 
-              if(user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']==='Customer'){
-                console.log("Przejscie do strony dla Customer")
-                navigate('/user/WelcomeUser', { replace: true });
-              }
-              });
-              //await authenticate()
+              Navigate(Role);
               
+              });
+                 
+          }
+
+          function Navigate(role: string): void{
+            switch(role){
+              case 'Admin':
+              navigate("/admin/WelcomeAdmin", { replace: true });
+              break;
+              case 'Employee':
+              navigate("/employee/WelcomeEmployee", { replace: true });
+              break;
+              case 'Customer':
+              navigate("/user/WelcomeUser", { replace: true });
+              break;
+              default:
+                navigate("/Login", { replace: true });
+            }
           }
 
   return (
@@ -106,6 +103,5 @@ const Login: FC<LoginProps> = () => {
   );
 };
 
-export default Login;
 
 

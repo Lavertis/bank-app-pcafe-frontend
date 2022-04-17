@@ -42,7 +42,7 @@ const Form = ({onSubmit}: FormProps) =>{
 }
 
 
-const GetCustomerById = () =>{
+export const GetCustomerById = () =>{
   const [account,setAccount ] = useState<Customer | null>(null)
   const axiosPrivate = useAxiosPrivate();
 
@@ -64,5 +64,3 @@ const GetCustomerById = () =>{
   )
 
 }
-
-export default GetCustomerById

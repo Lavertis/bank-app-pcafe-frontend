@@ -1,7 +1,7 @@
 import React from 'react'
 import Menu from './customer/Menu'
 
-const WelcomeEmployee = () => {
+export const WelcomeEmployee = () => {
   return (
     <div><p>Znajdujesz sie na stronie employee</p>
     <Menu />
@@ -10,4 +10,3 @@ const WelcomeEmployee = () => {
   )
 }
 
-export default WelcomeEmployee

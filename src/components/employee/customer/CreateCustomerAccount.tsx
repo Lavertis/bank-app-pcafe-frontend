@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import React, { FC } from 'react';
 import { axiosPrivate } from '../../../api/axios'
-
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RegisterProps{}
-const CreateCustomerAccount: FC<RegisterProps> = () => {
+export const CreateCustomerAccount: FC<RegisterProps> = () => {
+    const axiosPrivate = useAxiosPrivate();
     const[userName, setUserName] = useState<string>("");
     const[password, setPassword] = useState<string>("");
     const[firstName, setFirstName] = useState<string>("");
@@ -17,16 +18,15 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
     const[cityOfBirth, setCityOfBirth] = useState<string>("");
     const[fathersName, setFathersName] = useState<string>("");
 
-    const authToken = localStorage.getItem('accessToken');
 
     const REGISTER_URL = '/api/Customer/create'
     const onSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
     
-    /*
     
-      if (!userName) {
+    /*
+    if (!userName) {
       alert('Login field empty')
       return
     }
@@ -38,38 +38,51 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
       alert('First name field empty')
       return
     }
+    if (!secondName) {
+        alert('Last name field empty')
+        return
+    }
     if (!lastName) {
         alert('Last name field empty')
         return
     }
-    if (!salary) {
-        alert('Salary field empty')
+    if (!nationalId) {
+        alert('National id field empty')
         return
     }
-    if (!gender) {
-        alert('Gender field empty')
-        return
-    }
-    if (!dateOfEmployment) {
-        alert('Date of employment field empty')
+    if (!cityOfBirth) {
+        alert('City of birth  field empty')
         return
     }
     if (!dateOfBirth) {
-        alert('Datw of birth field empty')
+        alert('Date  of birth field empty')
+        return
+    }
+    if (!fathersName) {
+        alert('Fathers namefield empty')
         return
     }
       */
     
 
 
-    //const isoDateEmployment = new Date('December 15, 2000 03:24:00').toISOString();
-    const isoDateBirth = new Date('December 17, 1995 03:24:00').toISOString();
     
-    axiosPrivate.post(REGISTER_URL, { userName: userName, password: password, firstName: firstName, secondName: secondName, lastName: lastName, nationalId: nationalId, dateOfBirth: isoDateBirth, cityOfBirth: cityOfBirth, fathersName: fathersName}, { withCredentials: true, headers: {
-      'Content-Type': 'application/json',
-      "Authorization": "Bearer " + authToken
-    } }).then((response) => {
-      //const accessToken = response.data.jwtToken;
+    const isoDateBirth = new Date(dateOfBirth).toISOString();
+    console.log(isoDateBirth)
+    const customerAccountProps = {
+      userName: userName,
+      password: password,
+      firstName: firstName,
+      secondName: secondName,
+      lastName: lastName,
+      nationalId: nationalId,
+      dateOfBirth: isoDateBirth,
+      cityOfBirth: cityOfBirth,
+      fathersName: fathersName
+    }
+    
+    axiosPrivate.post(REGISTER_URL, customerAccountProps).then((response) => {
+
       console.log(response);
  
    
@@ -199,4 +212,3 @@ const CreateCustomerAccount: FC<RegisterProps> = () => {
   );
 }
 
-export default CreateCustomerAccount;

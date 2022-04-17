@@ -2,7 +2,8 @@ import axios from 'axios';
 const BASE_URL = 'https://bank-app-pcafe-api-stage.herokuapp.com';
 
 const instance = axios.create({
-    baseURL: BASE_URL
+    baseURL: BASE_URL,
+    withCredentials: true
 });
 
 export const axiosPrivate = axios.create({

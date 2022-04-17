@@ -3,12 +3,10 @@ import {  useState } from 'react';
 
 
 const useRefreshToken = () => {
-    //const { authToken, dispatch } = useAuth();
-    //const { authToken, dispatch } = useContext(AuthContext); 
+    
     const [refreshToken, setReToken] = useState<string>(localStorage.getItem('refreshToken'))
     const [authToken, setAuthToken] = useState()
     const refresh = async () => {
-        console.log(refreshToken);
         const response = await axios.post('https://bank-app-pcafe-api-stage.herokuapp.com/api/Auth/refresh-token', {refreshToken: refreshToken}, {
             headers: {'Content-Type': 'application/json'}, withCredentials: true
         });

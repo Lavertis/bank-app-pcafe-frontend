@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-//import { AccountInfo } from '../../types/accountInfo';
 
 
 const Delete_URL = 'api/Employee/delete';
@@ -41,15 +40,13 @@ const Form = ({onSubmit}: FormProps) =>{
 }
 
 
-const DeleteCustomer = () =>{
-  //const [account,setAccount ] = useState<AccountInfo | null>(null)
+export const DeleteCustomer = () =>{
+ 
   const axiosPrivate = useAxiosPrivate();
 
   const handleSubmit = async (n:string) =>{
     const response = await axiosPrivate.delete(`${Delete_URL}/${n}`)
     console.log(response)
-    //setAccount(response.data)
-    console.log("siema")
     return (
         <p>Podane konto zostalo usuniete</p>
     );
@@ -62,5 +59,3 @@ const DeleteCustomer = () =>{
 
   )
 }
-
-export default DeleteCustomer

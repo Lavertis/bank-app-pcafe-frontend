@@ -1,24 +1,24 @@
 import React, { FC } from 'react'
 import { useState } from 'react'
-import { axiosPrivate } from '../../../api/axios';
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const UPDATE_URL = '/api/Customer/update/'
 interface UpdateProps{}
-const UpdateCustomer: FC<UpdateProps> = () => {
-
+export const UpdateCustomer: FC<UpdateProps> = () => {
+    const axiosPrivate = useAxiosPrivate();
     const[userName, setUserName] = useState<string>("");
     const[password, setPassword] = useState<string>("");
     const[firstName, setFirstName] = useState<string>("");
     const[secondName, setSecondName] = useState<string>("");
     const[lastName, setLastName] = useState<string>("");
     const[id, setId] = useState<string>();
-    const authToken = localStorage.getItem('accessToken');
+    
 
     const onSubmit = async (e: { preventDefault: () => void; }) => {
       e.preventDefault()
   
       
-      /*
+      
       
         if (!userName) {
         alert('Login field empty')
@@ -36,32 +36,24 @@ const UpdateCustomer: FC<UpdateProps> = () => {
           alert('Last name field empty')
           return
       }
-      if (!salary) {
-          alert('Salary field empty')
+      if (!secondName) {
+          alert('Second name field empty')
           return
       }
-      if (!gender) {
-          alert('Gender field empty')
-          return
-      }
-      if (!dateOfEmployment) {
-          alert('Date of employment field empty')
-          return
-      }
-      if (!dateOfBirth) {
-          alert('Datw of birth field empty')
-          return
-      }
-        */
+     
+        
+       const customerAccountProps = {
+        userName: userName,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        secondName: secondName
+
+       }
       
-      axiosPrivate.patch(`${UPDATE_URL + id}`, { userName: userName, password: password, firstName: firstName, lastName: lastName, secondName: secondName}, { withCredentials: true, headers: {
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + authToken
-      } }).then((response) => {
-        //const accessToken = response.data.jwtToken;
+      axiosPrivate.patch(`${UPDATE_URL + id}`, customerAccountProps).then((response) => {
         console.log(response);
    
-     
       });
   
       
@@ -149,5 +141,3 @@ const UpdateCustomer: FC<UpdateProps> = () => {
     </div>
   )
 }
-
-export default UpdateCustomer

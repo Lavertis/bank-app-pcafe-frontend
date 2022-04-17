@@ -1,26 +1,30 @@
 import React, { FC } from 'react'
 import { useState } from 'react'
-import { axiosPrivate } from '../../api/axios';
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const REGISTER_URL = '/api/Employee/update'
 interface UpdateProps{}
-const UpdateUser: FC<UpdateProps> = () => {
+export const UpdateUser: FC<UpdateProps> = () => {
 
+    const axiosPrivate = useAxiosPrivate();
     const[userName, setUserName] = useState<string>();
     const[password, setPassword] = useState<string>();
     const[firstName, setFirstName] = useState<string>();
     const[lastName, setLastName] = useState<string>();
     const[salary, setSalary] = useState<string>();
     const[id, setId] = useState<string>();
-    const authToken = localStorage.getItem('accessToken');
+    
 
     const onSubmit = async (e: { preventDefault: () => void; }) => {
       e.preventDefault()
   
       
-      /*
       
-        if (!userName) {
+      if (!id) {
+        alert('Login field empty')
+        return
+      }
+      if (!userName) {
         alert('Login field empty')
         return
       }
@@ -39,33 +43,22 @@ const UpdateUser: FC<UpdateProps> = () => {
       if (!salary) {
           alert('Salary field empty')
           return
-      }
-      if (!gender) {
-          alert('Gender field empty')
-          return
-      }
-      if (!dateOfEmployment) {
-          alert('Date of employment field empty')
-          return
-      }
-      if (!dateOfBirth) {
-          alert('Datw of birth field empty')
-          return
-      }
-        */
+      } 
+       const userProps ={
+          userName: userName,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          salary: salary
+       }
       
-      axiosPrivate.patch(`${REGISTER_URL}/${id}`, { userName: userName, password: password, firstName: firstName, lastName: lastName, salary: salary}, { withCredentials: true, headers: {
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + authToken
-      } }).then((response) => {
-        //const accessToken = response.data.jwtToken;
+      axiosPrivate.patch(`${REGISTER_URL}/${id}`, userProps).then((response) => {
         console.log(response);
-   
-     
+
       });
   
       
-    
+      setId('')
       setUserName('')
       setPassword('')
       setFirstName('')
@@ -150,4 +143,3 @@ const UpdateUser: FC<UpdateProps> = () => {
   )
 }
 
-export default UpdateUser

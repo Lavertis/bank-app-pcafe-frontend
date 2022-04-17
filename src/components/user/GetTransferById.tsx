@@ -34,7 +34,7 @@ const Form = ({onSubmit}: FormProps) =>{
   )
 }
 
-const GetTransferById = () =>{
+export const GetTransferById = () =>{
     
   const [account,setAccount ] = useState<TransferProps | null>(null)
   const axiosPrivate = useAxiosPrivate();
@@ -56,5 +56,3 @@ const GetTransferById = () =>{
   )
 
 }
-
-export default GetTransferById

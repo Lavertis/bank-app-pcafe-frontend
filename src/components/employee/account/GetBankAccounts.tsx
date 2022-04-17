@@ -6,7 +6,7 @@ import { AccountInfo } from '../../../types/accountInfo';
 import {BankAccountInfo} from './BankAccountInfo';
 
 const GET_BANK_ACC = '/api/Account';
-const GetBankAccounts = () => {
+export const GetBankAccounts = () => {
     const [account, setAccount] = useState<AccountInfo | null>(null);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -14,29 +14,14 @@ const GetBankAccounts = () => {
 
 
     useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
-
-        const getUsers = async () => {
-            try {
-                const response= await axiosPrivate.get(GET_BANK_ACC, {
-                    signal: controller.signal
-                });
-                isMounted && setAccount(response.data);
-
-            } catch (err) {
-                console.error(err);
-                navigate('/login', { state: { from: location }, replace: true });
-            }
-        }
+      (async () =>{
         
-        getUsers();
-        
-        return () => {
-            isMounted = false;
-            controller.abort();
-        }
-    }, [])
+        const response = await axiosPrivate.get(GET_BANK_ACC);
+        (response.status===403) ? navigate('/login', { state: { from: location }, replace: true }) : 
+        setAccount(response.data)
+    })()
+  }, [])
+  
 
     
   return (
@@ -80,4 +65,3 @@ const GetBankAccounts = () => {
   )
 }
 
-export default GetBankAccounts
