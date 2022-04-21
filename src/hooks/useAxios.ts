@@ -1,16 +1,7 @@
 import axios from 'axios'
 import {useEffect} from "react";
 import useRefreshToken from "./useRefreshToken";
-
-const env = process.env.NODE_ENV;
-
-const myAxios = axios.create({
-    baseURL: env === 'development' ? 'https://localhost:7031/api/' : 'https://bank-app-pcafe-api-stage.herokuapp.com/api/',
-    timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+import myAxios from "../api/axios";
 
 const useAxios = () => {
     const refreshToken = useRefreshToken();
@@ -45,7 +36,7 @@ const useAxios = () => {
             myAxios.interceptors.request.eject(requestIntercept);
             myAxios.interceptors.response.eject(responseIntercept);
         }
-    }, [jwtToken, refreshToken])
+    }, [jwtToken, refreshToken]);
 
     return myAxios;
 }

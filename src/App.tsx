@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
+import './App.scss';
+import Layout from "./components/Layout/Layout";
+import {Route, Routes} from "react-router-dom";
+import Login from "./components/Login/Login";
+import {isTokenExpired} from "./helpers/token-helper";
+
+export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
+    {
+        token: '',
+        setToken: () => {
+        }
+    }
+);
 
 function App() {
+    const [token, setToken] = React.useState<string>(localStorage.getItem('jwtToken') ?? '');
+
+    useEffect(() => {
+        document.title = "Bank App"
+
+        const checkToken = () => {
+            if (!token) return;
+            if (isTokenExpired(token)) {
+                localStorage.removeItem('token');
+                setToken('');
+            }
+        };
+        checkToken();
+    }, [token]);
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <TokenContext.Provider value={{token, setToken}}>
+            <Layout>
+                <Routes>
+                    <Route path="/login" element={<Login redirectTo='/'/>}/>
+                </Routes>
+            </Layout>
+        </TokenContext.Provider>
     );
 }
 
