@@ -1,10 +1,10 @@
 import React, {FC, useContext, useState} from 'react';
 import {Alert, Button, Col, Form} from "react-bootstrap";
 import {useFormik} from "formik";
-import useAxios from "../../hooks/useAxios";
 import {useNavigate} from "react-router-dom";
 import {AxiosError, AxiosResponse} from "axios";
 import {TokenContext} from "../../App";
+import useAxios from "../../hooks/useAxios";
 
 
 interface LoginProps {
@@ -15,7 +15,7 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
     const [error, setError] = useState("")
     const {setToken} = useContext(TokenContext)
     const navigate = useNavigate()
-    const axios = useAxios();
+    const axios = useAxios()
 
     const formik = useFormik({
         initialValues: {

@@ -1,7 +1,7 @@
 import React, {FC, useContext} from 'react';
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
-import {getClaimFromToken} from "../../helpers/token-helper";
+import {getClaimFromToken, getRoleFromToken} from "../../helpers/token-helper";
 import {TokenContext} from "../../App";
 
 interface MyNavbarProps {
@@ -12,34 +12,48 @@ const MyNavbar: FC<MyNavbarProps> = () => {
 
     const logout = () => {
         localStorage.removeItem("jwtToken")
+        localStorage.removeItem("refreshToken")
         window.location.href = "/";
     };
 
-    const getAuthLinks = () => {
+    const getUserDropdown = () => {
+        const email = getClaimFromToken(token, 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid');
+        return (
+            <NavDropdown title={email} align={"end"}>
+                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+            </NavDropdown>
+        )
+    }
+
+    const getAdminNavLinks = () => {
         return (
             <>
-                <LinkContainer to="/login">
-                    <Nav.Link>Login</Nav.Link>
+                <LinkContainer to="/employees">
+                    <Nav.Link>Employees</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/register">
-                    <Nav.Link>Register</Nav.Link>
+                <LinkContainer to="/employees/create">
+                    <Nav.Link>Create Employee</Nav.Link>
                 </LinkContainer>
             </>
         )
     }
 
-    const getUserDropdown = () => {
-        const email = getClaimFromToken(token, 'email');
-
-        return (
-            <NavDropdown title={email} align={"end"}>
-                {/*<LinkContainer to="/account">*/}
-                {/*    <NavDropdown.Item>Account</NavDropdown.Item>*/}
-                {/*</LinkContainer>*/}
-                <NavDropdown.Divider/>
-                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
-            </NavDropdown>
-        )
+    const getNavLinks = () => {
+        const role = getRoleFromToken(token);
+        switch (role) {
+            case "Admin":
+                return getAdminNavLinks();
+            case "Employee":
+                return (
+                    <>
+                    </>
+                )
+            case "Customer":
+                return (
+                    <>
+                    </>
+                )
+        }
     }
 
     return (
@@ -53,15 +67,10 @@ const MyNavbar: FC<MyNavbarProps> = () => {
                             <LinkContainer to="/">
                                 <Nav.Link>Home</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/tasks/user/all">
-                                <Nav.Link>My Tasks</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/tasks/create">
-                                <Nav.Link>Add Task</Nav.Link>
-                            </LinkContainer>
+                            {token && getNavLinks()}
                         </Nav.Item>
                         <Nav.Item className="d-lg-flex">
-                            {token ? getUserDropdown() : getAuthLinks()}
+                            {token && getUserDropdown()}
                         </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>

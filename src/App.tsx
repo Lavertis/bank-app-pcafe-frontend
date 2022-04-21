@@ -4,6 +4,9 @@ import Layout from "./components/Layout/Layout";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/Login/Login";
 import {isTokenExpired} from "./helpers/token-helper";
+import Home from "./components/Home/Home";
+import EmployeeList from "./components/EmployeeList/EmployeeList";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
     {
@@ -33,7 +36,14 @@ function App() {
         <TokenContext.Provider value={{token, setToken}}>
             <Layout>
                 <Routes>
-                    <Route path="/login" element={<Login redirectTo='/'/>}/>
+                    {token && <Route path="/" element={<Home/>}/>}
+                    <Route path="/" element={<Login redirectTo="/"/>}/>
+
+                    {!token && <Route path="/login" element={<Login redirectTo="/"/>}/>}
+
+                    <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
+                        <Route path="/employees" element={<EmployeeList/>}/>
+                    </Route>
                 </Routes>
             </Layout>
         </TokenContext.Provider>
