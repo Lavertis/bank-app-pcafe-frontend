@@ -7,6 +7,7 @@ import {isTokenExpired} from "./helpers/token-helper";
 import Home from "./components/Home/Home";
 import EmployeeList from "./components/EmployeeList/EmployeeList";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import AddEmployee from "./components/AddEmployee/AddEmployee";
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
     {
@@ -43,6 +44,7 @@ function App() {
 
                     <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
                         <Route path="/employees" element={<EmployeeList/>}/>
+                        <Route path="/employees/create" element={<AddEmployee/>}/>
                     </Route>
                 </Routes>
             </Layout>
