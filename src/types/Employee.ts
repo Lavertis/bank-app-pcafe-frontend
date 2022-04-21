@@ -1,3 +1,5 @@
+import {AppUser} from "./AppUser";
+
 export interface Employee {
     id: string;
     firstName: string;
@@ -6,4 +8,5 @@ export interface Employee {
     gender: string;
     dateOfEmployment: Date;
     dateOfBirth: Date
+    appUser: AppUser
 }

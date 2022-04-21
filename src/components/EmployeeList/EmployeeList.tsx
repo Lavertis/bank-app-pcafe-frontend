@@ -16,17 +16,26 @@ const EmployeeList: FC<EmployeeListProps> = () => {
         (async () => {
             const response = await axios.get('Employee')
             const employees = await response.data;
-            console.log(employees);
             setEmployees(employees);
         })();
     }, [axios]);
+
+    const deleteEmployee = async (id: string) => {
+        axios.delete(`/Employee/${id}`)
+            .then(() => {
+                setEmployees(employees.filter(employee => employee.id !== id));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     return (
         <Col xs={11} sm={8} lg={6} className="mx-auto my-5">
             {
                 employees.map(employee => (
                     <div className="mt-4" key={employee.id}>
-                        <EmployeeListItem employee={employee}/>
+                        <EmployeeListItem employee={employee} deleteEmployee={deleteEmployee}/>
                     </div>
                 ))
             }
