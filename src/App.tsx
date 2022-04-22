@@ -11,6 +11,7 @@ import AddEmployee from "./components/AddEmployee/AddEmployee";
 import EditEmployee from "./components/EditEmployee/EditEmployee";
 import CustomerList from "./components/CustomerList/CustomerList";
 import AddCustomer from "./components/AddCustomer/AddCustomer";
+import AddBankAccount from "./components/AddBankAccount/AddBankAccount";
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
     {
@@ -40,22 +41,23 @@ function App() {
         <TokenContext.Provider value={{token, setToken}}>
             <Layout>
                 <Routes>
-                    {token && <Route path="/" element={<Home/>}/>}
-                    <Route path="/" element={<Login redirectTo="/"/>}/>
-
-                    {!token && <Route path="/login" element={<Login redirectTo="/"/>}/>}
-
                     <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
                         <Route path="/employees" element={<EmployeeList/>}/>
                         <Route path="/employees/create" element={<AddEmployee/>}/>
-                        <Route path="/employees/edit/:id" element={<EditEmployee/>}/>
+                        <Route path="/employees/:id/edit" element={<EditEmployee/>}/>
                     </Route>
 
                     <Route element={<ProtectedRoute allowedRoles={['Employee']}/>}>
                         <Route path="/customers" element={<CustomerList/>}/>
                         <Route path="/customers/create" element={<AddCustomer/>}/>
-                        <Route path="/customers/edit/:id" element={<Home/>}/>
+                        <Route path="/customers/:id/edit" element={<Home/>}/>
+                        <Route path="/customers/:id/accounts/create" element={<AddBankAccount/>}/>
                     </Route>
+
+                    {token && <Route path="/" element={<Home/>}/>}
+                    <Route path="/" element={<Login redirectTo="/"/>}/>
+
+                    {!token && <Route path="/login" element={<Login redirectTo="/"/>}/>}
                 </Routes>
             </Layout>
         </TokenContext.Provider>

@@ -24,7 +24,7 @@ const Home: FC<HomeProps> = () => {
 
 
     return (
-        <Col lg={6} className="mx-auto mt-4">
+        <Col className="mx-auto mt-4">
             <Alert variant="primary" className="text-center">
                 {getWelcomeMessage()}
             </Alert>

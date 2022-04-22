@@ -145,6 +145,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                             type="number"
                             name="salary"
                             id="inputSalary"
+                            min={1}
                             onChange={formik.handleChange}
                             value={formik.values.salary}
                             isValid={formik.touched.salary && !formik.errors.salary}
@@ -212,6 +213,9 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                 </Form.Group>
                 <Form.Group className="d-grid">
                     <Button type="submit" variant="primary">Create Employee</Button>
+                    <Button variant="secondary" className="mt-2" onClick={() => navigate(-1)}>
+                        Cancel
+                    </Button>
                 </Form.Group>
             </Form>
         </Col>

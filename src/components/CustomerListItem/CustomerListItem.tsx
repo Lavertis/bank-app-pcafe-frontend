@@ -51,15 +51,29 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
                         </tr>
                         </tbody>
                     </Table>
-                    <Col className="d-flex justify-content-end">
-                        <Link replace={false} to={`/customers/edit/${customer.id}`}>
-                            <Button className="me-2" variant="outline-primary">
-                                <FontAwesomeIcon icon={faEdit}/>
+                    <Col xs={12} className="d-flex justify-content-between">
+                        <Col className="d-flex flex-row" xs={"auto"}>
+                            <Link to={`/customers/${customer.id}/accounts/create`}>
+                                <Button className="me-2" variant="outline-primary">
+                                    Create new account
+                                </Button>
+                            </Link>
+                            <Link to={`/customers/${customer.id}/accounts`}>
+                                <Button className="me-2" variant="outline-primary">
+                                    View Accounts
+                                </Button>
+                            </Link>
+                        </Col>
+                        <Col className="d-flex justify-content-end" xs={"auto"}>
+                            <Link to={`/customers/${customer.id}/edit`}>
+                                <Button className="me-2" variant="outline-primary">
+                                    <FontAwesomeIcon icon={faEdit}/>
+                                </Button>
+                            </Link>
+                            <Button variant="outline-danger" onClick={showModal}>
+                                <FontAwesomeIcon icon={faTrash}/>
                             </Button>
-                        </Link>
-                        <Button variant="outline-danger" onClick={showModal}>
-                            <FontAwesomeIcon icon={faTrash}/>
-                        </Button>
+                        </Col>
                     </Col>
                 </Card.Body>
             </Card>

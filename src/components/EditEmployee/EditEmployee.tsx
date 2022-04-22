@@ -226,8 +226,8 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
                     </InputGroup>
                 </Form.Group>
                 <Form.Group className="d-grid">
-                    <Button variant="success" type="submit" className="mb-2">Save</Button>
-                    <Button variant="secondary" onClick={() => navigate(-1)}>
+                    <Button variant="success" type="submit">Save</Button>
+                    <Button variant="secondary" className="mt-2" onClick={() => navigate(-1)}>
                         Cancel
                     </Button>
                 </Form.Group>

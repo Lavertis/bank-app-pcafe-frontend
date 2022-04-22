@@ -226,6 +226,9 @@ const AddCustomer: FC<AddCustomerProps> = () => {
                 </Form.Group>
                 <Form.Group className="d-grid">
                     <Button type="submit" variant="primary">Create Customer</Button>
+                    <Button variant="secondary" className="mt-2" onClick={() => navigate(-1)}>
+                        Cancel
+                    </Button>
                 </Form.Group>
             </Form>
         </Col>

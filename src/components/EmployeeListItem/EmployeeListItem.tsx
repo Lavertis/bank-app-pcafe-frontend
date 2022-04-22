@@ -56,7 +56,7 @@ const EmployeeListItem: FC<EmployeeListItemProps> = ({employee, deleteEmployee})
                         </tbody>
                     </Table>
                     <Col className="d-flex justify-content-end">
-                        <Link replace={false} to={`/employees/edit/${employee.id}`}>
+                        <Link to={`/employees/${employee.id}/edit`}>
                             <Button className="me-2" variant="outline-primary">
                                 <FontAwesomeIcon icon={faEdit}/>
                             </Button>
