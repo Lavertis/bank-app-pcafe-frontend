@@ -48,7 +48,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
             })
                 .then((response: AxiosResponse) => {
                     console.log(response.data)
-                    navigate('/customers', {replace: true})
+                    navigate('/customers')
                 })
                 .catch((err: AxiosError) => {
                     if (err.response && err.response.status >= 400 && err.response.status <= 500) {

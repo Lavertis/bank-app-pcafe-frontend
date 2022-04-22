@@ -46,7 +46,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
             })
                 .then((response: AxiosResponse) => {
                     console.log(response.data)
-                    navigate('/employees', {replace: true})
+                    navigate('/employees')
                 })
                 .catch((err: AxiosError) => {
                     if (err.response && err.response.status >= 400 && err.response.status <= 500) {

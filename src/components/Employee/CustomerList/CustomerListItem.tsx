@@ -79,6 +79,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
                 </Card.Body>
             </Card>
             <ConfirmationModal
+                variant={'danger'}
                 title={"Delete confirmation"}
                 message={"Are you sure you want to delete this customer?"}
                 isShown={modalIsShown}

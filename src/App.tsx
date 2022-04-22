@@ -9,10 +9,11 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AddEmployee from "./components/Admin/AddEmployee";
 import CustomerList from "./components/Employee/CustomerList/CustomerList";
 import AddCustomer from "./components/Employee/AddCustomer";
-import AddBankAccount from "./components/Employee/AddBankAccount";
+import AddAccount from "./components/Employee/AddAccount";
 import AccountList from "./components/Employee/AccountList/AccountList";
 import NotYetImplemented from "./components/NotYetImplemented";
 import Dashboard from "./components/Customer/Dashboard/Dashboard";
+import NewTransfer from "./components/Customer/NewTransfer";
 
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
@@ -50,13 +51,14 @@ function App() {
                         <Route path="/customers/create" element={<AddCustomer/>}/>
                         <Route path="/customers/:id/edit" element={<NotYetImplemented/>}/>
                         <Route path="/customers/:id/accounts" element={<AccountList/>}/>
-                        <Route path="/customers/:id/accounts/create" element={<AddBankAccount/>}/>
+                        <Route path="/customers/:id/accounts/create" element={<AddAccount/>}/>
 
                         <Route path="/accounts/:id/edit" element={<NotYetImplemented/>}/>
                     </Route>
 
                     <Route element={<ProtectedRoute allowedRoles={['Customer']}/>}>
                         <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/transfers/new" element={<NewTransfer/>}/>
                     </Route>
                 </Routes>
             </Layout>

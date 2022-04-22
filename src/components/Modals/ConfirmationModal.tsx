@@ -3,6 +3,7 @@ import {Button, Modal} from "react-bootstrap";
 
 
 interface ConfirmationModalProps {
+    variant: 'danger' | 'primary'
     title: string;
     message: string;
     isShown: boolean;
@@ -10,7 +11,7 @@ interface ConfirmationModalProps {
     hide: () => void;
 }
 
-const ConfirmationModal: FC<ConfirmationModalProps> = ({title, message, isShown, confirm, hide}) => (
+const ConfirmationModal: FC<ConfirmationModalProps> = ({variant, title, message, isShown, confirm, hide}) => (
     <Modal show={isShown} onHide={hide}>
         <Modal.Header closeButton>
             <Modal.Title>{title}</Modal.Title>
@@ -21,7 +22,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({title, message, isShown,
         </Modal.Body>
 
         <Modal.Footer>
-            <Button variant="danger" onClick={confirm}>Delete</Button>
+            <Button variant={variant} onClick={confirm}>{variant === 'primary' ? 'Confirm' : 'Delete'}</Button>
             <Button variant="secondary" onClick={hide}>Cancel</Button>
         </Modal.Footer>
     </Modal>

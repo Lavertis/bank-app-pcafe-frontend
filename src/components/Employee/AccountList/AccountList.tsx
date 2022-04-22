@@ -6,35 +6,35 @@ import AccountListItem from "./AccountListItem";
 import {Col} from "react-bootstrap";
 
 
-interface BankAccountListProps {
+interface AccountListProps {
 }
 
-const AccountList: FC<BankAccountListProps> = () => {
+const AccountList: FC<AccountListProps> = () => {
     const {id} = useParams();
     const axios = useAxios();
-    const [bankAccounts, setBankAccounts] = React.useState<Account[]>([]);
+    const [accounts, setAccounts] = React.useState<Account[]>([]);
 
-    const deleteBankAccount = (id: number) => {
+    const deleteAccount = (id: number) => {
         axios.delete(`/accounts/${id}`)
             .then(() => {
-                const newBankAccounts = bankAccounts.filter(bankAccount => bankAccount.id !== id);
-                setBankAccounts(newBankAccounts);
+                const newAccounts = accounts.filter(account => account.id !== id);
+                setAccounts(newAccounts);
             })
             .catch(error => console.log(error));
     };
 
     useEffect(() => {
-        axios.get(`customers/${id}/accounts`)
-            .then(({data}) => setBankAccounts(data))
+        axios.get(`accounts/customer/${id}`)
+            .then(({data}) => setAccounts(data))
             .catch(console.error);
     }, [axios, id]);
 
     return (
         <Col xs={11} sm={8} lg={6} className="mx-auto my-5">
             {
-                bankAccounts.map(bankAccount => (
-                    <Col className="mb-4" key={bankAccount.id}>
-                        <AccountListItem bankAccount={bankAccount} deleteBankAccount={deleteBankAccount}/>
+                accounts.map(account => (
+                    <Col className="mb-4" key={account.id}>
+                        <AccountListItem account={account} deleteAccount={deleteAccount}/>
                     </Col>
                 ))
             }

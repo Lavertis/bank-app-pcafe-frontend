@@ -20,9 +20,9 @@ const MyNavbar: FC<MyNavbarProps> = () => {
     };
 
     const getUserDropdown = () => {
-        const email = getClaimFromToken(token, 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid');
+        const userName = getClaimFromToken(token, 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name');
         return (
-            <NavDropdown title={email} align={"end"}>
+            <NavDropdown title={userName} align={"end"}>
                 <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
             </NavDropdown>
         )
@@ -60,7 +60,7 @@ const MyNavbar: FC<MyNavbarProps> = () => {
                 <LinkContainer to="/dashboard">
                     <Nav.Link>Dashboard</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/transfers/create">
+                <LinkContainer to="/transfers/new">
                     <Nav.Link>New Transfer</Nav.Link>
                 </LinkContainer>
             </>

@@ -69,6 +69,7 @@ const EmployeeListItem: FC<EmployeeListItemProps> = ({employee, deleteEmployee})
                 </Card.Body>
             </Card>
             <ConfirmationModal
+                variant={'danger'}
                 title={"Delete confirmation"}
                 message={"Are you sure you want to delete this employee?"}
                 isShown={modalIsShown}

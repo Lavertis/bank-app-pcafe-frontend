@@ -7,18 +7,18 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import ConfirmationModal from "../../Modals/ConfirmationModal";
 
 
-interface BankAccountListItemProps {
-    bankAccount: Account;
-    deleteBankAccount: (bankAccountId: number) => void;
+interface AccountListItemProps {
+    account: Account;
+    deleteAccount: (accountId: number) => void;
 }
 
-const AccountListItem: FC<BankAccountListItemProps> = ({bankAccount, deleteBankAccount}) => {
+const AccountListItem: FC<AccountListItemProps> = ({account, deleteAccount}) => {
     const [modalIsShown, setModalIsShown] = useState(false);
     const hideModal = () => setModalIsShown(false);
     const showModal = () => setModalIsShown(true);
 
     const deleteAccountHandler = () => {
-        deleteBankAccount(bankAccount.id);
+        deleteAccount(account.id);
         hideModal();
     };
 
@@ -26,29 +26,29 @@ const AccountListItem: FC<BankAccountListItemProps> = ({bankAccount, deleteBankA
         <>
             <Card>
                 <Card.Body>
-                    <Card.Title>{bankAccount.number}</Card.Title>
+                    <Card.Title>{account.number}</Card.Title>
                     <Table>
                         <tbody>
                         <tr>
                             <td><strong>Interest rate</strong></td>
-                            <td>{bankAccount.accountType.interestRate}</td>
+                            <td>{account.accountType.interestRate}</td>
                         </tr>
                         <tr>
                             <td><strong>Balance</strong></td>
-                            <td>{bankAccount.balance} WALUTA</td>
+                            <td>{account.balance} {account.currency.code}</td>
                         </tr>
                         <tr>
                             <td><strong>Transfer limit</strong></td>
-                            <td>{bankAccount.transferLimit}</td>
+                            <td>{account.transferLimit}</td>
                         </tr>
                         <tr>
                             <td><strong>Active</strong></td>
-                            <td>{bankAccount.isActive ? 'Yes' : 'No'}</td>
+                            <td>{account.isActive ? 'Yes' : 'No'}</td>
                         </tr>
                         </tbody>
                     </Table>
                     <Col className="d-flex justify-content-end">
-                        <Link to={`/accounts/${bankAccount.id}/edit`}>
+                        <Link to={`/accounts/${account.id}/edit`}>
                             <Button className="me-2" variant="outline-primary">
                                 <FontAwesomeIcon icon={faEdit}/>
                             </Button>
@@ -60,6 +60,7 @@ const AccountListItem: FC<BankAccountListItemProps> = ({bankAccount, deleteBankA
                 </Card.Body>
             </Card>
             <ConfirmationModal
+                variant={'danger'}
                 title={"Delete confirmation"}
                 message={"Are you sure you want to delete this account?"}
                 isShown={modalIsShown}

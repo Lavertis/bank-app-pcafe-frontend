@@ -9,10 +9,10 @@ import {AccountType} from "../../types/AccountType";
 import {Currency} from "../../types/Currency";
 
 
-interface AddBankAccountProps {
+interface AddAccountProps {
 }
 
-const AddBankAccount: FC<AddBankAccountProps> = () => {
+const AddAccount: FC<AddAccountProps> = () => {
     const {id} = useParams<{ id: string }>();
     const [accountTypes, setAccountTypes] = useState<AccountType[]>([]);
     const [currencies, setCurrencies] = useState<Currency[]>([]);
@@ -39,7 +39,7 @@ const AddBankAccount: FC<AddBankAccountProps> = () => {
             axios.post("accounts", values)
                 .then((response: AxiosResponse) => {
                     console.log(response.data)
-                    navigate(`/customers/${id}/accounts`, {replace: true})
+                    navigate(`/customers/${id}/accounts`)
                 })
                 .catch((err: AxiosError) => {
                     if (err.response && err.response.status >= 400 && err.response.status <= 500) {
@@ -74,7 +74,7 @@ const AddBankAccount: FC<AddBankAccountProps> = () => {
             .catch((err: AxiosError) => {
                 console.log(err)
             })
-    }, [axios, formik])
+    }, [axios, formik.values.accountTypeId])
 
     return (
         <Col xs={11} sm={8} md={6} lg={5} xxl={4} className="mx-auto my-5 bg-light rounded-3 p-5 shadow">
@@ -176,4 +176,4 @@ const AddBankAccount: FC<AddBankAccountProps> = () => {
     );
 }
 
-export default AddBankAccount;
+export default AddAccount;
