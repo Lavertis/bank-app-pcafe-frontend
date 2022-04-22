@@ -22,7 +22,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
         receiverAccountNumber: yup.string().required().length(16),
         receiverName: yup.string().required().min(3),
         description: yup.string(),
-        accountId: yup.string().required()
+        senderAccountId: yup.string().required()
     });
 
     const formik = useFormik({
@@ -32,7 +32,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
             receiverAccountNumber: '0'.repeat(16),
             receiverName: '',
             description: '',
-            accountId: ''
+            senderAccountId: ''
         },
         onSubmit: values => {
             console.log(values)
@@ -55,12 +55,11 @@ const NewTransfer: FC<NewTransferProps> = () => {
     });
 
     useEffect(() => {
-        axios.get(`accounts/auth`)
+        axios.get(`accounts/customer/auth`)
             .then((response: AxiosResponse) => {
                 setAccounts(response.data)
                 if (response.data.length > 0) {
-                    formik.setFieldValue('accountId', response.data[0].id)
-
+                    formik.setFieldValue('senderAccountId', response.data[0].id)
                 }
             })
             .catch((err: AxiosError) => {
@@ -93,7 +92,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         />
                         <InputGroup.Text>
                             {
-                                accounts.find(account => account.id.toString() === formik.values.accountId)?.currency.code
+                                accounts.find(account => account.id.toString() === formik.values.senderAccountId)?.currency.code
                                 ?? accounts[0]?.currency.code
                             }
                         </InputGroup.Text>
@@ -103,15 +102,15 @@ const NewTransfer: FC<NewTransferProps> = () => {
                     </InputGroup>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputAccountId">From account</Form.Label>
+                    <Form.Label htmlFor="inputSenderAccountId">From account</Form.Label>
                     <InputGroup hasValidation>
                         <Form.Select
-                            name="accountId"
-                            id="inputAccountId"
+                            name="senderAccountId"
+                            id="inputSenderAccountId"
                             onChange={formik.handleChange}
-                            value={formik.values.accountId}
-                            isValid={formik.touched.accountId && !formik.errors.accountId}
-                            isInvalid={formik.touched.accountId && !!formik.errors.accountId}>
+                            value={formik.values.senderAccountId}
+                            isValid={formik.touched.senderAccountId && !formik.errors.senderAccountId}
+                            isInvalid={formik.touched.senderAccountId && !!formik.errors.senderAccountId}>
                             {accounts.map(account => (
                                 <option key={account.id} value={account.id}>
                                     {account.number} ({account.balance} {account.currency.code})
@@ -119,7 +118,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                             ))}
                         </Form.Select>
                         <Form.Control.Feedback type="invalid">
-                            {formik.errors.accountId}
+                            {formik.errors.senderAccountId}
                         </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>

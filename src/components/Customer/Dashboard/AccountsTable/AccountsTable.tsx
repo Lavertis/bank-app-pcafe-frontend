@@ -13,7 +13,7 @@ const AccountsTable: FC<AccountTableProps> = () => {
     const axios = useAxios()
 
     useEffect(() => {
-        axios.get('accounts/auth')
+        axios.get('accounts/customer/auth')
             .then(res => {
                 setAccounts(res.data)
             })
