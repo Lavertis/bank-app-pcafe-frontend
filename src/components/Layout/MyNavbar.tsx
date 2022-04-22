@@ -3,17 +3,20 @@ import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 import {getClaimFromToken, getRoleFromToken} from "../../helpers/token-helper";
 import {TokenContext} from "../../App";
+import {useNavigate} from "react-router-dom";
 
 interface MyNavbarProps {
 }
 
 const MyNavbar: FC<MyNavbarProps> = () => {
-    const {token} = useContext(TokenContext);
+    const {token, setToken} = useContext(TokenContext);
+    const navigate = useNavigate()
 
     const logout = () => {
+        setToken('')
         localStorage.removeItem("jwtToken")
         localStorage.removeItem("refreshToken")
-        window.location.href = "/";
+        navigate('/')
     };
 
     const getUserDropdown = () => {
@@ -51,6 +54,22 @@ const MyNavbar: FC<MyNavbarProps> = () => {
         )
     }
 
+    const getCustomerNavLinks = () => {
+        return (
+            <>
+                <LinkContainer to="/accounts">
+                    <Nav.Link>Accounts</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/transfers">
+                    <Nav.Link>Transfers</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/transfers/create">
+                    <Nav.Link>New Transfer</Nav.Link>
+                </LinkContainer>
+            </>
+        )
+    }
+
     const getNavLinks = () => {
         const role = getRoleFromToken(token);
         switch (role) {
@@ -59,10 +78,7 @@ const MyNavbar: FC<MyNavbarProps> = () => {
             case "Employee":
                 return getEmployeeNavLinks();
             case "Customer":
-                return (
-                    <>
-                    </>
-                )
+                return getCustomerNavLinks();
         }
     }
 

@@ -1,15 +1,15 @@
 import React, {FC, useEffect} from 'react';
 import {useParams} from "react-router-dom";
-import {BankAccount} from "../../types/BankAccount";
-import useAxios from "../../hooks/useAxios";
-import BankAccountListItem from "../BankAccountListItem/BankAccountListItem";
+import {BankAccount} from "../../../types/BankAccount";
+import useAxios from "../../../hooks/useAxios";
+import AccountListItem from "./AccountListItem";
 import {Col} from "react-bootstrap";
 
 
 interface BankAccountListProps {
 }
 
-const BankAccountList: FC<BankAccountListProps> = () => {
+const AccountList: FC<BankAccountListProps> = () => {
     const {id} = useParams();
     const axios = useAxios();
     const [bankAccounts, setBankAccounts] = React.useState<BankAccount[]>([]);
@@ -34,7 +34,7 @@ const BankAccountList: FC<BankAccountListProps> = () => {
             {
                 bankAccounts.map(bankAccount => (
                     <Col className="mb-4" key={bankAccount.id}>
-                        <BankAccountListItem bankAccount={bankAccount} deleteBankAccount={deleteBankAccount}/>
+                        <AccountListItem bankAccount={bankAccount} deleteBankAccount={deleteBankAccount}/>
                     </Col>
                 ))
             }
@@ -42,4 +42,4 @@ const BankAccountList: FC<BankAccountListProps> = () => {
     );
 }
 
-export default BankAccountList;
+export default AccountList;

@@ -1,6 +1,6 @@
 import React, {FC, useContext} from 'react';
-import {TokenContext} from "../../App";
-import {getRoleFromToken} from "../../helpers/token-helper";
+import {TokenContext} from "../App";
+import {getRoleFromToken} from "../helpers/token-helper";
 import {Alert, Col} from "react-bootstrap";
 
 

@@ -1,10 +1,10 @@
 import React, {FC, useState} from 'react';
-import {Customer} from "../../types/Customer";
+import {Customer} from "../../../types/Customer";
 import {Button, Card, Col, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
-import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import ConfirmationModal from "../../Modals/ConfirmationModal";
 
 
 interface CustomerListItemProps {

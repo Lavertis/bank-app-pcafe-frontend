@@ -2,8 +2,8 @@ import React, {FC, useContext} from 'react';
 import {TokenContext} from "../../App";
 import {getRoleFromToken} from "../../helpers/token-helper";
 import {Outlet, useLocation} from "react-router-dom";
-import Error403Forbidden from "../Error403Forbidden/Error403Forbidden";
-import Login from "../Login/Login";
+import Error403Forbidden from "../Errors/Error403Forbidden";
+import Login from "./Login";
 
 
 interface ProtectedRouteProps {

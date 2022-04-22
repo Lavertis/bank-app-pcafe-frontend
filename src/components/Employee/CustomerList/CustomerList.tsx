@@ -1,8 +1,8 @@
 import React, {FC, useEffect} from 'react';
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 import {Col} from "react-bootstrap";
-import CustomerListItem from "../CustomerListItem/CustomerListItem";
-import {Customer} from "../../types/Customer";
+import CustomerListItem from "./CustomerListItem";
+import {Customer} from "../../../types/Customer";
 
 
 interface CustomerListProps {

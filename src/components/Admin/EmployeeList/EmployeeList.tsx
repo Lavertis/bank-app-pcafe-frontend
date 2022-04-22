@@ -1,8 +1,8 @@
 import React, {FC, useEffect} from 'react';
-import {Employee} from "../../types/Employee";
-import useAxios from "../../hooks/useAxios";
+import {Employee} from "../../../types/Employee";
+import useAxios from "../../../hooks/useAxios";
 import {Col} from "react-bootstrap";
-import EmployeeListItem from "../EmployeeListItem/EmployeeListItem";
+import EmployeeListItem from "./EmployeeListItem";
 
 
 interface EmployeeListProps {

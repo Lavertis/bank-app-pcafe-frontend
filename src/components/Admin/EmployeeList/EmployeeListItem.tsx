@@ -1,24 +1,29 @@
 import React, {FC, useState} from 'react';
-import {BankAccount} from "../../types/BankAccount";
+import {Employee} from "../../../types/Employee";
 import {Button, Card, Col, Table} from "react-bootstrap";
+import ConfirmationModal from "../../Modals/ConfirmationModal";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
-import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 
-interface BankAccountListItemProps {
-    bankAccount: BankAccount;
-    deleteBankAccount: (bankAccountId: number) => void;
+interface EmployeeListItemProps {
+    employee: Employee;
+    deleteEmployee: (id: string) => void;
 }
 
-const BankAccountListItem: FC<BankAccountListItemProps> = ({bankAccount, deleteBankAccount}) => {
+const EmployeeListItem: FC<EmployeeListItemProps> = ({employee, deleteEmployee}) => {
     const [modalIsShown, setModalIsShown] = useState(false);
     const hideModal = () => setModalIsShown(false);
     const showModal = () => setModalIsShown(true);
 
-    const deleteAccountHandler = () => {
-        deleteBankAccount(bankAccount.id);
+    const getDate = (date: Date) => {
+        const dateObj = new Date(date);
+        return dateObj.toLocaleDateString();
+    }
+
+    const deleteEmployeeHandler = () => {
+        deleteEmployee(employee.id);
         hideModal();
     };
 
@@ -26,29 +31,33 @@ const BankAccountListItem: FC<BankAccountListItemProps> = ({bankAccount, deleteB
         <>
             <Card>
                 <Card.Body>
-                    <Card.Title>{bankAccount.number}</Card.Title>
+                    <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
                     <Table>
                         <tbody>
                         <tr>
-                            <td><strong>Interest rate</strong></td>
-                            <td>{bankAccount.accountType.interestRate}</td>
+                            <td><strong>Id</strong></td>
+                            <td>{employee.id}</td>
                         </tr>
                         <tr>
-                            <td><strong>Balance</strong></td>
-                            <td>{bankAccount.balance} WALUTA</td>
+                            <td><strong>Salary</strong></td>
+                            <td>{employee.salary} PLN</td>
                         </tr>
                         <tr>
-                            <td><strong>Transfer limit</strong></td>
-                            <td>{bankAccount.transferLimit}</td>
+                            <td><strong>Gender</strong></td>
+                            <td>{employee.gender === 'F' ? "Female" : "Male"}</td>
                         </tr>
                         <tr>
-                            <td><strong>Active</strong></td>
-                            <td>{bankAccount.isActive}</td>
+                            <td><strong>Date of birth</strong></td>
+                            <td>{getDate(employee.dateOfBirth)}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date of employment</strong></td>
+                            <td>{getDate(employee.dateOfEmployment)}</td>
                         </tr>
                         </tbody>
                     </Table>
                     <Col className="d-flex justify-content-end">
-                        <Link to={`/accounts/${bankAccount.id}/edit`}>
+                        <Link to={`/employees/${employee.id}/edit`}>
                             <Button className="me-2" variant="outline-primary">
                                 <FontAwesomeIcon icon={faEdit}/>
                             </Button>
@@ -61,13 +70,13 @@ const BankAccountListItem: FC<BankAccountListItemProps> = ({bankAccount, deleteB
             </Card>
             <ConfirmationModal
                 title={"Delete confirmation"}
-                message={"Are you sure you want to delete this account?"}
+                message={"Are you sure you want to delete this employee?"}
                 isShown={modalIsShown}
-                confirm={deleteAccountHandler}
+                confirm={deleteEmployeeHandler}
                 hide={hideModal}
             />
         </>
     );
 }
 
-export default BankAccountListItem;
+export default EmployeeListItem;
