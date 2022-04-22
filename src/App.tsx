@@ -8,11 +8,11 @@ import Home from "./components/Home/Home";
 import EmployeeList from "./components/EmployeeList/EmployeeList";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AddEmployee from "./components/AddEmployee/AddEmployee";
-import EditEmployee from "./components/EditEmployee/EditEmployee";
 import CustomerList from "./components/CustomerList/CustomerList";
 import AddCustomer from "./components/AddCustomer/AddCustomer";
 import AddBankAccount from "./components/AddBankAccount/AddBankAccount";
 import BankAccountList from "./components/BankAccountList/BankAccountList";
+import NotYetImplemented from "./components/NotYetImplemented/NotYetImplemented";
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
     {
@@ -45,15 +45,17 @@ function App() {
                     <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
                         <Route path="/employees" element={<EmployeeList/>}/>
                         <Route path="/employees/create" element={<AddEmployee/>}/>
-                        <Route path="/employees/:id/edit" element={<EditEmployee/>}/>
+                        <Route path="/employees/:id/edit" element={<NotYetImplemented/>}/>
                     </Route>
 
                     <Route element={<ProtectedRoute allowedRoles={['Employee']}/>}>
                         <Route path="/customers" element={<CustomerList/>}/>
                         <Route path="/customers/create" element={<AddCustomer/>}/>
-                        <Route path="/customers/:id/edit" element={<Home/>}/>
+                        <Route path="/customers/:id/edit" element={<NotYetImplemented/>}/>
                         <Route path="/customers/:id/accounts" element={<BankAccountList/>}/>
                         <Route path="/customers/:id/accounts/create" element={<AddBankAccount/>}/>
+
+                        <Route path="/accounts/:id/edit" element={<NotYetImplemented/>}/>
                     </Route>
 
                     {token && <Route path="/" element={<Home/>}/>}
