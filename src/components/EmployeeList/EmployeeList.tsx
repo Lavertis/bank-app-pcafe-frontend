@@ -14,14 +14,14 @@ const EmployeeList: FC<EmployeeListProps> = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get('Employee')
+            const response = await axios.get('employee')
             const employees = await response.data;
             setEmployees(employees);
         })();
     }, [axios]);
 
     const deleteEmployee = async (id: string) => {
-        axios.delete(`/Employee/${id}`)
+        axios.delete(`employee/${id}`)
             .then(() => {
                 setEmployees(employees.filter(employee => employee.id !== id));
             })

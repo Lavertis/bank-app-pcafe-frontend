@@ -38,16 +38,26 @@ const MyNavbar: FC<MyNavbarProps> = () => {
         )
     }
 
+    const getEmployeeNavLinks = () => {
+        return (
+            <>
+                <LinkContainer to="/customers">
+                    <Nav.Link>Customers</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/customers/create">
+                    <Nav.Link>Create Customer</Nav.Link>
+                </LinkContainer>
+            </>
+        )
+    }
+
     const getNavLinks = () => {
         const role = getRoleFromToken(token);
         switch (role) {
             case "Admin":
                 return getAdminNavLinks();
             case "Employee":
-                return (
-                    <>
-                    </>
-                )
+                return getEmployeeNavLinks();
             case "Customer":
                 return (
                     <>

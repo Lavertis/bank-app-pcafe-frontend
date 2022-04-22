@@ -1,12 +1,13 @@
 import {AppUser} from "./AppUser";
 
-export interface Employee {
+export interface Customer {
     id: string;
     firstName: string;
+    secondName: string;
     lastName: string;
-    salary: number;
-    gender: string;
-    dateOfEmployment: Date;
+    nationalId: string;
     dateOfBirth: Date;
+    cityOfBirth: string;
+    fathersName: string;
     appUser: AppUser;
 }
