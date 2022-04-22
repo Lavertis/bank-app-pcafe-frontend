@@ -12,6 +12,7 @@ import EditEmployee from "./components/EditEmployee/EditEmployee";
 import CustomerList from "./components/CustomerList/CustomerList";
 import AddCustomer from "./components/AddCustomer/AddCustomer";
 import AddBankAccount from "./components/AddBankAccount/AddBankAccount";
+import BankAccountList from "./components/BankAccountList/BankAccountList";
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
     {
@@ -51,6 +52,7 @@ function App() {
                         <Route path="/customers" element={<CustomerList/>}/>
                         <Route path="/customers/create" element={<AddCustomer/>}/>
                         <Route path="/customers/:id/edit" element={<Home/>}/>
+                        <Route path="/customers/:id/accounts" element={<BankAccountList/>}/>
                         <Route path="/customers/:id/accounts/create" element={<AddBankAccount/>}/>
                     </Route>
 

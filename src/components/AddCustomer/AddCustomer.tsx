@@ -42,7 +42,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
             fathersName: '',
         },
         onSubmit: values => {
-            axios.post("customer", {
+            axios.post("customers", {
                 ...values,
                 dateOfBirth: moment(values.dateOfBirth).utc()
             })

@@ -39,7 +39,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
             dateOfBirth: Date.now()
         },
         onSubmit: values => {
-            axios.post("employee", {
+            axios.post("employees", {
                 ...values,
                 dateOfBirth: moment(values.dateOfBirth).utc(),
                 dateOfEmployment: moment(values.dateOfEmployment).utc()

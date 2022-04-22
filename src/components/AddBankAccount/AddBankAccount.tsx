@@ -36,7 +36,7 @@ const AddBankAccount: FC<AddBankAccountProps> = () => {
         },
         onSubmit: values => {
             console.log(values)
-            axios.post("account", values)
+            axios.post("accounts", values)
                 .then((response: AxiosResponse) => {
                     console.log(response.data)
                     navigate(`/customers/${id}/accounts`, {replace: true})
@@ -55,7 +55,7 @@ const AddBankAccount: FC<AddBankAccountProps> = () => {
     });
 
     useEffect(() => {
-        axios.get("accountType")
+        axios.get("account-types")
             .then((response: AxiosResponse) => {
                 setAccountTypes(response.data)
             })
@@ -66,7 +66,7 @@ const AddBankAccount: FC<AddBankAccountProps> = () => {
     }, [axios])
 
     useEffect(() => {
-        axios.get(`accountType/${formik.values.accountTypeId}/currencies`)
+        axios.get(`account-types/${formik.values.accountTypeId}/currencies`)
             .then((response: AxiosResponse) => {
                 setCurrencies(response.data)
                 formik.setFieldValue('currencyId', response.data[0].id)

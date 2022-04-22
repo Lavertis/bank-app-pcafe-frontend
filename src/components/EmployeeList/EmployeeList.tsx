@@ -14,14 +14,14 @@ const EmployeeList: FC<EmployeeListProps> = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get('employee')
+            const response = await axios.get('employees')
             const employees = await response.data;
             setEmployees(employees);
         })();
     }, [axios]);
 
     const deleteEmployee = async (id: string) => {
-        axios.delete(`employee/${id}`)
+        axios.delete(`employees/${id}`)
             .then(() => {
                 setEmployees(employees.filter(employee => employee.id !== id));
             })
@@ -34,9 +34,9 @@ const EmployeeList: FC<EmployeeListProps> = () => {
         <Col xs={11} sm={8} lg={6} className="mx-auto my-5">
             {
                 employees.map(employee => (
-                    <div className="mt-4" key={employee.id}>
+                    <Col className="mb-4" key={employee.id}>
                         <EmployeeListItem employee={employee} deleteEmployee={deleteEmployee}/>
-                    </div>
+                    </Col>
                 ))
             }
         </Col>

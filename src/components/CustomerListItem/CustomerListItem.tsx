@@ -24,6 +24,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
 
     const deleteCustomerHandler = () => {
         deleteCustomer(customer.id);
+        hideModal()
     };
 
     return (

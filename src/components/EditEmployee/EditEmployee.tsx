@@ -43,7 +43,7 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
             dateOfBirth: employee?.dateOfBirth
         },
         onSubmit: values => {
-            axios.put(`employee/${id}`, {
+            axios.put(`employees/${id}`, {
                 ...values,
                 dateOfBirth: moment(values.dateOfBirth).utc(),
                 dateOfEmployment: moment(values.dateOfEmployment).utc()
@@ -65,7 +65,7 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
     });
 
     useEffect(() => {
-        axios.get(`/employee/${id}`)
+        axios.get(`employees/${id}`)
             .then((response: AxiosResponse) => {
                 setEmployee(response.data)
                 formik.setValues(response.data)

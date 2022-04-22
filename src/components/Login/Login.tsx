@@ -23,7 +23,7 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
             password: ''
         },
         onSubmit: values => {
-            axios.post("Auth/authenticate", values)
+            axios.post("auth/authenticate", values)
                 .then((response: AxiosResponse) => {
                     setToken(response.data.jwtToken)
                     localStorage.setItem("jwtToken", response.data.jwtToken)

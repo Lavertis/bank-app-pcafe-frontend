@@ -14,14 +14,14 @@ const CustomerList: FC<CustomerListProps> = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get('customer')
+            const response = await axios.get('customers')
             const employees = await response.data;
             setCustomers(employees);
         })();
     }, [axios]);
 
     const deleteCustomer = async (id: string) => {
-        axios.delete(`customer/${id}`)
+        axios.delete(`customers/${id}`)
             .then(() => {
                 setCustomers(customers.filter(customer => customer.id !== id));
             })
@@ -34,7 +34,7 @@ const CustomerList: FC<CustomerListProps> = () => {
         <Col xs={11} sm={8} lg={6} className="mx-auto my-5">
             {
                 customers.map(customer => (
-                    <div className="mt-4" key={customer.id}>
+                    <div className="mb-4" key={customer.id}>
                         <CustomerListItem customer={customer} deleteCustomer={deleteCustomer}/>
                     </div>
                 ))
