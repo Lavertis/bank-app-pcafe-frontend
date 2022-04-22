@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AddEmployee from "./components/AddEmployee/AddEmployee";
 import EditEmployee from "./components/EditEmployee/EditEmployee";
 import CustomerList from "./components/CustomerList/CustomerList";
+import AddCustomer from "./components/AddCustomer/AddCustomer";
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
     {
@@ -52,7 +53,7 @@ function App() {
 
                     <Route element={<ProtectedRoute allowedRoles={['Employee']}/>}>
                         <Route path="/customers" element={<CustomerList/>}/>
-                        <Route path="/customers/create" element={<Home/>}/>
+                        <Route path="/customers/create" element={<AddCustomer/>}/>
                         <Route path="/customers/edit/:id" element={<Home/>}/>
                     </Route>
                 </Routes>
