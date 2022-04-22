@@ -57,11 +57,8 @@ const MyNavbar: FC<MyNavbarProps> = () => {
     const getCustomerNavLinks = () => {
         return (
             <>
-                <LinkContainer to="/accounts">
-                    <Nav.Link>Accounts</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/transfers">
-                    <Nav.Link>Transfers</Nav.Link>
+                <LinkContainer to="/dashboard">
+                    <Nav.Link>Dashboard</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/transfers/create">
                     <Nav.Link>New Transfer</Nav.Link>

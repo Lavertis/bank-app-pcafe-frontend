@@ -1,12 +1,12 @@
-import {BankAccountType} from "./BankAccountType";
+import {AccountType} from "./AccountType";
 import {Currency} from "./Currency";
 
-export interface BankAccount {
+export interface Account {
     id: number;
     number: number;
     balance: number;
     transferLimit: number;
     isActive: boolean;
-    accountType: BankAccountType;
+    accountType: AccountType;
     currency: Currency;
 }

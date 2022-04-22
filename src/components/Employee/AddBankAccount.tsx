@@ -5,7 +5,7 @@ import * as yup from "yup";
 import {useFormik} from "formik";
 import {AxiosError, AxiosResponse} from "axios";
 import {Alert, Button, Col, Form, InputGroup} from "react-bootstrap";
-import {BankAccountType} from "../../types/BankAccountType";
+import {AccountType} from "../../types/AccountType";
 import {Currency} from "../../types/Currency";
 
 
@@ -14,7 +14,7 @@ interface AddBankAccountProps {
 
 const AddBankAccount: FC<AddBankAccountProps> = () => {
     const {id} = useParams<{ id: string }>();
-    const [accountTypes, setAccountTypes] = useState<BankAccountType[]>([]);
+    const [accountTypes, setAccountTypes] = useState<AccountType[]>([]);
     const [currencies, setCurrencies] = useState<Currency[]>([]);
     const [serverErrors, setServerErrors] = useState<string[]>([])
     const navigate = useNavigate()

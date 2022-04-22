@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {BankAccount} from "../../../types/BankAccount";
+import {Account} from "../../../types/Account";
 import {Button, Card, Col, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import ConfirmationModal from "../../Modals/ConfirmationModal";
 
 
 interface BankAccountListItemProps {
-    bankAccount: BankAccount;
+    bankAccount: Account;
     deleteBankAccount: (bankAccountId: number) => void;
 }
 

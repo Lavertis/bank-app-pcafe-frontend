@@ -1,4 +1,4 @@
-export interface BankAccountType {
+export interface AccountType {
     id: number;
     code: string;
     name: string;

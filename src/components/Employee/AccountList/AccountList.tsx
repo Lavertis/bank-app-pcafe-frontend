@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {useParams} from "react-router-dom";
-import {BankAccount} from "../../../types/BankAccount";
+import {Account} from "../../../types/Account";
 import useAxios from "../../../hooks/useAxios";
 import AccountListItem from "./AccountListItem";
 import {Col} from "react-bootstrap";
@@ -12,7 +12,7 @@ interface BankAccountListProps {
 const AccountList: FC<BankAccountListProps> = () => {
     const {id} = useParams();
     const axios = useAxios();
-    const [bankAccounts, setBankAccounts] = React.useState<BankAccount[]>([]);
+    const [bankAccounts, setBankAccounts] = React.useState<Account[]>([]);
 
     const deleteBankAccount = (id: number) => {
         axios.delete(`/accounts/${id}`)

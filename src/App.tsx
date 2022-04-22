@@ -12,6 +12,7 @@ import AddCustomer from "./components/Employee/AddCustomer";
 import AddBankAccount from "./components/Employee/AddBankAccount";
 import AccountList from "./components/Employee/AccountList/AccountList";
 import NotYetImplemented from "./components/NotYetImplemented";
+import Dashboard from "./components/Customer/Dashboard/Dashboard";
 
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
@@ -55,7 +56,7 @@ function App() {
                     </Route>
 
                     <Route element={<ProtectedRoute allowedRoles={['Customer']}/>}>
-                        <Route path="/accounts" element={<NotYetImplemented/>}/>
+                        <Route path="/dashboard" element={<Dashboard/>}/>
                     </Route>
                 </Routes>
             </Layout>
