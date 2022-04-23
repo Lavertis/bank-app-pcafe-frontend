@@ -1,52 +1,69 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import "./App.css";
-import * as Component from './Components'
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
+import './App.scss';
+import Layout from "./components/Layout/Layout";
+import {Route, Routes} from "react-router-dom";
+import Login from "./components/Auth/Login";
+import Home from "./components/Home";
+import EmployeeList from "./components/Admin/EmployeeList/EmployeeList";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import AddEmployee from "./components/Admin/AddEmployee";
+import CustomerList from "./components/Employee/CustomerList/CustomerList";
+import AddCustomer from "./components/Employee/AddCustomer";
+import AddAccount from "./components/Employee/AddAccount";
+import AccountList from "./components/Employee/AccountList/AccountList";
+import NotYetImplemented from "./components/NotYetImplemented";
+import Dashboard from "./components/Customer/Dashboard/Dashboard";
+import NewTransfer from "./components/Customer/NewTransfer";
 
 
-
-
+export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
+    {
+        token: '',
+        setToken: () => {
+        }
+    }
+);
 
 function App() {
-  return (
-    <div className='min-h-screen bg-slate-100 box-border'>
-      <Routes>
-        {/*public routes*/}
-        <Route path='/' element={<Component.Welcome />}/>
-        <Route path='/login' element={<Component.Login />} />
+    const [token, setToken] = React.useState<string>(localStorage.getItem('jwtToken') ?? '');
 
-        {/*protected routes */}
-        {/* CRUD Employee*/}
+    useEffect(() => {
+        document.title = "Bank App"
+    }, []);
 
-        {/*<Route element={<RequireRole allowedRole={'Admin'} />}></Route>*/}
-          <Route path='/admin/WelcomeAdmin' element={<Component.WelcomeAdmin />} />
-          <Route path='/admin/GetUsers' element={<Component.GetUsers />} />
-          <Route path='/admin/GetUserByID' element={<Component.GetUserById />} />
-          <Route path='/admin/CreateEmployeeAccount' element={<Component.CreateEmployeeAccount />} />
-          <Route path='/admin/UpdateUser' element={<Component.UpdateUser />} />
-          <Route path='/admin/DeleteEmployee' element={<Component.DeleteEmployee />} />
-            {/*CRUD customer*/}
+    return (
+        <TokenContext.Provider value={{token, setToken}}>
+            <Layout>
+                <Routes>
+                    {token && <Route path="/" element={<Home/>}/>}
+                    <Route path="/" element={<Login redirectTo="/"/>}/>
 
-          <Route path='/employee/WelcomeEmployee' element={<Component.WelcomeEmployee />} />
-          <Route path='/employee/customer/GetCustomers' element={<Component.GetCustomers />} />
-          <Route path='/employee/customer/GetCustomersByID' element={<Component.GetCustomerById />} />
-          <Route path='/employee/customer/CreateCustomerAccount' element={<Component.CreateCustomerAccount />} />
-          <Route path='/employee/customer/UpdateCustomer' element={<Component.UpdateCustomer />} />
-          <Route path='/employee/customer/DeleteCustomer' element={<Component.DeleteCustomer />} />
-          {/* CRUD account*/}
-          <Route path='/employee/account/CreateBankAccount' element={<Component.CreateBankAccount />} />
-          <Route path='/employee/account/GetBankAccounts' element={<Component.GetBankAccounts />} />
-          <Route path='/employee/account/GetBankAccountById' element={<Component.GetBankAccountById />} />
-          <Route path='/employee/account/UpdateBankAccount' element={<Component.UpdateBankAccount />} />
-          {/*CRUD transfer */}
-          <Route path='/user/GetTransfers' element={<Component.GetTransfers />} />
-          <Route path='/user/GetTransferById' element={<Component.GetTransferById />} />
-          <Route path='/user/CreateTransfer' element={<Component.CreateTransfer />} />
-          <Route path='/user/WelcomeUser' element={<Component.WelcomeUser />} />
-      </Routes>
-    </div>
-    
-  );
+                    {!token && <Route path="/login" element={<Login redirectTo="/"/>}/>}
+
+                    <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
+                        <Route path="/employees" element={<EmployeeList/>}/>
+                        <Route path="/employees/create" element={<AddEmployee/>}/>
+                        <Route path="/employees/:id/edit" element={<NotYetImplemented/>}/>
+                    </Route>
+
+                    <Route element={<ProtectedRoute allowedRoles={['Employee']}/>}>
+                        <Route path="/customers" element={<CustomerList/>}/>
+                        <Route path="/customers/create" element={<AddCustomer/>}/>
+                        <Route path="/customers/:id/edit" element={<NotYetImplemented/>}/>
+                        <Route path="/customers/:id/accounts" element={<AccountList/>}/>
+                        <Route path="/customers/:id/accounts/create" element={<AddAccount/>}/>
+
+                        <Route path="/accounts/:id/edit" element={<NotYetImplemented/>}/>
+                    </Route>
+
+                    <Route element={<ProtectedRoute allowedRoles={['Customer']}/>}>
+                        <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/transfers/new" element={<NewTransfer/>}/>
+                    </Route>
+                </Routes>
+            </Layout>
+        </TokenContext.Provider>
+    );
 }
 
 export default App;
