@@ -33,7 +33,7 @@ const AccountTableRow: FC<AccountTableRowProps> = ({account, deleteAccount}) => 
                 <td>{account.currency.code}</td>
                 <td>{account.isActive ? 'Active' : 'Deactivated'}</td>
                 <td>
-                    <Col className="d-flex justify-content-end">
+                    <Col className="d-flex justify-content-center">
                         <Link to={`/accounts/${account.id}/edit`}>
                             <Button className="me-2" variant="outline-primary">
                                 <FontAwesomeIcon icon={faEdit}/>

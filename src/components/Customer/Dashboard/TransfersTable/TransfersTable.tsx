@@ -23,7 +23,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     }, [axios])
 
     return (
-        <Table className="text-center">
+        <Table responsive striped className="text-center">
             <thead>
             <tr>
                 <th>Receiver's name</th>

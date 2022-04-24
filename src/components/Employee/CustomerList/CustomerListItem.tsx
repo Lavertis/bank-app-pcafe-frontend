@@ -29,55 +29,53 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
 
     return (
         <>
-            <Card>
-                <Card.Body>
-                    <Card.Title>{customer.firstName} {customer.secondName} {customer.lastName}</Card.Title>
-                    <Table>
-                        <tbody>
-                        <tr>
-                            <td><strong>Id</strong></td>
-                            <td>{customer.id}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>National ID</strong></td>
-                            <td>{customer.nationalId}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Date of birth</strong></td>
-                            <td>{getDate(customer.dateOfBirth)}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Father's name</strong></td>
-                            <td>{customer.fathersName}</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                    <Col xs={12} className="d-flex justify-content-between">
-                        <Col className="d-flex flex-row" xs={"auto"}>
-                            <Link to={`/customers/${customer.id}/accounts/create`}>
-                                <Button className="me-2" variant="outline-primary">
-                                    Create new account
-                                </Button>
-                            </Link>
-                            <Link to={`/customers/${customer.id}/accounts`}>
-                                <Button className="me-2" variant="outline-primary">
-                                    View Accounts
-                                </Button>
-                            </Link>
-                        </Col>
-                        <Col className="d-flex justify-content-end" xs={"auto"}>
-                            <Link to={`/customers/${customer.id}/edit`}>
-                                <Button className="me-2" variant="outline-primary">
-                                    <FontAwesomeIcon icon={faEdit}/>
-                                </Button>
-                            </Link>
-                            <Button variant="outline-danger" onClick={showModal}>
-                                <FontAwesomeIcon icon={faTrash}/>
-                            </Button>
-                        </Col>
-                    </Col>
-                </Card.Body>
-            </Card>
+            <Card.Title>National ID: {customer.nationalId}</Card.Title>
+            <Table responsive className="text-center">
+                <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Second name</th>
+                    <th>Last name</th>
+                    <th>Date of birth</th>
+                    <th>City of birth</th>
+                    <th>Father's name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{customer.firstName}</td>
+                    <td>{customer.secondName}</td>
+                    <td>{customer.lastName}</td>
+                    <td>{getDate(customer.dateOfBirth)}</td>
+                    <td>{customer.cityOfBirth}</td>
+                    <td>{customer.fathersName}</td>
+                </tr>
+                </tbody>
+            </Table>
+            <Col xs={12} className="d-flex justify-content-between">
+                <Col className="d-flex flex-row" xs={"auto"}>
+                    <Link to={`/customers/${customer.id}/accounts/create`}>
+                        <Button className="me-2" variant="outline-primary">
+                            Create new account
+                        </Button>
+                    </Link>
+                    <Link to={`/customers/${customer.id}/accounts`}>
+                        <Button className="me-2" variant="outline-primary">
+                            View Accounts
+                        </Button>
+                    </Link>
+                </Col>
+                <Col className="d-flex justify-content-end" xs={"auto"}>
+                    <Link to={`/customers/${customer.id}/edit`}>
+                        <Button className="me-2" variant="outline-primary">
+                            <FontAwesomeIcon icon={faEdit}/>
+                        </Button>
+                    </Link>
+                    <Button variant="outline-danger" onClick={showModal}>
+                        <FontAwesomeIcon icon={faTrash}/>
+                    </Button>
+                </Col>
+            </Col>
             <ConfirmationModal
                 variant={'danger'}
                 title={"Delete confirmation"}
