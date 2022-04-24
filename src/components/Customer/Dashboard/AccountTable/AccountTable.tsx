@@ -2,13 +2,13 @@ import React, {FC, useEffect} from 'react';
 import {Account} from "../../../../types/Account";
 import useAxios from "../../../../hooks/useAxios";
 import {Table} from "react-bootstrap";
-import AccountsTableRow from "./AccountsTableRow";
+import AccountTableRow from "./AccountTableRow";
 
 
 interface AccountTableProps {
 }
 
-const AccountsTable: FC<AccountTableProps> = () => {
+const AccountTable: FC<AccountTableProps> = () => {
     const [accounts, setAccounts] = React.useState<Account[]>([]);
     const axios = useAxios()
 
@@ -35,11 +35,11 @@ const AccountsTable: FC<AccountTableProps> = () => {
             </thead>
             <tbody>
             {accounts.map(account => (
-                <AccountsTableRow account={account} key={account.id}/>
+                <AccountTableRow account={account} key={account.id}/>
             ))}
             </tbody>
         </Table>
     );
 }
 
-export default AccountsTable;
+export default AccountTable;
