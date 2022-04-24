@@ -28,22 +28,20 @@ const AccountListItem: FC<AccountListItemProps> = ({account, deleteAccount}) => 
                 <Card.Body>
                     <Card.Title>{account.number}</Card.Title>
                     <Table>
+                        <thead>
+                        <tr>
+                            <th>Balance</th>
+                            <th>Transfer limit</th>
+                            <th>Interest rate</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         <tr>
-                            <td><strong>Interest rate</strong></td>
-                            <td>{account.accountType.interestRate}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Balance</strong></td>
-                            <td>{account.balance} {account.currency.code}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Transfer limit</strong></td>
+                            <td>{account.balance.toFixed(2)} {account.currency.code}</td>
                             <td>{account.transferLimit}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Active</strong></td>
-                            <td>{account.isActive ? 'Yes' : 'No'}</td>
+                            <td>+{account.accountType.interestRate}%</td>
+                            <td>{account.isActive ? 'Active' : 'Inactive'}</td>
                         </tr>
                         </tbody>
                     </Table>

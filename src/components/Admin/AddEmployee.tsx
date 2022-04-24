@@ -8,7 +8,6 @@ import * as yup from 'yup';
 import YupPassword from 'yup-password'
 
 YupPassword(yup);
-
 const addEmployeeValidationSchema = yup.object().shape({
     userName: yup.string().required().min(4).max(16).label('Username'),
     password: yup.string().password().required().label('Password'),
@@ -62,6 +61,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                     if (error.response && error.response.status >= 400 && error.response.status <= 500) {
                         setServerErrors([])
                         const errors = error.response.data.errors
+                        console.log(errors)
                         Object.keys(errors).forEach(key => {
                             setServerErrors(serverErrors => [...serverErrors, errors[key]])
                         })
