@@ -23,7 +23,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     }, [axios])
 
     return (
-        <Table className="text-center">
+        <Table responsive striped className="text-center">
             <thead>
             <tr>
                 <th>Account type</th>

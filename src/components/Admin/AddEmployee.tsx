@@ -203,10 +203,14 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                     <Form.Control.Feedback type="invalid">{formik.errors.dateOfEmployment}</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="d-grid mt-4">
-                    <Button type="submit" variant="primary">Create Employee</Button>
-                    <Button variant="secondary" className="mt-2" onClick={() => navigate(-1)}>
-                        Cancel
-                    </Button>
+                    <Col className="d-flex justify-content-end">
+                        <Button type="submit" variant="primary" className="me-2">
+                            Create Employee
+                        </Button>
+                        <Button variant="secondary" onClick={() => navigate(-1)}>
+                            Cancel
+                        </Button>
+                    </Col>
                 </Form.Group>
             </Form>
         </Col>
