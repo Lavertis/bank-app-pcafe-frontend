@@ -152,7 +152,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                         isValid={formik.touched.salary && !formik.errors.salary}
                         isInvalid={formik.touched.salary && !!formik.errors.salary}
                     />
-                    <InputGroup.Text>PLN</InputGroup.Text>
+                    <InputGroup.Text className="rounded-end">PLN</InputGroup.Text>
                     <label htmlFor="inputSalary" style={{zIndex: 3}}>Salary</label>
                 </Form.Floating>
                 <Form.Group className="mb-3">

@@ -15,7 +15,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     useEffect(() => {
         axios.get('transfers/customer/auth')
             .then(res => {
-                setTransfers(res.data.slice(0, 10))
+                setTransfers(res.data.slice(0, 5))
             })
             .catch(err => {
                 console.log(err)

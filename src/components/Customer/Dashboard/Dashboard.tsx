@@ -15,7 +15,7 @@ const Dashboard: FC<DashboardProps> = () => (
             </Col>
         </Col>
         <div className="card">
-            <h5 className="card-header">Transfers</h5>
+            <h5 className="card-header">Last 5 transfers</h5>
             <div className="card-body">
                 <TransfersTable/>
             </div>
