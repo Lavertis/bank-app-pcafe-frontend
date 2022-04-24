@@ -13,9 +13,11 @@ interface ProtectedRouteProps {
 const ProtectedRoute: FC<ProtectedRouteProps> = ({allowedRoles}) => {
     const {token} = useContext(TokenContext);
     const location = useLocation();
-    if (!token) return <Login redirectTo={location.pathname}/>;
-    const role = getRoleFromToken(token);
 
+    if (!token)
+        return <Login redirectTo={location.pathname}/>;
+
+    const role = getRoleFromToken(token);
     return (
         allowedRoles.includes(role) ?
             <Outlet/> : <Error403Forbidden/>

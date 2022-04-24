@@ -6,7 +6,7 @@ interface AccountTableRowProps {
     account: Account
 }
 
-const AccountsTableRow: FC<AccountTableRowProps> = ({account}) => (
+const AccountTableRow: FC<AccountTableRowProps> = ({account}) => (
     <tr>
         <td>{account.accountType.name}</td>
         <td>{account.number}</td>
@@ -16,4 +16,4 @@ const AccountsTableRow: FC<AccountTableRowProps> = ({account}) => (
     </tr>
 );
 
-export default AccountsTableRow;
+export default AccountTableRow;

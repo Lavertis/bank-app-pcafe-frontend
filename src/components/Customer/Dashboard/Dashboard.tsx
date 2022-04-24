@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Col} from "react-bootstrap";
-import AccountsTable from "./AccountsTable/AccountsTable";
+import AccountTable from "./AccountTable/AccountTable";
 import TransfersTable from "./TransfersTable/TransfersTable";
 
 interface DashboardProps {
@@ -11,11 +11,11 @@ const Dashboard: FC<DashboardProps> = () => (
         <Col className="card mb-4">
             <h5 className="card-header">Accounts</h5>
             <Col className="card-body">
-                <AccountsTable/>
+                <AccountTable/>
             </Col>
         </Col>
         <div className="card">
-            <h5 className="card-header">Transfers</h5>
+            <h5 className="card-header">Last 5 transfers</h5>
             <div className="card-body">
                 <TransfersTable/>
             </div>

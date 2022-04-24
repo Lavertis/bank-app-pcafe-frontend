@@ -1,18 +1,18 @@
 import React, {FC, useState} from 'react';
 import {Account} from "../../../types/Account";
-import {Button, Card, Col, Table} from "react-bootstrap";
+import {Button, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import ConfirmationModal from "../../Modals/ConfirmationModal";
 
 
-interface AccountListItemProps {
+interface AccountTableRowProps {
     account: Account;
     deleteAccount: (accountId: number) => void;
 }
 
-const AccountListItem: FC<AccountListItemProps> = ({account, deleteAccount}) => {
+const AccountTableRow: FC<AccountTableRowProps> = ({account, deleteAccount}) => {
     const [modalIsShown, setModalIsShown] = useState(false);
     const hideModal = () => setModalIsShown(false);
     const showModal = () => setModalIsShown(true);
@@ -24,29 +24,15 @@ const AccountListItem: FC<AccountListItemProps> = ({account, deleteAccount}) => 
 
     return (
         <>
-            <Card>
-                <Card.Body>
-                    <Card.Title>{account.number}</Card.Title>
-                    <Table>
-                        <tbody>
-                        <tr>
-                            <td><strong>Interest rate</strong></td>
-                            <td>{account.accountType.interestRate}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Balance</strong></td>
-                            <td>{account.balance} {account.currency.code}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Transfer limit</strong></td>
-                            <td>{account.transferLimit}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Active</strong></td>
-                            <td>{account.isActive ? 'Yes' : 'No'}</td>
-                        </tr>
-                        </tbody>
-                    </Table>
+            <tr>
+                <td>{account.number}</td>
+                <td>{account.accountType.name}</td>
+                <td>{account.balance.toFixed(2)} {account.currency.code}</td>
+                <td>{account.transferLimit} {account.currency.code}</td>
+                <td>+{account.accountType.interestRate}%</td>
+                <td>{account.currency.code}</td>
+                <td>{account.isActive ? 'Active' : 'Deactivated'}</td>
+                <td>
                     <Col className="d-flex justify-content-end">
                         <Link to={`/accounts/${account.id}/edit`}>
                             <Button className="me-2" variant="outline-primary">
@@ -57,8 +43,8 @@ const AccountListItem: FC<AccountListItemProps> = ({account, deleteAccount}) => 
                             <FontAwesomeIcon icon={faTrash}/>
                         </Button>
                     </Col>
-                </Card.Body>
-            </Card>
+                </td>
+            </tr>
             <ConfirmationModal
                 variant={'danger'}
                 title={"Delete confirmation"}
@@ -71,4 +57,4 @@ const AccountListItem: FC<AccountListItemProps> = ({account, deleteAccount}) => 
     );
 }
 
-export default AccountListItem;
+export default AccountTableRow;

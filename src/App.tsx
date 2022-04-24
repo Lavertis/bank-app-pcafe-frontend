@@ -10,7 +10,7 @@ import AddEmployee from "./components/Admin/AddEmployee";
 import CustomerList from "./components/Employee/CustomerList/CustomerList";
 import AddCustomer from "./components/Employee/AddCustomer";
 import AddAccount from "./components/Employee/AddAccount";
-import AccountList from "./components/Employee/AccountList/AccountList";
+import AccountTable from "./components/Employee/AccountTable/AccountTable";
 import NotYetImplemented from "./components/NotYetImplemented";
 import Dashboard from "./components/Customer/Dashboard/Dashboard";
 import NewTransfer from "./components/Customer/NewTransfer";
@@ -50,7 +50,7 @@ function App() {
                         <Route path="/customers" element={<CustomerList/>}/>
                         <Route path="/customers/create" element={<AddCustomer/>}/>
                         <Route path="/customers/:id/edit" element={<NotYetImplemented/>}/>
-                        <Route path="/customers/:id/accounts" element={<AccountList/>}/>
+                        <Route path="/customers/:id/accounts" element={<AccountTable/>}/>
                         <Route path="/customers/:id/accounts/create" element={<AddAccount/>}/>
 
                         <Route path="/accounts/:id/edit" element={<NotYetImplemented/>}/>
