@@ -198,10 +198,14 @@ const AddCustomer: FC<AddCustomerProps> = () => {
                     <Form.Control.Feedback type="invalid">{formik.errors.fathersName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
-                    <Button type="submit" variant="primary">Create Customer</Button>
-                    <Button variant="secondary" className="mt-2" onClick={() => navigate(-1)}>
-                        Cancel
-                    </Button>
+                    <Col className="d-flex justify-content-end">
+                        <Button type="submit" variant="primary" className="me-2">
+                            Create Customer
+                        </Button>
+                        <Button variant="secondary" onClick={() => navigate(-1)}>
+                            Cancel
+                        </Button>
+                    </Col>
                 </Form.Group>
             </Form>
         </Col>

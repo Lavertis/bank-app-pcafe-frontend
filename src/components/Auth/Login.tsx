@@ -71,7 +71,7 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
                     <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
                 </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
-                    <Button type="submit" variant="primary">Login</Button>
+                    <Button type="submit" variant="primary">Sign In</Button>
                 </Form.Group>
             </Form>
         </Col>

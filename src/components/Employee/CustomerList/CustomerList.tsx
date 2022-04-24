@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import useAxios from "../../../hooks/useAxios";
-import {Col} from "react-bootstrap";
+import {Card, Col} from "react-bootstrap";
 import CustomerListItem from "./CustomerListItem";
 import {Customer} from "../../../types/Customer";
 
@@ -9,15 +9,17 @@ interface CustomerListProps {
 }
 
 const CustomerList: FC<CustomerListProps> = () => {
-    const [customers, setCustomers] = React.useState<Customer[]>([]);
     const axios = useAxios();
+    const [customers, setCustomers] = React.useState<Customer[]>([]);
 
     useEffect(() => {
-        (async () => {
-            const response = await axios.get('customers')
-            const employees = await response.data;
-            setCustomers(employees);
-        })();
+        axios.get('customers')
+            .then(res => {
+                setCustomers(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }, [axios]);
 
     const deleteCustomer = async (id: string) => {
@@ -31,14 +33,14 @@ const CustomerList: FC<CustomerListProps> = () => {
     }
 
     return (
-        <Col xs={11} sm={8} lg={6} className="mx-auto my-5">
-            {
-                customers.map(customer => (
-                    <div className="mb-4" key={customer.id}>
+        <Col xs={11} xl={10} xxl={8} className="mx-auto my-5">
+            {customers.map(customer => (
+                <Card className="mb-3">
+                    <Card.Body>
                         <CustomerListItem customer={customer} deleteCustomer={deleteCustomer}/>
-                    </div>
-                ))
-            }
+                    </Card.Body>
+                </Card>
+            ))}
         </Col>
     );
 }

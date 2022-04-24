@@ -4,7 +4,7 @@ import Layout from "./components/Layout/Layout";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Home from "./components/Home";
-import EmployeeList from "./components/Admin/EmployeeList/EmployeeList";
+import EmployeeTable from "./components/Admin/EmployeeTable/EmployeeTable";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AddEmployee from "./components/Admin/AddEmployee";
 import CustomerList from "./components/Employee/CustomerList/CustomerList";
@@ -41,7 +41,7 @@ function App() {
                     {!token && <Route path="/login" element={<Login redirectTo="/"/>}/>}
 
                     <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
-                        <Route path="/employees" element={<EmployeeList/>}/>
+                        <Route path="/employees" element={<EmployeeTable/>}/>
                         <Route path="/employees/create" element={<AddEmployee/>}/>
                         <Route path="/employees/:id/edit" element={<NotYetImplemented/>}/>
                     </Route>

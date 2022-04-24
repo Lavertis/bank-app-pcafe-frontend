@@ -31,7 +31,8 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     return (
         <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
-            <Table className="text-center">
+            <Table className="text-center caption-top">
+                <caption>Customer's accounts</caption>
                 <thead>
                 <tr>
                     <th>Number</th>
