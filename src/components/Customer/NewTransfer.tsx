@@ -4,29 +4,31 @@ import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
 import {useFormik} from "formik";
 import {AxiosError, AxiosResponse} from "axios";
-import {Alert, Button, Col, Form, InputGroup} from "react-bootstrap";
+import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {Account} from "../../types/Account";
 
+const transferValidationSchema = yup.object().shape({
+    amount: yup.number().required().positive().label('Amount'),
+    receiverAccountNumber: yup.string()
+        .required()
+        .length(16)
+        .matches(/^\d*$/, 'Receiver\'s account number must be a number')
+        .label("Receiver's account number"),
+    receiverName: yup.string().required().min(3).label("Receiver's name"),
+    description: yup.string().label("Description"),
+    senderAccountId: yup.string().required().label("Sender's account id")
+});
 
 interface NewTransferProps {
 }
 
 const NewTransfer: FC<NewTransferProps> = () => {
+    const axios = useAxios()
+    const navigate = useNavigate()
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [serverErrors, setServerErrors] = useState<string[]>([])
-    const navigate = useNavigate()
-    const axios = useAxios()
-
-    const schema = yup.object().shape({
-        amount: yup.number().required().positive(),
-        receiverAccountNumber: yup.string().required().length(16),
-        receiverName: yup.string().required().min(3),
-        description: yup.string(),
-        senderAccountId: yup.string().required()
-    });
 
     const formik = useFormik({
-        validationSchema: schema,
         initialValues: {
             amount: 0,
             receiverAccountNumber: '0'.repeat(16),
@@ -34,18 +36,16 @@ const NewTransfer: FC<NewTransferProps> = () => {
             description: '',
             senderAccountId: ''
         },
+        validationSchema: transferValidationSchema,
         onSubmit: values => {
-            console.log(values)
             axios.post("transfers", values)
-                .then((response: AxiosResponse) => {
-                    console.log(response.data)
+                .then(() => {
                     navigate(`/dashboard`)
                 })
                 .catch((err: AxiosError) => {
                     if (err.response && err.response.status >= 400 && err.response.status <= 500) {
                         setServerErrors([])
                         const errors = err.response.data.errors
-                        console.log(errors)
                         Object.keys(errors).forEach(key => {
                             setServerErrors(serverErrors => [...serverErrors, errors[key]])
                         })
@@ -53,6 +53,11 @@ const NewTransfer: FC<NewTransferProps> = () => {
                 })
         },
     });
+
+    const getSelectedAccountCurrency = () => {
+        return accounts.find(account => account.id.toString() === formik.values.senderAccountId)?.currency.code
+            ?? accounts[0]?.currency.code
+    }
 
     useEffect(() => {
         axios.get(`accounts/customer/auth`)
@@ -65,10 +70,12 @@ const NewTransfer: FC<NewTransferProps> = () => {
             .catch((err: AxiosError) => {
                 console.log(err)
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [axios])
 
     return (
         <Col xs={11} sm={8} md={6} lg={5} xl={4} className="mx-auto my-5 bg-light rounded-3 p-5 shadow">
+            <h3 className="mb-4">Send transfer</h3>
             {
                 serverErrors.length > 0 &&
                 <Alert variant="danger" className="text-center">
@@ -76,106 +83,77 @@ const NewTransfer: FC<NewTransferProps> = () => {
                 </Alert>
             }
             <Form onSubmit={formik.handleSubmit} noValidate>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputAmount">Amount</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            type="number"
-                            name="amount"
-                            id="inputAmount"
-                            step={0.01}
-                            min={0.01}
-                            onChange={formik.handleChange}
-                            value={formik.values.amount}
-                            isValid={formik.touched.amount && !formik.errors.amount}
-                            isInvalid={formik.touched.amount && !!formik.errors.amount}
-                        />
-                        <InputGroup.Text>
-                            {
-                                accounts.find(account => account.id.toString() === formik.values.senderAccountId)?.currency.code
-                                ?? accounts[0]?.currency.code
-                            }
-                        </InputGroup.Text>
-                        <Form.Control.Feedback type="invalid">
-                            {formik.errors.amount}
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputSenderAccountId">From account</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Select
-                            name="senderAccountId"
-                            id="inputSenderAccountId"
-                            onChange={formik.handleChange}
-                            value={formik.values.senderAccountId}
-                            isValid={formik.touched.senderAccountId && !formik.errors.senderAccountId}
-                            isInvalid={formik.touched.senderAccountId && !!formik.errors.senderAccountId}>
-                            {accounts.map(account => (
-                                <option key={account.id} value={account.id}>
-                                    {account.number} ({account.balance} {account.currency.code})
-                                </option>
-                            ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                            {formik.errors.senderAccountId}
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputReceiverAccountNumber">Receiver's account number</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            type="text"
-                            name="receiverAccountNumber"
-                            id="inputReceiverAccountNumber"
-                            onChange={formik.handleChange}
-                            value={formik.values.receiverAccountNumber}
-                            isValid={formik.touched.receiverAccountNumber && !formik.errors.receiverAccountNumber}
-                            isInvalid={formik.touched.receiverAccountNumber && !!formik.errors.receiverAccountNumber}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {formik.errors.receiverAccountNumber}
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputReceiverName">Receiver's name</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            type="text"
-                            name="receiverName"
-                            id="inputReceiverName"
-                            onChange={formik.handleChange}
-                            value={formik.values.receiverName}
-                            isValid={formik.touched.receiverName && !formik.errors.receiverName}
-                            isInvalid={formik.touched.receiverName && !!formik.errors.receiverName}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {formik.errors.receiverName}
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputDescription">Description</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            as="textarea"
-                            rows={3}
-                            id="inputDescription"
-                            name="description"
-                            onChange={formik.handleChange}
-                            value={formik.values.description}
-                            isValid={formik.touched.description && !formik.errors.description}
-                            isInvalid={formik.touched.description && !!formik.errors.description}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {formik.errors.description}
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
+                <Form.Floating className="mb-3 flex-grow-1 input-group">
+                    <Form.Control
+                        type="number"
+                        name="amount"
+                        id="inputAmount"
+                        placeholder="Amount"
+                        min={0}
+                        step={1}
+                        onChange={formik.handleChange}
+                        value={formik.values.amount}
+                        isValid={formik.touched.amount && !formik.errors.amount}
+                        isInvalid={formik.touched.amount && !!formik.errors.amount}
+                    />
+                    <InputGroup.Text className="rounded-end">{getSelectedAccountCurrency()}</InputGroup.Text>
+                    <label htmlFor="inputSalary" style={{zIndex: 3}}>Amount</label>
+                    <Form.Control.Feedback type="invalid">{formik.errors.amount}</Form.Control.Feedback>
+                </Form.Floating>
+                <FloatingLabel controlId="inputSenderAccountId" label="From account" className="mb-3">
+                    <Form.Select
+                        name="senderAccountId"
+                        id="inputSenderAccountId"
+                        onChange={formik.handleChange}
+                        value={formik.values.senderAccountId}
+                        isValid={formik.touched.senderAccountId && !formik.errors.senderAccountId}
+                        isInvalid={formik.touched.senderAccountId && !!formik.errors.senderAccountId}>
+                        {accounts.map(account => (
+                            <option key={account.id} value={account.id}>
+                                {account.number} ({account.balance.toFixed(2)} {account.currency.code})
+                            </option>
+                        ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">{formik.errors.senderAccountId}</Form.Control.Feedback>
+                </FloatingLabel>
+                <FloatingLabel controlId="inputReceiverAccountNumber" label="Receiver's account number"
+                               className="mb-3">
+                    <Form.Control
+                        type="text"
+                        name="receiverAccountNumber"
+                        onChange={formik.handleChange}
+                        value={formik.values.receiverAccountNumber}
+                        isInvalid={formik.touched.receiverAccountNumber && !!formik.errors.receiverAccountNumber}
+                    />
+                    <Form.Control.Feedback type="invalid">{formik.errors.receiverAccountNumber}</Form.Control.Feedback>
+                </FloatingLabel>
+                <FloatingLabel controlId="inputReceiverName" label="Receiver's name" className="mb-3">
+                    <Form.Control
+                        type="text"
+                        name="receiverName"
+                        placeholder="Receiver's name"
+                        onChange={formik.handleChange}
+                        value={formik.values.receiverName}
+                        isValid={formik.touched.receiverName && !formik.errors.receiverName}
+                        isInvalid={formik.touched.receiverName && !!formik.errors.receiverName}
+                    />
+                    <Form.Control.Feedback type="invalid">{formik.errors.receiverName}</Form.Control.Feedback>
+                </FloatingLabel>
+                <FloatingLabel controlId="inputDescription" label="Description" className="mb-3">
+                    <Form.Control
+                        as="textarea"
+                        name="description"
+                        placeholder="Description"
+                        onChange={formik.handleChange}
+                        value={formik.values.description}
+                        isValid={formik.touched.description && !formik.errors.description}
+                        isInvalid={formik.touched.description && !!formik.errors.description}
+                        style={{height: '100px'}}
+                    />
+                    <Form.Control.Feedback type="invalid">{formik.errors.description}</Form.Control.Feedback>
+                </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
-                    <Button type="submit" variant="primary">Send Transfer</Button>
+                    <Button type="submit" variant="primary">Send transfer</Button>
                 </Form.Group>
             </Form>
         </Col>
