@@ -33,7 +33,7 @@ const CustomerList: FC<CustomerListProps> = () => {
     }
 
     return (
-        <Col xs={11} xl={10} xxl={8} className="mx-auto my-5">
+        <Col xs={11} xl={10} xxl={9} className="mx-auto my-5">
             {customers.map(customer => (
                 <Card className="mb-3">
                     <Card.Body>

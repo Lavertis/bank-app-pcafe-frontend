@@ -33,6 +33,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
             <Table responsive className="text-center">
                 <thead>
                 <tr>
+                    <th>Username</th>
                     <th>First name</th>
                     <th>Second name</th>
                     <th>Last name</th>
@@ -43,6 +44,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
                 </thead>
                 <tbody>
                 <tr>
+                    <td>{customer.appUser.userName}</td>
                     <td>{customer.firstName}</td>
                     <td>{customer.secondName}</td>
                     <td>{customer.lastName}</td>
