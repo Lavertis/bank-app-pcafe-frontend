@@ -22,7 +22,7 @@ const addCustomerValidationSchema = yup.object().shape({
     NationalId: yup.string().required().min(9).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
     DateOfBirth: yup.date()
         .required()
-        .min(moment().subtract(18, 'years').format("YYYY-MM-DD"))
+        .max(moment().subtract(18, 'years').format("YYYY-MM-DD"), 'Customer must be at least 18 years old')
         .label('Date of birth'),
     CityOfBirth: yup.string().required().minUppercase(1).min(1).max(50).label('City of birth'),
     FathersName: yup.string().required().minUppercase(1).min(2).max(50).label('Father\'s name'),
@@ -45,7 +45,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
             SecondName: '',
             LastName: '',
             NationalId: '',
-            DateOfBirth: moment().subtract(15, 'years').format("YYYY-MM-DD"),
+            DateOfBirth: moment().subtract(18, 'years').format("YYYY-MM-DD"),
             CityOfBirth: '',
             FathersName: '',
         },
@@ -53,7 +53,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
         onSubmit: values => {
             axios.post("customers", {
                 ...values,
-                dateOfBirth: moment(values.DateOfBirth).utc()
+                DateOfBirth: moment(values.DateOfBirth).utc()
             })
                 .then(() => {
                     navigate('/customers')

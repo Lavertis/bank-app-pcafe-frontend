@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import useAxios from "../../../hooks/useAxios";
-import {Card, Col} from "react-bootstrap";
+import {Col} from "react-bootstrap";
 import CustomerListItem from "./CustomerListItem";
 import {Customer} from "../../../types/Customer";
 
@@ -35,11 +35,11 @@ const CustomerList: FC<CustomerListProps> = () => {
     return (
         <Col xs={11} xl={10} xxl={9} className="mx-auto my-5">
             {customers.map(customer => (
-                <Card className="mb-3">
-                    <Card.Body>
-                        <CustomerListItem customer={customer} deleteCustomer={deleteCustomer}/>
-                    </Card.Body>
-                </Card>
+                <CustomerListItem
+                    key={customer.id}
+                    customer={customer}
+                    deleteCustomer={deleteCustomer}
+                />
             ))}
         </Col>
     );

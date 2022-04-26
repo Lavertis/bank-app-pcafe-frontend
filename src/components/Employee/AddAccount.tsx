@@ -47,7 +47,6 @@ const AddAccount: FC<AddAccountProps> = () => {
                     if (error.response && error.response.status >= 400 && error.response.status <= 500) {
                         const fluentValidationErrors = getErrorsWithFirstMessages(error.response.data.errors)
                         formik.setErrors(fluentValidationErrors)
-                        console.log(fluentValidationErrors)
                         setServerError(error.response.data.error)
                     }
                 })

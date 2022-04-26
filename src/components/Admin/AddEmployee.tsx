@@ -22,9 +22,9 @@ const addEmployeeValidationSchema = yup.object().shape({
     Gender: yup.string().oneOf(['F', 'M']).label('Gender'),
     DateOfBirth: yup.date()
         .required()
-        .min(moment().subtract(18, 'years').format("YYYY-MM-DD"))
+        .max(moment().subtract(18, 'years').format("YYYY-MM-DD"), 'Employee must be at least 18 years old')
         .label('Date of birth'),
-    DateOfEmployment: yup.date().required().min(moment().format("YYYY-MM-DD")).label('Date of employment')
+    DateOfEmployment: yup.date().required().label('Date of employment')
 });
 
 interface AddEmployeeProps {
@@ -44,15 +44,15 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
             LastName: '',
             Salary: 1000,
             Gender: 'F',
-            DateOfBirth: moment().subtract(15, 'years').format("YYYY-MM-DD"),
+            DateOfBirth: moment().subtract(18, 'years').format("YYYY-MM-DD"),
             DateOfEmployment: moment().format("YYYY-MM-DD")
         },
         validationSchema: addEmployeeValidationSchema,
         onSubmit: values => {
             axios.post("employees", {
                 ...values,
-                dateOfBirth: moment(values.DateOfBirth).utc(),
-                dateOfEmployment: moment(values.DateOfEmployment).utc()
+                DateOfBirth: moment(values.DateOfBirth).utc(),
+                DateOfEmployment: moment(values.DateOfEmployment).utc()
             })
                 .then(() => {
                     navigate('/employees')
