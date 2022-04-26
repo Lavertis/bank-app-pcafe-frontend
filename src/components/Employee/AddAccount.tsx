@@ -21,7 +21,7 @@ interface AddAccountProps {
 }
 
 const AddAccount: FC<AddAccountProps> = () => {
-    const {id} = useParams<{ id: string }>();
+    const {customerId} = useParams();
     const axios = useAxios()
     const navigate = useNavigate()
     const [accountTypes, setAccountTypes] = useState<AccountType[]>([]);
@@ -34,13 +34,13 @@ const AddAccount: FC<AddAccountProps> = () => {
             TransferLimit: 100,
             AccountTypeId: '1',
             CurrencyId: '0',
-            CustomerId: id
+            CustomerId: customerId
         },
         validationSchema: accountValidationSchema,
         onSubmit: values => {
             axios.post("accounts", values)
                 .then(() => {
-                    navigate(`/customers/${id}/accounts`)
+                    navigate(`/customers/${customerId}/accounts`)
                 })
                 .catch(error => {
                     if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -85,6 +85,36 @@ const AddAccount: FC<AddAccountProps> = () => {
             <h3 className="mb-4">Add new account</h3>
             {serverError && <Alert variant="danger" className="text-center">{serverError}</Alert>}
             <Form onSubmit={formik.handleSubmit} noValidate>
+                <FloatingLabel controlId="inputAccountTypeId" label="Account type" className="mb-3">
+                    <Form.Select
+                        name="AccountTypeId"
+                        onChange={formik.handleChange}
+                        value={formik.values.AccountTypeId}
+                        // isValid={formik.touched.AccountTypeId && !formik.errors.AccountTypeId}
+                        isInvalid={formik.touched.AccountTypeId && !!formik.errors.AccountTypeId}>
+                        {accountTypes.map(accountType => (
+                            <option key={accountType.id} value={accountType.id}>
+                                {accountType.name} (+{accountType.interestRate}%)
+                            </option>
+                        ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">{formik.errors.AccountTypeId}</Form.Control.Feedback>
+                </FloatingLabel>
+                <FloatingLabel controlId="inputCurrencyId" label="Currency" className="mb-3">
+                    <Form.Select
+                        name="CurrencyId"
+                        onChange={formik.handleChange}
+                        value={formik.values.CurrencyId}
+                        // isValid={formik.touched.CurrencyId && !formik.errors.CurrencyId}
+                        isInvalid={formik.touched.CurrencyId && !!formik.errors.CurrencyId}>
+                        {currencies.map(currency => (
+                            <option key={currency.id} value={currency.id}>
+                                {currency.code}
+                            </option>
+                        ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">{formik.errors.CurrencyId}</Form.Control.Feedback>
+                </FloatingLabel>
                 <Form.Floating className="mb-3 flex-grow-1 input-group">
                     <Form.Control
                         type="number"
@@ -119,36 +149,6 @@ const AddAccount: FC<AddAccountProps> = () => {
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>
-                <FloatingLabel controlId="inputAccountTypeId" label="Account type" className="mb-3">
-                    <Form.Select
-                        name="AccountTypeId"
-                        onChange={formik.handleChange}
-                        value={formik.values.AccountTypeId}
-                        // isValid={formik.touched.AccountTypeId && !formik.errors.AccountTypeId}
-                        isInvalid={formik.touched.AccountTypeId && !!formik.errors.AccountTypeId}>
-                        {accountTypes.map(accountType => (
-                            <option key={accountType.id} value={accountType.id}>
-                                {accountType.name} (+{accountType.interestRate}%)
-                            </option>
-                        ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">{formik.errors.AccountTypeId}</Form.Control.Feedback>
-                </FloatingLabel>
-                <FloatingLabel controlId="inputCurrencyId" label="Currency" className="mb-3">
-                    <Form.Select
-                        name="CurrencyId"
-                        onChange={formik.handleChange}
-                        value={formik.values.CurrencyId}
-                        // isValid={formik.touched.CurrencyId && !formik.errors.CurrencyId}
-                        isInvalid={formik.touched.CurrencyId && !!formik.errors.CurrencyId}>
-                        {currencies.map(currency => (
-                            <option key={currency.id} value={currency.id}>
-                                {currency.code}
-                            </option>
-                        ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">{formik.errors.CurrencyId}</Form.Control.Feedback>
-                </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">
                         <Button type="submit" variant="primary" className="me-2">

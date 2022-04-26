@@ -115,6 +115,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                     <Form.Control
                         type="text"
                         name="ReceiverAccountNumber"
+                        placeholder="Receiver's account number"
                         onChange={formik.handleChange}
                         value={formik.values.ReceiverAccountNumber}
                         // isValid={formik.touched.ReceiverAccountNumber && !formik.errors.ReceiverAccountNumber}

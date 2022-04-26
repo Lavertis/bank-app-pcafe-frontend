@@ -10,7 +10,7 @@ interface AccountTableProps {
 }
 
 const AccountTable: FC<AccountTableProps> = () => {
-    const {id} = useParams();
+    const {customerId} = useParams();
     const axios = useAxios();
     const [accounts, setAccounts] = React.useState<Account[]>([]);
 
@@ -24,10 +24,10 @@ const AccountTable: FC<AccountTableProps> = () => {
     };
 
     useEffect(() => {
-        axios.get(`accounts/customer/${id}`)
+        axios.get(`accounts/customer/${customerId}`)
             .then(({data}) => setAccounts(data))
             .catch(console.error);
-    }, [axios, id]);
+    }, [axios, customerId]);
 
     return (
         <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
@@ -42,7 +42,7 @@ const AccountTable: FC<AccountTableProps> = () => {
                     <th>Interest rate</th>
                     <th>Currency</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
