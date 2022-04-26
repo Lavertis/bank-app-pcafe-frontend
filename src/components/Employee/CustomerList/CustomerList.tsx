@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import useAxios from "../../../hooks/useAxios";
-import {Col} from "react-bootstrap";
+import {Alert, Col} from "react-bootstrap";
 import CustomerListItem from "./CustomerListItem";
 import {Customer} from "../../../types/Customer";
 
@@ -34,6 +34,7 @@ const CustomerList: FC<CustomerListProps> = () => {
 
     return (
         <Col xs={11} xl={10} xxl={9} className="mx-auto my-5">
+            {!customers.length && <Alert variant="primary" className="text-center">No customers</Alert>}
             {customers.map(customer => (
                 <CustomerListItem
                     key={customer.id}

@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {Account} from "../../../types/Account";
 import useAxios from "../../../hooks/useAxios";
 import AccountTableRow from "./AccountTableRow";
-import {Col, Table} from "react-bootstrap";
+import {Alert, Col, Table} from "react-bootstrap";
 
 
 interface AccountTableProps {
@@ -31,32 +31,35 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     return (
         <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
-            <Table responsive className="text-center caption-top">
-                <caption>Customer's accounts</caption>
-                <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Type</th>
-                    <th>Balance</th>
-                    <th>Transfer limit</th>
-                    <th>Interest rate</th>
-                    <th>Currency</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {accounts.map(account => (
-                    <AccountTableRow
-                        key={account.id}
-                        account={account}
-                        customerId={customerId}
-                        deleteAccount={deleteAccount}
-                    />
-                ))
-                }
-                </tbody>
-            </Table>
+            {!accounts.length && <Alert variant="primary" className="text-center">No accounts</Alert>}
+            {accounts &&
+                <Table responsive className="text-center caption-top">
+                    <caption>Customer's accounts</caption>
+                    <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Type</th>
+                        <th>Balance</th>
+                        <th>Transfer limit</th>
+                        <th>Interest rate</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {accounts.map(account => (
+                        <AccountTableRow
+                            key={account.id}
+                            account={account}
+                            customerId={customerId}
+                            deleteAccount={deleteAccount}
+                        />
+                    ))
+                    }
+                    </tbody>
+                </Table>
+            }
         </Col>
     );
 }
