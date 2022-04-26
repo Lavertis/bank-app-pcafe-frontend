@@ -170,11 +170,9 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                         </Button>
                     </ButtonGroup>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputDateOfBirth">Date of birth</Form.Label>
+                <FloatingLabel controlId="inputDateOfBirth" label="Date of birth" className="mb-3">
                     <Form.Control
                         type="date"
-                        id="inputDateOfBirth"
                         name="DateOfBirth"
                         onChange={formik.handleChange}
                         value={moment(formik.values.DateOfBirth).format("YYYY-MM-DD")}
@@ -182,12 +180,10 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                         isInvalid={formik.touched.DateOfBirth && !!formik.errors.DateOfBirth}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.DateOfBirth}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputDateOfEmployment">Date of employment</Form.Label>
+                </FloatingLabel>
+                <FloatingLabel controlId="inputDateOfEmployment" label="Date of employment" className="mb-3">
                     <Form.Control
                         type="date"
-                        id="inputDateOfEmployment"
                         name="DateOfEmployment"
                         onChange={formik.handleChange}
                         value={moment(formik.values.DateOfEmployment).format("YYYY-MM-DD")}
@@ -195,7 +191,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                         isInvalid={formik.touched.DateOfEmployment && !!formik.errors.DateOfEmployment}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.DateOfEmployment}</Form.Control.Feedback>
-                </Form.Group>
+                </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">
                         <Button type="submit" variant="primary" className="me-2">
