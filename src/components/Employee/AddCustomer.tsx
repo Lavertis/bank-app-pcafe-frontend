@@ -80,6 +80,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
                         placeholder="Username"
                         onChange={formik.handleChange}
                         value={formik.values.UserName}
+                        // isValid={formik.touched.UserName && !formik.errors.UserName}
                         isInvalid={formik.touched.UserName && !!formik.errors.UserName}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.UserName}</Form.Control.Feedback>
@@ -151,7 +152,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
                         placeholder="National ID"
                         onChange={formik.handleChange}
                         value={formik.values.NationalId}
-                        isValid={formik.touched.NationalId && !formik.errors.NationalId}
+                        // isValid={formik.touched.NationalId && !formik.errors.NationalId}
                         isInvalid={formik.touched.NationalId && !!formik.errors.NationalId}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.NationalId}</Form.Control.Feedback>

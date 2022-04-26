@@ -79,6 +79,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                         placeholder="Username"
                         onChange={formik.handleChange}
                         value={formik.values.UserName}
+                        // isValid={formik.touched.UserName && !formik.errors.UserName}
                         isInvalid={formik.touched.UserName && !!formik.errors.UserName}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.UserName}</Form.Control.Feedback>

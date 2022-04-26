@@ -38,7 +38,6 @@ const AddAccount: FC<AddAccountProps> = () => {
         },
         validationSchema: accountValidationSchema,
         onSubmit: values => {
-            console.log(values)
             axios.post("accounts", values)
                 .then(() => {
                     navigate(`/customers/${id}/accounts`)
@@ -125,7 +124,7 @@ const AddAccount: FC<AddAccountProps> = () => {
                         name="AccountTypeId"
                         onChange={formik.handleChange}
                         value={formik.values.AccountTypeId}
-                        isValid={formik.touched.AccountTypeId && !formik.errors.AccountTypeId}
+                        // isValid={formik.touched.AccountTypeId && !formik.errors.AccountTypeId}
                         isInvalid={formik.touched.AccountTypeId && !!formik.errors.AccountTypeId}>
                         {accountTypes.map(accountType => (
                             <option key={accountType.id} value={accountType.id}>
@@ -140,7 +139,7 @@ const AddAccount: FC<AddAccountProps> = () => {
                         name="CurrencyId"
                         onChange={formik.handleChange}
                         value={formik.values.CurrencyId}
-                        isValid={formik.touched.CurrencyId && !formik.errors.CurrencyId}
+                        // isValid={formik.touched.CurrencyId && !formik.errors.CurrencyId}
                         isInvalid={formik.touched.CurrencyId && !!formik.errors.CurrencyId}>
                         {currencies.map(currency => (
                             <option key={currency.id} value={currency.id}>

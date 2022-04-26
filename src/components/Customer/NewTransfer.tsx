@@ -100,7 +100,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         id="inputSenderAccountId"
                         onChange={formik.handleChange}
                         value={formik.values.SenderAccountId}
-                        isValid={formik.touched.SenderAccountId && !formik.errors.SenderAccountId}
+                        // isValid={formik.touched.SenderAccountId && !formik.errors.SenderAccountId}
                         isInvalid={formik.touched.SenderAccountId && !!formik.errors.SenderAccountId}>
                         {accounts.map(account => (
                             <option key={account.id} value={account.id}>
@@ -117,8 +117,8 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         name="ReceiverAccountNumber"
                         onChange={formik.handleChange}
                         value={formik.values.ReceiverAccountNumber}
+                        // isValid={formik.touched.ReceiverAccountNumber && !formik.errors.ReceiverAccountNumber}
                         isInvalid={formik.touched.ReceiverAccountNumber && !!formik.errors.ReceiverAccountNumber}
-                        isValid={formik.touched.ReceiverAccountNumber && !formik.errors.ReceiverAccountNumber}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.ReceiverAccountNumber}</Form.Control.Feedback>
                 </FloatingLabel>
