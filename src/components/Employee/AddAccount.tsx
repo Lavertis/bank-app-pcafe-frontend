@@ -101,7 +101,7 @@ const AddAccount: FC<AddAccountProps> = () => {
                         isInvalid={formik.touched.Balance && !!formik.errors.Balance}
                     />
                     <InputGroup.Text className="rounded-end">{getSelectedCurrencyCode()}</InputGroup.Text>
-                    <label htmlFor="inputBalance" style={{zIndex: 3}}>Balance</label>
+                    <label htmlFor="inputBalance" className="z-index-3">Balance</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.Balance}</Form.Control.Feedback>
                 </Form.Floating>
                 <Form.Floating className="mb-3 flex-grow-1 input-group">
@@ -118,7 +118,7 @@ const AddAccount: FC<AddAccountProps> = () => {
                         isInvalid={formik.touched.TransferLimit && !!formik.errors.TransferLimit}
                     />
                     <InputGroup.Text className="rounded-end">{getSelectedCurrencyCode()}</InputGroup.Text>
-                    <label htmlFor="inputTransferLimit" style={{zIndex: 3}}>Transfer limit</label>
+                    <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>
                 <FloatingLabel controlId="inputAccountTypeId" label="Account type" className="mb-3">

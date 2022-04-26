@@ -14,10 +14,10 @@ const transferValidationSchema = yup.object().shape({
     ReceiverAccountNumber: yup.string()
         .required()
         .length(16)
-        .matches(/^\d*$/, 'Receiver\'s account number must be a number')
+        .matches(/^\d*$/, 'Receiver\'s account number must contain only digits')
         .label("Receiver's account number"),
     ReceiverName: yup.string().required().min(3).label("Receiver's name"),
-    Description: yup.string().required().label("Description")
+    Title: yup.string().required().label("Title")
 });
 
 interface NewTransferProps {
@@ -35,7 +35,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
             SenderAccountId: '',
             ReceiverAccountNumber: '0'.repeat(16),
             ReceiverName: '',
-            Description: ''
+            Title: ''
         },
         validationSchema: transferValidationSchema,
         onSubmit: values => {
@@ -91,7 +91,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         isInvalid={formik.touched.Amount && !!formik.errors.Amount}
                     />
                     <InputGroup.Text className="rounded-end">{getSelectedAccountCurrency()}</InputGroup.Text>
-                    <label htmlFor="inputSalary" style={{zIndex: 3}}>Amount</label>
+                    <label htmlFor="inputSalary" className="z-index-3">Amount</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.Amount}</Form.Control.Feedback>
                 </Form.Floating>
                 <FloatingLabel controlId="inputSenderAccountId" label="From account" className="mb-3">
@@ -134,18 +134,17 @@ const NewTransfer: FC<NewTransferProps> = () => {
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.ReceiverName}</Form.Control.Feedback>
                 </FloatingLabel>
-                <FloatingLabel controlId="inputDescription" label="Description" className="mb-3">
+                <FloatingLabel controlId="inputTitle" label="Title" className="mb-3">
                     <Form.Control
-                        as="textarea"
-                        name="Description"
-                        placeholder="Description"
+                        type="text"
+                        name="Title"
+                        placeholder="Title"
                         onChange={formik.handleChange}
-                        value={formik.values.Description}
-                        isValid={formik.touched.Description && !formik.errors.Description}
-                        isInvalid={formik.touched.Description && !!formik.errors.Description}
-                        style={{height: '100px'}}
+                        value={formik.values.Title}
+                        isValid={formik.touched.Title && !formik.errors.Title}
+                        isInvalid={formik.touched.Title && !!formik.errors.Title}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.Description}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.Title}</Form.Control.Feedback>
                 </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
                     <Button type="submit" variant="primary">Send transfer</Button>

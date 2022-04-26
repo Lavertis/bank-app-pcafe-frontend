@@ -22,7 +22,7 @@ const addEmployeeValidationSchema = yup.object().shape({
     Gender: yup.string().oneOf(['F', 'M']).label('Gender'),
     DateOfBirth: yup.date()
         .required()
-        .min(moment().subtract(15, 'years').format("YYYY-MM-DD"))
+        .min(moment().subtract(18, 'years').format("YYYY-MM-DD"))
         .label('Date of birth'),
     DateOfEmployment: yup.date().required().min(moment().format("YYYY-MM-DD")).label('Date of employment')
 });
@@ -145,7 +145,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
                         isInvalid={formik.touched.Salary && !!formik.errors.Salary}
                     />
                     <InputGroup.Text className="rounded-end">PLN</InputGroup.Text>
-                    <label htmlFor="inputSalary" style={{zIndex: 3}}>Salary</label>
+                    <label htmlFor="inputSalary" className="z-index-3">Salary</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.Salary}</Form.Control.Feedback>
                 </Form.Floating>
                 <Form.Group className="mb-3">

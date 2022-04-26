@@ -5,7 +5,7 @@ export interface Transfer {
     amount: number;
     receiverAccountNumber: string;
     receiverName: string;
-    description: string;
+    title: string;
     ordered: Date;
     executed: Date;
     reasonFailed: string;
