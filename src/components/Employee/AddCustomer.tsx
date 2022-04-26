@@ -17,7 +17,7 @@ const addCustomerValidationSchema = yup.object().shape({
         .required()
         .label('Password confirmation'),
     FirstName: yup.string().required().minUppercase(1).min(2).max(50).label('First name'),
-    SecondName: yup.string().required().minUppercase(1).min(2).max(50).label('Second name'),
+    MiddleName: yup.string().required().minUppercase(1).min(2).max(50).label('Second name'),
     LastName: yup.string().required().minUppercase(1).min(2).max(50).label('Last name'),
     NationalId: yup.string().required().min(9).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
     DateOfBirth: yup.date()
@@ -42,7 +42,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
             Password: '',
             PasswordConfirmation: '',
             FirstName: '',
-            SecondName: '',
+            MiddleName: '',
             LastName: '',
             NationalId: '',
             DateOfBirth: moment().subtract(18, 'years').format("YYYY-MM-DD"),
@@ -121,17 +121,17 @@ const AddCustomer: FC<AddCustomerProps> = () => {
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.FirstName}</Form.Control.Feedback>
                 </FloatingLabel>
-                <FloatingLabel controlId="inputSecondName" label="Second name" className="mb-3">
+                <FloatingLabel controlId="inputSecondName" label="Middle name" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="SecondName"
-                        placeholder="Second name"
+                        name="MiddleName"
+                        placeholder="Middle name"
                         onChange={formik.handleChange}
-                        value={formik.values.SecondName}
-                        isValid={formik.touched.SecondName && !formik.errors.SecondName}
-                        isInvalid={formik.touched.SecondName && !!formik.errors.SecondName}
+                        value={formik.values.MiddleName}
+                        isValid={formik.touched.MiddleName && !formik.errors.MiddleName}
+                        isInvalid={formik.touched.MiddleName && !!formik.errors.MiddleName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.SecondName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.MiddleName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputLastName" label="Last name" className="mb-3">
                     <Form.Control

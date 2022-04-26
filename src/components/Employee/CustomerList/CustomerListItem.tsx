@@ -37,7 +37,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
                         <tr>
                             <th>Username</th>
                             <th>First name</th>
-                            <th>Second name</th>
+                            <th>Middle name</th>
                             <th>Last name</th>
                             <th>Date of birth</th>
                             <th>City of birth</th>
@@ -48,7 +48,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
                         <tr>
                             <td>{customer.appUser.userName}</td>
                             <td>{customer.firstName}</td>
-                            <td>{customer.secondName}</td>
+                            <td>{customer.middleName}</td>
                             <td>{customer.lastName}</td>
                             <td>{getDate(customer.dateOfBirth)}</td>
                             <td>{customer.cityOfBirth}</td>

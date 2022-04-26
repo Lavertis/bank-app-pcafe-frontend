@@ -3,7 +3,7 @@ import {AppUser} from "./AppUser";
 export interface Customer {
     id: string;
     firstName: string;
-    secondName: string;
+    middleName: string;
     lastName: string;
     nationalId: string;
     dateOfBirth: Date;
