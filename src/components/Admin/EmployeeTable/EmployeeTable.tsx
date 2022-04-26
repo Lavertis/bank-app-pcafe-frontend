@@ -33,11 +33,12 @@ const EmployeeTable: FC<EmployeeTableProps> = () => {
     }
 
     return (
-        <Col xs={11} lg={10} xl={9} xxl={8} className="mx-auto my-5 card py-4 px-5">
+        <Col xs={11} xl={10} xxl={9} className="mx-auto my-5 card py-4 px-5">
             <Table responsive striped className="text-center caption-top">
                 <caption>List of employees</caption>
                 <thead>
                 <tr>
+                    <th>Username</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Salary</th>

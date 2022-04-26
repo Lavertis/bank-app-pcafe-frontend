@@ -26,7 +26,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
         <Table responsive striped className="text-center">
             <thead>
             <tr>
-                <th>Receiver's name</th>
+                <th>Title</th>
                 <th>Amount</th>
                 <th>Sender's account</th>
                 <th>Receiver's account</th>
