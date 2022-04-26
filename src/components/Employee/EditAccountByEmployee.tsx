@@ -106,16 +106,16 @@ const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>
-                <Form.Group className="d-flex justify-content-center">
+                <Form.Group className="mb-3 d-flex justify-content-center">
                     <Form.Check
                         type="switch"
                         id="inputIsActive"
                         name="IsActive"
-                        label={account?.isActive ? 'Active' : 'Inactive'}
+                        label={formik.values.IsActive ? 'Active' : 'Inactive'}
                         className="mb-3"
                         onChange={formik.handleChange}
                         checked={formik.values.IsActive}
-                        isValid={formik.touched.IsActive && !formik.errors.IsActive}
+                        // isValid={formik.touched.IsActive && !formik.errors.IsActive}
                         isInvalid={formik.touched.IsActive && !!formik.errors.IsActive}
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.IsActive}</Form.Control.Feedback>

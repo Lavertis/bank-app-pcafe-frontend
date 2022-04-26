@@ -3,7 +3,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
 import {useFormik} from "formik";
-import {AxiosError, AxiosResponse} from "axios";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {AccountType} from "../../types/AccountType";
 import {Currency} from "../../types/Currency";
@@ -15,6 +14,7 @@ const accountValidationSchema = yup.object().shape({
     TransferLimit: yup.number().required().min(10).label('Transfer Limit'),
     AccountTypeId: yup.number().required().label('Account Type Id'),
     CurrencyId: yup.number().required().label('Currency Id'),
+    IsActive: yup.boolean().required().label('Is Active')
 });
 
 interface AddAccountProps {
@@ -32,6 +32,7 @@ const AddAccount: FC<AddAccountProps> = () => {
         initialValues: {
             Balance: 1000,
             TransferLimit: 100,
+            IsActive: false,
             AccountTypeId: '1',
             CurrencyId: '0',
             CustomerId: customerId
@@ -59,23 +60,23 @@ const AddAccount: FC<AddAccountProps> = () => {
 
     useEffect(() => {
         axios.get("account-types")
-            .then((response: AxiosResponse) => {
+            .then(response => {
                 setAccountTypes(response.data)
             })
-            .catch((err: AxiosError) => {
-                console.log(err)
+            .catch(error => {
+                console.log(error)
             })
 
     }, [axios])
 
     useEffect(() => {
         axios.get(`account-types/${formik.values.AccountTypeId}/currencies`)
-            .then((response: AxiosResponse) => {
+            .then(response => {
                 setCurrencies(response.data)
                 formik.setFieldValue('CurrencyId', response.data[0].id.toString())
             })
-            .catch((err: AxiosError) => {
-                console.log(err)
+            .catch(error => {
+                console.log(error)
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [axios, formik.values.AccountTypeId])
@@ -149,6 +150,20 @@ const AddAccount: FC<AddAccountProps> = () => {
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>
+                <Form.Group className="mb-3 d-flex justify-content-center">
+                    <Form.Check
+                        type="switch"
+                        id="inputIsActive"
+                        name="IsActive"
+                        label={formik.values.IsActive ? 'Active' : 'Inactive'}
+                        className="mb-3"
+                        onChange={formik.handleChange}
+                        checked={formik.values.IsActive}
+                        // isValid={formik.touched.IsActive && !formik.errors.IsActive}
+                        isInvalid={formik.touched.IsActive && !!formik.errors.IsActive}
+                    />
+                    <Form.Control.Feedback type="invalid">{formik.errors.IsActive}</Form.Control.Feedback>
+                </Form.Group>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">
                         <Button type="submit" variant="primary" className="me-2">

@@ -103,7 +103,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>
-                <Form.Group className="d-flex justify-content-center">
+                <Form.Group className="mb-3 d-flex justify-content-center">
                     <Form.Check
                         type="switch"
                         label={account?.isActive ? 'Active' : 'Inactive'}
