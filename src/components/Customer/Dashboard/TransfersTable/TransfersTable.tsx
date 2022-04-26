@@ -23,21 +23,25 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     }, [axios])
 
     return (
-        <Table responsive striped className="text-center">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Amount</th>
-                <th>Sender's account</th>
-                <th>Receiver's account</th>
-            </tr>
-            </thead>
-            <tbody>
-            {transfers.map(transfer => (
-                <TransfersTableRow transfer={transfer} key={transfer.id}/>
-            ))}
-            </tbody>
-        </Table>
+        <>
+            {!transfers.length ? <h5 className="text-center">No transfer history</h5> :
+                <Table responsive striped className="text-center">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Sender's account</th>
+                        <th>Receiver's account</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {transfers.map(transfer => (
+                        <TransfersTableRow transfer={transfer} key={transfer.id}/>
+                    ))}
+                    </tbody>
+                </Table>
+            }
+        </>
     );
 }
 

@@ -23,23 +23,27 @@ const AccountTable: FC<AccountTableProps> = () => {
     }, [axios])
 
     return (
-        <Table responsive striped className="text-center">
-            <thead>
-            <tr>
-                <th>Account type</th>
-                <th>Account number</th>
-                <th>Balance</th>
-                <th>Status</th>
-                <th>Currency</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {accounts.map(account => (
-                <AccountTableRow account={account} key={account.id}/>
-            ))}
-            </tbody>
-        </Table>
+        <>
+            {!accounts.length ? <h5 className="text-center">No accounts</h5> :
+                <Table responsive striped className="text-center">
+                    <thead>
+                    <tr>
+                        <th>Account type</th>
+                        <th>Account number</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Currency</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {accounts.map(account => (
+                        <AccountTableRow account={account} key={account.id}/>
+                    ))}
+                    </tbody>
+                </Table>
+            }
+        </>
     );
 }
 
