@@ -9,10 +9,11 @@ import ConfirmationModal from "../../Modals/ConfirmationModal";
 
 interface AccountTableRowProps {
     account: Account;
+    customerId?: string;
     deleteAccount: (accountId: number) => void;
 }
 
-const AccountTableRow: FC<AccountTableRowProps> = ({account, deleteAccount}) => {
+const AccountTableRow: FC<AccountTableRowProps> = ({account, deleteAccount, customerId}) => {
     const [modalIsShown, setModalIsShown] = useState(false);
     const hideModal = () => setModalIsShown(false);
     const showModal = () => setModalIsShown(true);
@@ -34,7 +35,7 @@ const AccountTableRow: FC<AccountTableRowProps> = ({account, deleteAccount}) => 
                 <td>{account.isActive ? 'Active' : 'Deactivated'}</td>
                 <td>
                     <Col className="d-flex justify-content-center">
-                        <Link to={`/accounts/${account.id}/edit`}>
+                        <Link to={`/customers/${customerId}/accounts/${account.id}/edit`}>
                             <Button className="me-2" variant="outline-primary">
                                 <FontAwesomeIcon icon={faEdit}/>
                             </Button>

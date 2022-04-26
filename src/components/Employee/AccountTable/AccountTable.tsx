@@ -24,7 +24,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     };
 
     useEffect(() => {
-        axios.get(`accounts/customer/${customerId}`)
+        axios.get(`customers/${customerId}/accounts`)
             .then(({data}) => setAccounts(data))
             .catch(console.error);
     }, [axios, customerId]);
@@ -46,14 +46,14 @@ const AccountTable: FC<AccountTableProps> = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {
-                    accounts.map(account => (
-                        <AccountTableRow
-                            key={account.id}
-                            account={account}
-                            deleteAccount={deleteAccount}
-                        />
-                    ))
+                {accounts.map(account => (
+                    <AccountTableRow
+                        key={account.id}
+                        account={account}
+                        customerId={customerId}
+                        deleteAccount={deleteAccount}
+                    />
+                ))
                 }
                 </tbody>
             </Table>

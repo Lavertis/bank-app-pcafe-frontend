@@ -12,11 +12,11 @@ const editAccountByCustomerValidationSchema = yup.object().shape({
     TransferLimit: yup.number().required().min(10).label('Transfer Limit'),
 });
 
-interface EditAccountProps {
+interface EditAccountByCustomerProps {
 }
 
-const EditAccount: FC<EditAccountProps> = () => {
-    const {accountId} = useParams<{ accountId: string }>();
+const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
+    const {accountId} = useParams();
     const axios = useAxios()
     const navigate = useNavigate()
     const [account, setAccount] = useState<Account | null>(null)
@@ -127,4 +127,4 @@ const EditAccount: FC<EditAccountProps> = () => {
     );
 }
 
-export default EditAccount;
+export default EditAccountByCustomer;
