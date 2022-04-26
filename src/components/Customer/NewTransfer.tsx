@@ -102,7 +102,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         // isValid={formik.touched.SenderAccountId && !formik.errors.SenderAccountId}
                         isInvalid={formik.touched.SenderAccountId && !!formik.errors.SenderAccountId}>
                         {accounts.map(account => (
-                            <option key={account.id} value={account.id}>
+                            account.isActive && <option key={account.id} value={account.id}>
                                 {account.number} ({account.balance.toFixed(2)} {account.currency.code})
                             </option>
                         ))}
