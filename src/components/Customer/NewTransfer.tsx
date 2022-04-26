@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
 import {useFormik} from "formik";
-import {AxiosError, AxiosResponse} from "axios";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {Account} from "../../types/Account";
 import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
@@ -59,15 +58,15 @@ const NewTransfer: FC<NewTransferProps> = () => {
     }
 
     useEffect(() => {
-        axios.get(`accounts/customer/auth`)
-            .then((response: AxiosResponse) => {
+        axios.get(`customers/auth/accounts`)
+            .then(response => {
                 setAccounts(response.data)
                 if (response.data.length > 0) {
                     formik.setFieldValue('SenderAccountId', response.data[0].id)
                 }
             })
-            .catch((err: AxiosError) => {
-                console.log(err)
+            .catch(error => {
+                console.log(error)
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [axios])
@@ -103,7 +102,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         // isValid={formik.touched.SenderAccountId && !formik.errors.SenderAccountId}
                         isInvalid={formik.touched.SenderAccountId && !!formik.errors.SenderAccountId}>
                         {accounts.map(account => (
-                            <option key={account.id} value={account.id}>
+                            account.isActive && <option key={account.id} value={account.id}>
                                 {account.number} ({account.balance.toFixed(2)} {account.currency.code})
                             </option>
                         ))}
@@ -115,6 +114,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                     <Form.Control
                         type="text"
                         name="ReceiverAccountNumber"
+                        placeholder="Receiver's account number"
                         onChange={formik.handleChange}
                         value={formik.values.ReceiverAccountNumber}
                         // isValid={formik.touched.ReceiverAccountNumber && !formik.errors.ReceiverAccountNumber}

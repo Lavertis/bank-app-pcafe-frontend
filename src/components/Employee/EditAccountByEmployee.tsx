@@ -1,47 +1,39 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
-import * as yup from "yup";
+import {Account} from "../../types/Account";
 import {useFormik} from "formik";
-import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
-import {AccountType} from "../../types/AccountType";
-import {Currency} from "../../types/Currency";
 import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
+import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
+import * as yup from "yup";
 
-
-const accountValidationSchema = yup.object().shape({
+const editAccountByEmployeeValidationSchema = yup.object().shape({
     Balance: yup.number().required().min(0).label('Balance'),
     TransferLimit: yup.number().required().min(10).label('Transfer Limit'),
-    AccountTypeId: yup.number().required().label('Account Type Id'),
-    CurrencyId: yup.number().required().label('Currency Id'),
     IsActive: yup.boolean().required().label('Is Active')
 });
 
-interface AddAccountProps {
+interface EditAccountByEmployeeProps {
 }
 
-const AddAccount: FC<AddAccountProps> = () => {
-    const {customerId} = useParams();
+const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
+    const {accountId} = useParams<{ accountId: string }>();
     const axios = useAxios()
     const navigate = useNavigate()
-    const [accountTypes, setAccountTypes] = useState<AccountType[]>([]);
-    const [currencies, setCurrencies] = useState<Currency[]>([]);
+    const [account, setAccount] = useState<Account | null>(null)
     const [serverError, setServerError] = React.useState<string>('')
 
     const formik = useFormik({
         initialValues: {
-            Balance: 1000,
-            TransferLimit: 100,
-            IsActive: false,
-            AccountTypeId: '1',
-            CurrencyId: '0',
-            CustomerId: customerId
+            Balance: 0,
+            TransferLimit: 0,
+            IsActive: false
         },
-        validationSchema: accountValidationSchema,
+        validationSchema: editAccountByEmployeeValidationSchema,
         onSubmit: values => {
-            axios.post("accounts", values)
+            axios.patch(`accounts/${accountId}`, values)
                 .then(() => {
-                    navigate(`/customers/${customerId}/accounts`)
+                    navigate(-1)
                 })
                 .catch(error => {
                     if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -53,68 +45,32 @@ const AddAccount: FC<AddAccountProps> = () => {
         },
     });
 
-    const getSelectedCurrencyCode = () => {
-        const currency = currencies.find(currency => currency.id.toString() === formik.values.CurrencyId)
-        return currency ? currency.code : ''
-    }
-
     useEffect(() => {
-        axios.get("account-types")
+        axios.get(`accounts/${accountId}`)
             .then(response => {
-                setAccountTypes(response.data)
+                setAccount(response.data)
+                formik.setFieldValue('Balance', response.data.balance)
+                formik.setFieldValue('TransferLimit', response.data.transferLimit)
+                formik.setFieldValue('IsActive', response.data.isActive)
             })
             .catch(error => {
                 console.log(error)
             })
-
-    }, [axios])
-
-    useEffect(() => {
-        axios.get(`account-types/${formik.values.AccountTypeId}/currencies`)
-            .then(response => {
-                setCurrencies(response.data)
-                formik.setFieldValue('CurrencyId', response.data[0].id.toString())
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [axios, formik.values.AccountTypeId])
+    }, [])
 
     return (
         <Col xs={11} sm={8} md={6} lg={5} xxl={4} className="mx-auto my-5 bg-light rounded-3 p-5 shadow">
-            <h3 className="mb-4">Add new account</h3>
+            <h3 className="mb-4">Edit account</h3>
             {serverError && <Alert variant="danger" className="text-center">{serverError}</Alert>}
             <Form onSubmit={formik.handleSubmit} noValidate>
-                <FloatingLabel controlId="inputAccountTypeId" label="Account type" className="mb-3">
-                    <Form.Select
-                        name="AccountTypeId"
-                        onChange={formik.handleChange}
-                        value={formik.values.AccountTypeId}
-                        // isValid={formik.touched.AccountTypeId && !formik.errors.AccountTypeId}
-                        isInvalid={formik.touched.AccountTypeId && !!formik.errors.AccountTypeId}>
-                        {accountTypes.map(accountType => (
-                            <option key={accountType.id} value={accountType.id}>
-                                {accountType.name} (+{accountType.interestRate}%)
-                            </option>
-                        ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">{formik.errors.AccountTypeId}</Form.Control.Feedback>
+                <FloatingLabel label="Account number" className="mb-3">
+                    <Form.Control defaultValue={account?.number} disabled/>
                 </FloatingLabel>
-                <FloatingLabel controlId="inputCurrencyId" label="Currency" className="mb-3">
-                    <Form.Select
-                        name="CurrencyId"
-                        onChange={formik.handleChange}
-                        value={formik.values.CurrencyId}
-                        // isValid={formik.touched.CurrencyId && !formik.errors.CurrencyId}
-                        isInvalid={formik.touched.CurrencyId && !!formik.errors.CurrencyId}>
-                        {currencies.map(currency => (
-                            <option key={currency.id} value={currency.id}>
-                                {currency.code}
-                            </option>
-                        ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">{formik.errors.CurrencyId}</Form.Control.Feedback>
+                <FloatingLabel label="Account type" className="mb-3">
+                    <Form.Control defaultValue={account?.accountType.name} disabled/>
+                </FloatingLabel>
+                <FloatingLabel label="Account type" className="mb-3">
+                    <Form.Control defaultValue={account?.currency.code} disabled/>
                 </FloatingLabel>
                 <Form.Floating className="mb-3 flex-grow-1 input-group">
                     <Form.Control
@@ -129,7 +85,7 @@ const AddAccount: FC<AddAccountProps> = () => {
                         isValid={formik.touched.Balance && !formik.errors.Balance}
                         isInvalid={formik.touched.Balance && !!formik.errors.Balance}
                     />
-                    <InputGroup.Text className="rounded-end">{getSelectedCurrencyCode()}</InputGroup.Text>
+                    <InputGroup.Text className="rounded-end">{account?.currency.code}</InputGroup.Text>
                     <label htmlFor="inputBalance" className="z-index-3">Balance</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.Balance}</Form.Control.Feedback>
                 </Form.Floating>
@@ -146,7 +102,7 @@ const AddAccount: FC<AddAccountProps> = () => {
                         isValid={formik.touched.TransferLimit && !formik.errors.TransferLimit}
                         isInvalid={formik.touched.TransferLimit && !!formik.errors.TransferLimit}
                     />
-                    <InputGroup.Text className="rounded-end">{getSelectedCurrencyCode()}</InputGroup.Text>
+                    <InputGroup.Text className="rounded-end">{account?.currency.code}</InputGroup.Text>
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>
@@ -166,8 +122,8 @@ const AddAccount: FC<AddAccountProps> = () => {
                 </Form.Group>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">
-                        <Button type="submit" variant="primary" className="me-2">
-                            Create Account
+                        <Button type="submit" variant="success" className="me-2">
+                            Save changes
                         </Button>
                         <Button variant="secondary" onClick={() => navigate(-1)}>
                             Cancel
@@ -179,4 +135,4 @@ const AddAccount: FC<AddAccountProps> = () => {
     );
 }
 
-export default AddAccount;
+export default EditAccountByEmployee;
