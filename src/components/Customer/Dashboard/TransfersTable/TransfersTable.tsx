@@ -9,13 +9,15 @@ interface TransfersTableProps {
 }
 
 const TransfersTable: FC<TransfersTableProps> = () => {
-    const [transfers, setTransfers] = React.useState<Transfer[]>([]);
     const axios = useAxios()
+    const [transfers, setTransfers] = React.useState<Transfer[]>([]);
+    const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
         axios.get('customer/auth/transfers')
             .then(res => {
                 setTransfers(res.data.slice(0, 5))
+                setIsDataFetched(true)
             })
             .catch(err => {
                 console.log(err)
@@ -24,7 +26,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
 
     return (
         <>
-            {!transfers.length ? <h5 className="text-center">No transfer history</h5> :
+            {(!transfers.length && isDataFetched) ? <h5 className="text-center">No transfer history</h5> :
                 <Table responsive striped className="text-center">
                     <thead>
                     <tr>
