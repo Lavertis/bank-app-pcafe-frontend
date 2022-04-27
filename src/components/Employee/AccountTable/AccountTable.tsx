@@ -13,6 +13,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     const {customerId} = useParams();
     const axios = useAxios();
     const [accounts, setAccounts] = React.useState<Account[]>([]);
+    const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     const deleteAccount = (id: number) => {
         axios.delete(`/accounts/${id}`)
@@ -25,42 +26,53 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     useEffect(() => {
         axios.get(`customers/${customerId}/accounts`)
-            .then(({data}) => setAccounts(data))
-            .catch(console.error);
+            .then(({data}) => {
+                setAccounts(data)
+                setIsDataFetched(true)
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, [axios, customerId]);
 
     return (
-        <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
-            {!accounts.length && <Alert variant="primary" className="text-center">No accounts</Alert>}
-            {accounts &&
-                <Table responsive className="text-center caption-top">
-                    <caption>Customer's accounts</caption>
-                    <thead>
-                    <tr>
-                        <th>Number</th>
-                        <th>Type</th>
-                        <th>Balance</th>
-                        <th>Transfer limit</th>
-                        <th>Interest rate</th>
-                        <th>Currency</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {accounts.map(account => (
-                        <AccountTableRow
-                            key={account.id}
-                            account={account}
-                            customerId={customerId}
-                            deleteAccount={deleteAccount}
-                        />
-                    ))
+        <>
+            {(!accounts.length && isDataFetched) ?
+                <Alert variant="primary" className="text-center mx-auto mt-5">No accounts</Alert> :
+                <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
+                    {(!accounts.length && isDataFetched) &&
+                        <Alert variant="primary" className="text-center">No accounts</Alert>}
+                    {accounts &&
+                        <Table responsive className="text-center caption-top">
+                            <caption>Customer's accounts</caption>
+                            <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Type</th>
+                                <th>Balance</th>
+                                <th>Transfer limit</th>
+                                <th>Interest rate</th>
+                                <th>Currency</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {accounts.map(account => (
+                                <AccountTableRow
+                                    key={account.id}
+                                    account={account}
+                                    customerId={customerId}
+                                    deleteAccount={deleteAccount}
+                                />
+                            ))
+                            }
+                            </tbody>
+                        </Table>
                     }
-                    </tbody>
-                </Table>
+                </Col>
             }
-        </Col>
+        </>
     );
 }
 

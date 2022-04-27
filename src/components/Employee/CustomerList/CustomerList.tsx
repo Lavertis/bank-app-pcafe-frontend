@@ -11,16 +11,7 @@ interface CustomerListProps {
 const CustomerList: FC<CustomerListProps> = () => {
     const axios = useAxios();
     const [customers, setCustomers] = React.useState<Customer[]>([]);
-
-    useEffect(() => {
-        axios.get('customers')
-            .then(res => {
-                setCustomers(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }, [axios]);
+    const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     const deleteCustomer = async (id: string) => {
         axios.delete(`customers/${id}`)
@@ -32,17 +23,32 @@ const CustomerList: FC<CustomerListProps> = () => {
             })
     }
 
+    useEffect(() => {
+        axios.get('customers')
+            .then(res => {
+                setCustomers(res.data);
+                setIsDataFetched(true);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [axios]);
+
     return (
-        <Col xs={11} xl={10} xxl={9} className="mx-auto my-5">
-            {!customers.length && <Alert variant="primary" className="text-center">No customers</Alert>}
-            {customers.map(customer => (
-                <CustomerListItem
-                    key={customer.id}
-                    customer={customer}
-                    deleteCustomer={deleteCustomer}
-                />
-            ))}
-        </Col>
+        <>
+            {(!customers.length && isDataFetched) ?
+                <Alert variant="primary" className="mt-5 mx-auto">No customers</Alert> :
+                <Col xs={11} xl={10} xxl={9} className="mx-auto my-5">
+                    {customers.map(customer => (
+                        <CustomerListItem
+                            key={customer.id}
+                            customer={customer}
+                            deleteCustomer={deleteCustomer}
+                        />
+                    ))}
+                </Col>
+            }
+        </>
     );
 }
 

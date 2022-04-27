@@ -9,13 +9,15 @@ interface AccountTableProps {
 }
 
 const AccountTable: FC<AccountTableProps> = () => {
-    const [accounts, setAccounts] = React.useState<Account[]>([]);
     const axios = useAxios()
+    const [accounts, setAccounts] = React.useState<Account[]>([]);
+    const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
         axios.get('customers/auth/accounts')
             .then(res => {
                 setAccounts(res.data)
+                setIsDataFetched(true)
             })
             .catch(err => {
                 console.log(err)
@@ -24,7 +26,7 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     return (
         <>
-            {!accounts.length ? <h5 className="text-center">No accounts</h5> :
+            {(!accounts.length && isDataFetched) ? <h5 className="text-center">You don't have any account</h5> :
                 <Table responsive striped className="text-center">
                     <thead>
                     <tr>
