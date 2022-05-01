@@ -37,17 +37,17 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     return (
         <>
-            {(!accounts.length && isDataFetched) ?
-                <Alert variant="primary" className="text-center mx-auto mt-5">No accounts</Alert> :
-                <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
-                    {(!accounts.length && isDataFetched) &&
-                        <Alert variant="primary" className="text-center">No accounts</Alert>}
-                    {accounts &&
-                        <Table responsive className="text-center caption-top">
-                            <caption>Customer's accounts</caption>
-                            <thead>
-                            <tr>
-                                <th>Number</th>
+            {isDataFetched && (!accounts.length ?
+                    <Alert variant="primary" className="text-center mx-auto mt-5">No accounts</Alert> :
+                    <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
+                        {(!accounts.length && isDataFetched) &&
+                            <Alert variant="primary" className="text-center">No accounts</Alert>}
+                        {accounts &&
+                            <Table responsive className="text-center caption-top">
+                                <caption>Customer's accounts</caption>
+                                <thead>
+                                <tr>
+                                    <th>Number</th>
                                 <th>Type</th>
                                 <th>Balance</th>
                                 <th>Transfer limit</th>
@@ -68,10 +68,10 @@ const AccountTable: FC<AccountTableProps> = () => {
                             ))
                             }
                             </tbody>
-                        </Table>
-                    }
-                </Col>
-            }
+                            </Table>
+                        }
+                    </Col>
+            )}
         </>
     );
 }

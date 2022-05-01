@@ -26,7 +26,7 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     return (
         <>
-            {(!accounts.length && isDataFetched) ? <h5 className="text-center">You don't have any account</h5> :
+            {isDataFetched && (!accounts.length ? <h5 className="text-center">You don't have any account</h5> :
                 <Table responsive striped className="text-center">
                     <thead>
                     <tr>
@@ -43,8 +43,7 @@ const AccountTable: FC<AccountTableProps> = () => {
                         <AccountTableRow account={account} key={account.id}/>
                     ))}
                     </tbody>
-                </Table>
-            }
+                </Table>)}
         </>
     );
 }

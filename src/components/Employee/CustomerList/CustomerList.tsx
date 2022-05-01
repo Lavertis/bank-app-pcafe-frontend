@@ -36,7 +36,7 @@ const CustomerList: FC<CustomerListProps> = () => {
 
     return (
         <>
-            {(!customers.length && isDataFetched) ?
+            {isDataFetched && (!customers.length ?
                 <Alert variant="primary" className="mt-5 mx-auto">No customers</Alert> :
                 <Col xs={11} xl={10} xxl={9} className="mx-auto my-5">
                     {customers.map(customer => (
@@ -46,8 +46,7 @@ const CustomerList: FC<CustomerListProps> = () => {
                             deleteCustomer={deleteCustomer}
                         />
                     ))}
-                </Col>
-            }
+                </Col>)}
         </>
     );
 }

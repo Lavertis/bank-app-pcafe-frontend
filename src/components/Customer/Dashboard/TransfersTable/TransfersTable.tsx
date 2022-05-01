@@ -26,7 +26,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
 
     return (
         <>
-            {(!transfers.length && isDataFetched) ? <h5 className="text-center">No transfer history</h5> :
+            {isDataFetched && (!transfers.length ? <h5 className="text-center">No transfer history</h5> :
                 <Table responsive striped className="text-center">
                     <thead>
                     <tr>
@@ -41,8 +41,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
                         <TransfersTableRow transfer={transfer} key={transfer.id}/>
                     ))}
                     </tbody>
-                </Table>
-            }
+                </Table>)}
         </>
     );
 }
