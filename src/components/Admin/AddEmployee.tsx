@@ -49,7 +49,7 @@ const AddEmployee: FC<AddEmployeeProps> = () => {
         },
         validationSchema: addEmployeeValidationSchema,
         onSubmit: values => {
-            axios.post("employees", {
+            axios.post("employee-management/employees", {
                 ...values,
                 DateOfBirth: moment(values.DateOfBirth).utc(),
                 DateOfEmployment: moment(values.DateOfEmployment).utc()

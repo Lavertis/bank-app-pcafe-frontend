@@ -38,7 +38,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
         },
         validationSchema: transferValidationSchema,
         onSubmit: values => {
-            axios.post("transfers", values)
+            axios.post("transfer-management/transfers", values)
                 .then(() => {
                     navigate(`/dashboard`)
                 })
@@ -58,7 +58,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
     }
 
     useEffect(() => {
-        axios.get(`customers/auth/accounts`)
+        axios.get(`account-management/customers/auth/accounts`)
             .then(response => {
                 setAccounts(response.data)
                 if (response.data.length > 0) {

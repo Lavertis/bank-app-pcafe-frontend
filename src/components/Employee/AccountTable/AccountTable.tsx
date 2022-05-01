@@ -16,7 +16,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     const deleteAccount = (id: number) => {
-        axios.delete(`/accounts/${id}`)
+        axios.delete(`account-management/accounts/${id}`)
             .then(() => {
                 const newAccounts = accounts.filter(account => account.id !== id);
                 setAccounts(newAccounts);
@@ -25,7 +25,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     };
 
     useEffect(() => {
-        axios.get(`customers/${customerId}/accounts`)
+        axios.get(`account-management/customers/${customerId}/accounts`)
             .then(({data}) => {
                 setAccounts(data)
                 setIsDataFetched(true)
@@ -38,7 +38,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     return (
         <>
             {isDataFetched && (!accounts.length ?
-                <Alert variant="primary" className="text-center mx-auto mt-5">No accounts</Alert> :
+                <Alert variant="primary" className="text-center mx-auto mt-5">Customer has no accounts</Alert> :
                 <Col xs={11} xxl={9} className="mx-auto my-5">
                     <Card className="mb-4 border-bottom-0">
                         <h5 className="card-header">Customer's accounts</h5>

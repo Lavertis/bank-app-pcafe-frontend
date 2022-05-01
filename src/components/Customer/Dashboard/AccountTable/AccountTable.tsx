@@ -14,7 +14,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
-        axios.get('customers/auth/accounts')
+        axios.get('account-management/customers/auth/accounts')
             .then(res => {
                 setAccounts(res.data)
                 setIsDataFetched(true)

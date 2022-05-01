@@ -14,9 +14,8 @@ const EmployeeTable: FC<EmployeeTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
-        axios.get('employees')
+        axios.get('employee-management/employees')
             .then(res => {
-                console.log(res.data);
                 setEmployees(res.data);
                 setIsDataFetched(true);
             })
@@ -26,7 +25,7 @@ const EmployeeTable: FC<EmployeeTableProps> = () => {
     }, [axios]);
 
     const deleteEmployee = async (id: string) => {
-        axios.delete(`employees/${id}`)
+        axios.delete(`employee-management/employees/${id}`)
             .then(() => {
                 setEmployees(employees.filter(employee => employee.id !== id));
             })

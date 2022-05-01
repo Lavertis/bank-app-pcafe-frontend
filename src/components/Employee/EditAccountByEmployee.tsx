@@ -31,7 +31,7 @@ const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
         },
         validationSchema: editAccountByEmployeeValidationSchema,
         onSubmit: values => {
-            axios.patch(`accounts/${accountId}`, values)
+            axios.patch(`account-management/accounts/${accountId}`, values)
                 .then(() => {
                     navigate(-1)
                 })
@@ -46,7 +46,7 @@ const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
     });
 
     useEffect(() => {
-        axios.get(`accounts/${accountId}`)
+        axios.get(`account-management/accounts/${accountId}`)
             .then(response => {
                 setAccount(response.data)
                 formik.setFieldValue('Balance', response.data.balance)

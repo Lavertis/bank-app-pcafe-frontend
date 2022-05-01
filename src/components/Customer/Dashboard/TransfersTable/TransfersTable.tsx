@@ -14,7 +14,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
-        axios.get('customer/auth/transfers')
+        axios.get('transfer-management/customer/auth/transfers')
             .then(res => {
                 setTransfers(res.data.slice(0, 5))
                 setIsDataFetched(true)

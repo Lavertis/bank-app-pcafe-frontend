@@ -29,7 +29,7 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
         },
         validationSchema: loginValidationSchema,
         onSubmit: values => {
-            axios.post("auth/authenticate", values)
+            axios.post("auth-management/authenticate", values)
                 .then(response => {
                     setToken(response.data.jwtToken)
                     localStorage.setItem("jwtToken", response.data.jwtToken)

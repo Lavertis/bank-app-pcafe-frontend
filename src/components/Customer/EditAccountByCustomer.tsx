@@ -29,7 +29,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
         },
         validationSchema: editAccountByCustomerValidationSchema,
         onSubmit: values => {
-            axios.patch(`customers/auth/accounts/${accountId}`, values)
+            axios.patch(`account-management/customers/auth/accounts/${accountId}`, values)
                 .then(() => {
                     navigate(`/dashboard`)
                 })
@@ -44,7 +44,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
     });
 
     useEffect(() => {
-        axios.get(`customers/auth/accounts/${accountId}`)
+        axios.get(`account-management/customers/auth/accounts/${accountId}`)
             .then(response => {
                 setAccount(response.data)
                 formik.setFieldValue('Balance', response.data.balance)
