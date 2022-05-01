@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Account} from "../../../../types/Account";
 import useAxios from "../../../../hooks/useAxios";
 import {Table} from "react-bootstrap";
@@ -10,8 +10,8 @@ interface AccountTableProps {
 
 const AccountTable: FC<AccountTableProps> = () => {
     const axios = useAxios()
-    const [accounts, setAccounts] = React.useState<Account[]>([]);
-    const [isDataFetched, setIsDataFetched] = React.useState(false);
+    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     useEffect(() => {
         axios.get('account-management/customers/auth/accounts')
@@ -26,7 +26,7 @@ const AccountTable: FC<AccountTableProps> = () => {
 
     return (
         <>
-            {isDataFetched && (!accounts.length ? <h5 className="text-center">You don't have any account</h5> :
+            {isDataFetched && (!accounts.length ? <h5 className="text-center mb-0 p-3">You don't have any account</h5> :
                 <Table responsive striped className="text-center mb-0">
                     <thead>
                     <tr>

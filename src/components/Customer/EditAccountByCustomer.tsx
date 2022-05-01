@@ -20,7 +20,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
     const axios = useAxios()
     const navigate = useNavigate()
     const [account, setAccount] = useState<Account | null>(null)
-    const [serverError, setServerError] = React.useState<string>('')
+    const [serverError, setServerError] = useState<string>('')
 
     const formik = useFormik({
         initialValues: {

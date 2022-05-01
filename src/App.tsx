@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import './App.scss';
 import Layout from "./components/Layout/Layout";
 import {Route, Routes} from "react-router-dom";
@@ -27,7 +27,7 @@ export const TokenContext = React.createContext<{ token: string; setToken: Dispa
 );
 
 function App() {
-    const [token, setToken] = React.useState<string>(localStorage.getItem('jwtToken') ?? '');
+    const [token, setToken] = useState<string>(localStorage.getItem('jwtToken') ?? '');
 
     useEffect(() => {
         document.title = "Bank App"

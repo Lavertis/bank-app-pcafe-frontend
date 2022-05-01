@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Employee} from "../../../types/Employee";
 import useAxios from "../../../hooks/useAxios";
 import {Alert, Card, Col, Table} from "react-bootstrap";
@@ -10,8 +10,8 @@ interface EmployeeTableProps {
 
 const EmployeeTable: FC<EmployeeTableProps> = () => {
     const axios = useAxios();
-    const [employees, setEmployees] = React.useState<Employee[]>([]);
-    const [isDataFetched, setIsDataFetched] = React.useState(false);
+    const [employees, setEmployees] = useState<Employee[]>([]);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     useEffect(() => {
         axios.get('employee-management/employees')

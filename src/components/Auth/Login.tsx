@@ -1,4 +1,4 @@
-import React, {FC, useContext} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import {Alert, Button, Col, FloatingLabel, Form} from "react-bootstrap";
 import {useFormik} from "formik";
 import {useNavigate} from "react-router-dom";
@@ -20,7 +20,7 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
     const {setToken} = useContext(TokenContext)
     const axios = useAxios()
     const navigate = useNavigate()
-    const [serverError, setServerError] = React.useState<string>('')
+    const [serverError, setServerError] = useState<string>('')
 
     const formik = useFormik({
         initialValues: {
