@@ -14,7 +14,7 @@ const CustomerList: FC<CustomerListProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     const deleteCustomer = async (id: string) => {
-        axios.delete(`customers/${id}`)
+        axios.delete(`customer-management/customers/${id}`)
             .then(() => {
                 setCustomers(customers.filter(customer => customer.id !== id));
             })
@@ -24,7 +24,7 @@ const CustomerList: FC<CustomerListProps> = () => {
     }
 
     useEffect(() => {
-        axios.get('customers')
+        axios.get('customer-management/customers')
             .then(res => {
                 setCustomers(res.data);
                 setIsDataFetched(true);

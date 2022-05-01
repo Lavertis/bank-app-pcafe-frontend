@@ -51,7 +51,7 @@ const AddCustomer: FC<AddCustomerProps> = () => {
         },
         validationSchema: addCustomerValidationSchema,
         onSubmit: values => {
-            axios.post("customers", {
+            axios.post("customer-management/customers", {
                 ...values,
                 DateOfBirth: moment(values.DateOfBirth).utc()
             })

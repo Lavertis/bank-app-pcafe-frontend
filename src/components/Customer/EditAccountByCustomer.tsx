@@ -29,7 +29,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
         },
         validationSchema: editAccountByCustomerValidationSchema,
         onSubmit: values => {
-            axios.patch(`customers/auth/accounts/${accountId}`, values)
+            axios.patch(`account-management/customers/auth/accounts/${accountId}`, values)
                 .then(() => {
                     navigate(`/dashboard`)
                 })
@@ -44,7 +44,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
     });
 
     useEffect(() => {
-        axios.get(`customers/auth/accounts/${accountId}`)
+        axios.get(`account-management/customers/auth/accounts/${accountId}`)
             .then(response => {
                 setAccount(response.data)
                 formik.setFieldValue('Balance', response.data.balance)
@@ -65,10 +65,10 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
                     <Form.Control defaultValue={account?.number} disabled/>
                 </FloatingLabel>
                 <FloatingLabel label="Account type" className="mb-3">
-                    <Form.Control defaultValue={account?.accountType.name} disabled/>
+                    <Form.Control defaultValue={account?.accountTypeName} disabled/>
                 </FloatingLabel>
                 <FloatingLabel label="Account type" className="mb-3">
-                    <Form.Control defaultValue={account?.currency.code} disabled/>
+                    <Form.Control defaultValue={account?.currencyCode} disabled/>
                 </FloatingLabel>
                 <Form.Floating className="mb-3 flex-grow-1 input-group">
                     <Form.Control
@@ -83,7 +83,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
                         isValid={formik.touched.Balance && !formik.errors.Balance}
                         isInvalid={formik.touched.Balance && !!formik.errors.Balance}
                     />
-                    <InputGroup.Text className="rounded-end">{account?.currency.code}</InputGroup.Text>
+                    <InputGroup.Text className="rounded-end">{account?.currencyCode}</InputGroup.Text>
                     <label htmlFor="inputBalance" className="z-index-3">Balance</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.Balance}</Form.Control.Feedback>
                 </Form.Floating>
@@ -100,7 +100,7 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
                         isValid={formik.touched.TransferLimit && !formik.errors.TransferLimit}
                         isInvalid={formik.touched.TransferLimit && !!formik.errors.TransferLimit}
                     />
-                    <InputGroup.Text className="rounded-end">{account?.currency.code}</InputGroup.Text>
+                    <InputGroup.Text className="rounded-end">{account?.currencyCode}</InputGroup.Text>
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
                     <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
                 </Form.Floating>

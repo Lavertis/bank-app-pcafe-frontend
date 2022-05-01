@@ -14,7 +14,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
-        axios.get('customer/auth/transfers')
+        axios.get('transfer-management/customer/auth/transfers')
             .then(res => {
                 setTransfers(res.data.slice(0, 5))
                 setIsDataFetched(true)
@@ -27,7 +27,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     return (
         <>
             {isDataFetched && (!transfers.length ? <h5 className="text-center">No transfer history</h5> :
-                <Table responsive striped className="text-center">
+                <Table responsive striped className="text-center mb-0">
                     <thead>
                     <tr>
                         <th>Title</th>

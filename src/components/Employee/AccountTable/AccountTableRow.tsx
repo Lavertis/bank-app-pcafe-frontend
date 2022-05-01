@@ -27,11 +27,11 @@ const AccountTableRow: FC<AccountTableRowProps> = ({account, deleteAccount, cust
         <>
             <tr>
                 <td>{account.number}</td>
-                <td>{account.accountType.name}</td>
-                <td>{account.balance.toFixed(2)} {account.currency.code}</td>
-                <td>{account.transferLimit} {account.currency.code}</td>
-                <td>+{account.accountType.interestRate}%</td>
-                <td>{account.currency.code}</td>
+                <td>{account.accountTypeName}</td>
+                <td>{account.balance.toFixed(2)} {account.currencyCode}</td>
+                <td>{account.transferLimit} {account.currencyCode}</td>
+                <td>+{account.interestRate}%</td>
+                <td>{account.currencyCode}</td>
                 <td>{account.isActive ? 'Active' : 'Deactivated'}</td>
                 <td>
                     <Col className="d-flex justify-content-center">

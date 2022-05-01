@@ -39,7 +39,7 @@ const AddAccount: FC<AddAccountProps> = () => {
         },
         validationSchema: accountValidationSchema,
         onSubmit: values => {
-            axios.post("accounts", values)
+            axios.post("account-management/accounts", values)
                 .then(() => {
                     navigate(`/customers/${customerId}/accounts`)
                 })
@@ -59,7 +59,7 @@ const AddAccount: FC<AddAccountProps> = () => {
     }
 
     useEffect(() => {
-        axios.get("account-types")
+        axios.get("account-type-management/account-types")
             .then(response => {
                 setAccountTypes(response.data)
             })
@@ -69,7 +69,7 @@ const AddAccount: FC<AddAccountProps> = () => {
     }, [axios])
 
     useEffect(() => {
-        axios.get(`account-types/${formik.values.AccountTypeId}/currencies`)
+        axios.get(`account-type-management/account-types/${formik.values.AccountTypeId}/currencies`)
             .then(response => {
                 setCurrencies(response.data)
                 formik.setFieldValue('CurrencyId', response.data[0].id.toString())

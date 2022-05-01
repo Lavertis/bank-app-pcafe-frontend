@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {Account} from "../../../types/Account";
 import useAxios from "../../../hooks/useAxios";
 import AccountTableRow from "./AccountTableRow";
-import {Alert, Col, Table} from "react-bootstrap";
+import {Alert, Card, Col, Table} from "react-bootstrap";
 
 
 interface AccountTableProps {
@@ -16,7 +16,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     const deleteAccount = (id: number) => {
-        axios.delete(`/accounts/${id}`)
+        axios.delete(`account-management/accounts/${id}`)
             .then(() => {
                 const newAccounts = accounts.filter(account => account.id !== id);
                 setAccounts(newAccounts);
@@ -25,7 +25,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     };
 
     useEffect(() => {
-        axios.get(`customers/${customerId}/accounts`)
+        axios.get(`account-management/customers/${customerId}/accounts`)
             .then(({data}) => {
                 setAccounts(data)
                 setIsDataFetched(true)
@@ -38,16 +38,14 @@ const AccountTable: FC<AccountTableProps> = () => {
     return (
         <>
             {isDataFetched && (!accounts.length ?
-                    <Alert variant="primary" className="text-center mx-auto mt-5">No accounts</Alert> :
-                    <Col xs={11} xxl={9} className="mx-auto my-5 card py-4 px-5">
-                        {(!accounts.length && isDataFetched) &&
-                            <Alert variant="primary" className="text-center">No accounts</Alert>}
-                        {accounts &&
-                            <Table responsive className="text-center caption-top">
-                                <caption>Customer's accounts</caption>
-                                <thead>
-                                <tr>
-                                    <th>Number</th>
+                <Alert variant="primary" className="text-center mx-auto mt-5">Customer has no accounts</Alert> :
+                <Col xs={11} xxl={9} className="mx-auto my-5">
+                    <Card className="mb-4 border-bottom-0">
+                        <h5 className="card-header">Customer's accounts</h5>
+                        <Table responsive className="text-center caption-top mb-0">
+                            <thead>
+                            <tr>
+                                <th>Number</th>
                                 <th>Type</th>
                                 <th>Balance</th>
                                 <th>Transfer limit</th>
@@ -65,13 +63,12 @@ const AccountTable: FC<AccountTableProps> = () => {
                                     customerId={customerId}
                                     deleteAccount={deleteAccount}
                                 />
-                            ))
-                            }
+                            ))}
                             </tbody>
-                            </Table>
-                        }
-                    </Col>
-            )}
+                        </Table>
+                    </Card>
+
+                </Col>)}
         </>
     );
 }

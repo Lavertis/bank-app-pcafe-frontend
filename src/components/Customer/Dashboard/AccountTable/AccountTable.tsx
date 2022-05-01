@@ -14,7 +14,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     useEffect(() => {
-        axios.get('customers/auth/accounts')
+        axios.get('account-management/customers/auth/accounts')
             .then(res => {
                 setAccounts(res.data)
                 setIsDataFetched(true)
@@ -27,7 +27,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     return (
         <>
             {isDataFetched && (!accounts.length ? <h5 className="text-center">You don't have any account</h5> :
-                <Table responsive striped className="text-center">
+                <Table responsive striped className="text-center mb-0">
                     <thead>
                     <tr>
                         <th>Account type</th>

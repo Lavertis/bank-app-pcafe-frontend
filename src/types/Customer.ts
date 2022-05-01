@@ -1,7 +1,6 @@
-import {AppUser} from "./AppUser";
-
 export interface Customer {
     id: string;
+    userName: string;
     firstName: string;
     middleName: string;
     lastName: string;
@@ -9,5 +8,5 @@ export interface Customer {
     dateOfBirth: Date;
     cityOfBirth: string;
     fathersName: string;
-    appUser: AppUser;
+    bankAccountCount: number;
 }
