@@ -53,7 +53,8 @@ const EditAccountByCustomer: FC<EditAccountByCustomerProps> = () => {
             .catch(error => {
                 console.log(error)
             })
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [accountId, axios])
 
     return (
         <Col xs={11} sm={8} md={6} lg={5} xxl={4} className="mx-auto my-5 bg-light rounded-3 p-5 shadow">

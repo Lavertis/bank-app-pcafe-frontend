@@ -36,7 +36,7 @@ const EmployeeTable: FC<EmployeeTableProps> = () => {
 
     return (
         <>
-            {(!employees.length && isDataFetched) ?
+            {isDataFetched && (!employees.length ?
                 <Alert variant="primary" className="mx-auto mt-5">No employees</Alert> :
                 <Col xs={11} xl={10} xxl={9} className="card py-4 px-5 mx-auto my-5">
                     <Table responsive striped className="text-center caption-top">
@@ -65,8 +65,7 @@ const EmployeeTable: FC<EmployeeTableProps> = () => {
                         }
                         </tbody>
                     </Table>
-                </Col>
-            }
+                </Col>)}
         </>
     );
 }
