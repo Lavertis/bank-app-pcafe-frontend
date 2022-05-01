@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import useAxios from "../../../hooks/useAxios";
 import {Alert, Col} from "react-bootstrap";
 import CustomerListItem from "./CustomerListItem";
@@ -10,8 +10,8 @@ interface CustomerListProps {
 
 const CustomerList: FC<CustomerListProps> = () => {
     const axios = useAxios();
-    const [customers, setCustomers] = React.useState<Customer[]>([]);
-    const [isDataFetched, setIsDataFetched] = React.useState(false);
+    const [customers, setCustomers] = useState<Customer[]>([]);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     const deleteCustomer = async (id: string) => {
         axios.delete(`customer-management/customers/${id}`)

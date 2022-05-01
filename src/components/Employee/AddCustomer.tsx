@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
@@ -34,7 +34,7 @@ interface AddCustomerProps {
 const AddCustomer: FC<AddCustomerProps> = () => {
     const axios = useAxios()
     const navigate = useNavigate()
-    const [serverError, setServerError] = React.useState<string>('')
+    const [serverError, setServerError] = useState<string>('')
 
     const formik = useFormik({
         initialValues: {

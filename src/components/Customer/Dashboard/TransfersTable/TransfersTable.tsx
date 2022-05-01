@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import useAxios from "../../../../hooks/useAxios";
 import {Table} from "react-bootstrap";
 import {Transfer} from "../../../../types/Transfer";
@@ -10,8 +10,8 @@ interface TransfersTableProps {
 
 const TransfersTable: FC<TransfersTableProps> = () => {
     const axios = useAxios()
-    const [transfers, setTransfers] = React.useState<Transfer[]>([]);
-    const [isDataFetched, setIsDataFetched] = React.useState(false);
+    const [transfers, setTransfers] = useState<Transfer[]>([]);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     useEffect(() => {
         axios.get('transfer-management/customer/auth/transfers')
@@ -26,7 +26,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
 
     return (
         <>
-            {isDataFetched && (!transfers.length ? <h5 className="text-center">No transfer history</h5> :
+            {isDataFetched && (!transfers.length ? <h5 className="text-center mb-0 p-3">No transfer history</h5> :
                 <Table responsive striped className="text-center mb-0">
                     <thead>
                     <tr>

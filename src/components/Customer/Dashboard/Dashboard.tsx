@@ -8,11 +8,11 @@ interface DashboardProps {
 
 const Dashboard: FC<DashboardProps> = () => (
     <Col xs={11} lg={9} xl={8} xxl={6} className="my-5 mx-auto">
-        <Card className="mb-4 border-bottom-0">
+        <Card className="mb-4">
             <h5 className="card-header">Accounts</h5>
             <AccountTable/>
         </Card>
-        <Card className="border-bottom-0">
+        <Card>
             <h5 className="card-header">Last 5 transfers</h5>
             <TransfersTable/>
         </Card>

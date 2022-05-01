@@ -26,7 +26,7 @@ const AddAccount: FC<AddAccountProps> = () => {
     const navigate = useNavigate()
     const [accountTypes, setAccountTypes] = useState<AccountType[]>([]);
     const [currencies, setCurrencies] = useState<Currency[]>([]);
-    const [serverError, setServerError] = React.useState<string>('')
+    const [serverError, setServerError] = useState<string>('')
 
     const formik = useFormik({
         initialValues: {
