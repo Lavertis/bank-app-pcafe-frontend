@@ -66,7 +66,6 @@ const AddAccount: FC<AddAccountProps> = () => {
             .catch(error => {
                 console.log(error)
             })
-
     }, [axios])
 
     useEffect(() => {
