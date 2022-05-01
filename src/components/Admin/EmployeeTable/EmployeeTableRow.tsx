@@ -30,7 +30,7 @@ const EmployeeTableRow: FC<EmployeeTableRowProps> = ({employee, deleteEmployee})
     return (
         <>
             <tr>
-                <td>{employee.appUser.userName}</td>
+                <td>{employee.userName}</td>
                 <td>{employee.firstName}</td>
                 <td>{employee.lastName}</td>
                 <td>{employee.salary}</td>

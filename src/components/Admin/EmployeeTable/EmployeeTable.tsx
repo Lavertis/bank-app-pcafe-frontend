@@ -16,6 +16,7 @@ const EmployeeTable: FC<EmployeeTableProps> = () => {
     useEffect(() => {
         axios.get('employees')
             .then(res => {
+                console.log(res.data);
                 setEmployees(res.data);
                 setIsDataFetched(true);
             })

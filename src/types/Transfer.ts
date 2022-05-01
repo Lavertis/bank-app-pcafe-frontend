@@ -1,5 +1,3 @@
-import {Account} from "./Account";
-
 export interface Transfer {
     id: number;
     amount: number;
@@ -8,8 +6,9 @@ export interface Transfer {
     title: string;
     ordered: Date;
     executed: Date;
-    reasonFailed: string;
+    reasonFailed?: string;
     isCompleted: boolean;
     isFailed: boolean;
-    senderAccount: Account;
+    senderAccountNumber: string;
+    senderAccountCurrencyCode: string;
 }

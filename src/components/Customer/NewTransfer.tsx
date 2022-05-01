@@ -53,8 +53,8 @@ const NewTransfer: FC<NewTransferProps> = () => {
     });
 
     const getSelectedAccountCurrency = () => {
-        return accounts.find(account => account.id.toString() === formik.values.SenderAccountId)?.currency.code
-            ?? accounts[0]?.currency.code
+        return accounts.find(account => account.id.toString() === formik.values.SenderAccountId)?.currencyCode
+            ?? accounts[0]?.currencyCode
     }
 
     useEffect(() => {
@@ -103,7 +103,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         isInvalid={formik.touched.SenderAccountId && !!formik.errors.SenderAccountId}>
                         {accounts.map(account => (
                             account.isActive && <option key={account.id} value={account.id}>
-                                {account.number} ({account.balance.toFixed(2)} {account.currency.code})
+                                {account.number} ({account.balance.toFixed(2)} {account.currencyCode})
                             </option>
                         ))}
                     </Form.Select>

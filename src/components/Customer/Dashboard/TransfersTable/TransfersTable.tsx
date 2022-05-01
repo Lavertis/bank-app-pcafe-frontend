@@ -27,7 +27,7 @@ const TransfersTable: FC<TransfersTableProps> = () => {
     return (
         <>
             {isDataFetched && (!transfers.length ? <h5 className="text-center">No transfer history</h5> :
-                <Table responsive striped className="text-center">
+                <Table responsive striped className="text-center mb-0">
                     <thead>
                     <tr>
                         <th>Title</th>

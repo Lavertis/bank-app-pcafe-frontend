@@ -12,11 +12,11 @@ interface AccountTableRowProps {
 
 const AccountTableRow: FC<AccountTableRowProps> = ({account}) => (
     <tr>
-        <td>{account.accountType.name}</td>
+        <td>{account.accountTypeName}</td>
         <td>{account.number}</td>
-        <td>{account.balance.toFixed(2)} {account.currency.code}</td>
+        <td>{account.balance.toFixed(2)} {account.currencyCode}</td>
         <td>{account.isActive ? 'Active' : 'Deactivated'}</td>
-        <td>{account.currency.code}</td>
+        <td>{account.currencyCode}</td>
         <td>
             <Link to={`/accounts/${account.id}/edit`}>
                 <Button variant="outline-primary">

@@ -27,7 +27,7 @@ const AccountTable: FC<AccountTableProps> = () => {
     return (
         <>
             {isDataFetched && (!accounts.length ? <h5 className="text-center">You don't have any account</h5> :
-                <Table responsive striped className="text-center">
+                <Table responsive striped className="text-center mb-0">
                     <thead>
                     <tr>
                         <th>Account type</th>
