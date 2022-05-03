@@ -5,7 +5,7 @@ export interface Customer {
     middleName: string;
     lastName: string;
     nationalId: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     cityOfBirth: string;
     fathersName: string;
     bankAccountCount: number;

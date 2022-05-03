@@ -5,6 +5,6 @@ export interface Employee {
     lastName: string;
     salary: number;
     gender: string;
-    dateOfEmployment: Date;
-    dateOfBirth: Date;
+    dateOfEmployment: string;
+    dateOfBirth: string;
 }

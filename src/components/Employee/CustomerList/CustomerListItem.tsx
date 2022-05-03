@@ -17,7 +17,7 @@ const CustomerListItem: FC<CustomerListItemProps> = ({customer, deleteCustomer})
     const hideModal = () => setModalIsShown(false);
     const showModal = () => setModalIsShown(true);
 
-    const getDate = (date: Date) => {
+    const getDate = (date: string) => {
         const dateObj = new Date(date);
         return dateObj.toLocaleDateString();
     }
