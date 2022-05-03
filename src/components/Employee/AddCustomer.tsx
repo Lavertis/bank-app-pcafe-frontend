@@ -19,7 +19,7 @@ const addCustomerValidationSchema = yup.object().shape({
     FirstName: yup.string().required().minUppercase(1).min(2).max(50).label('First name'),
     MiddleName: yup.string().required().minUppercase(1).min(2).max(50).label('Second name'),
     LastName: yup.string().required().minUppercase(1).min(2).max(50).label('Last name'),
-    NationalId: yup.string().required().min(9).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
+    NationalId: yup.string().required().length(11).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
     DateOfBirth: yup.date()
         .required()
         .max(moment().subtract(18, 'years').format("YYYY-MM-DD"), 'Customer must be at least 18 years old')

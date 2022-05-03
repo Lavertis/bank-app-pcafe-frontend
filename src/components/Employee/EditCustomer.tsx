@@ -4,13 +4,13 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import moment from "moment";
 import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
-import {Alert, Button, ButtonGroup, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
+import {Alert, Button, Col, FloatingLabel, Form} from "react-bootstrap";
 import YupPassword from "yup-password";
 import * as yup from "yup";
-import {Employee} from "../../types/Employee";
+import {Customer} from "../../types/Customer";
 
 YupPassword(yup);
-const editEmployeeValidationSchema = yup.object().shape({
+const addCustomerValidationSchema = yup.object().shape({
     UserName: yup.string().required().min(4).max(16).label('Username'),
     Password: yup.string().password().label('Password'),
     PasswordConfirmation: yup.string()
@@ -21,47 +21,48 @@ const editEmployeeValidationSchema = yup.object().shape({
         })
         .label('Password confirmation'),
     FirstName: yup.string().required().minUppercase(1).min(2).max(50).label('First name'),
+    MiddleName: yup.string().required().minUppercase(1).min(2).max(50).label('Second name'),
     LastName: yup.string().required().minUppercase(1).min(2).max(50).label('Last name'),
-    Salary: yup.number().required().positive().label('Salary'),
-    Gender: yup.string().oneOf(['F', 'M']).label('Gender'),
+    NationalId: yup.string().required().length(11).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
     DateOfBirth: yup.date()
         .required()
-        .max(moment().subtract(18, 'years').format("YYYY-MM-DD"), 'Employee must be at least 18 years old')
+        .max(moment().subtract(18, 'years').format("YYYY-MM-DD"), 'Customer must be at least 18 years old')
         .label('Date of birth'),
-    DateOfEmployment: yup.date().required().label('Date of employment')
+    CityOfBirth: yup.string().required().minUppercase(1).min(1).max(50).label('City of birth'),
+    FathersName: yup.string().required().minUppercase(1).min(2).max(50).label('Father\'s name'),
 });
 
-interface EditEmployeeProps {
+interface EditCustomerProps {
 }
 
-const EditEmployee: FC<EditEmployeeProps> = () => {
-    const {employeeId} = useParams();
+const EditCustomer: FC<EditCustomerProps> = () => {
+    const {customerId} = useParams();
     const axios = useAxios()
     const navigate = useNavigate()
     const [serverError, setServerError] = useState<string>('')
 
     const formik = useFormik({
         initialValues: {
-            EmployeeId: employeeId,
+            CustomerId: customerId,
             UserName: '',
             Password: '',
             PasswordConfirmation: '',
             FirstName: '',
+            MiddleName: '',
             LastName: '',
-            Salary: 0,
-            Gender: '',
+            NationalId: '',
             DateOfBirth: moment().subtract(18, 'years').format("YYYY-MM-DD"),
-            DateOfEmployment: moment().format("YYYY-MM-DD")
+            CityOfBirth: '',
+            FathersName: '',
         },
-        validationSchema: editEmployeeValidationSchema,
+        validationSchema: addCustomerValidationSchema,
         onSubmit: values => {
-            axios.patch(`employee-management/employees/${employeeId}`, {
+            axios.patch(`customer-management/customers/${customerId}`, {
                 ...values,
-                DateOfBirth: moment(values.DateOfBirth).utc(),
-                DateOfEmployment: moment(values.DateOfEmployment).utc()
+                DateOfBirth: moment(values.DateOfBirth).utc()
             })
                 .then(() => {
-                    navigate('/employees')
+                    navigate('/customers')
                 })
                 .catch(error => {
                     if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -74,29 +75,30 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
     });
 
     useEffect(() => {
-        axios.get(`employee-management/employees/${employeeId}`)
+        axios.get(`customer-management/customers/${customerId}`)
             .then(response => {
-                const employee = response.data as Employee
+                const customer = response.data as Customer
                 formik.setValues({
                     ...formik.values,
-                    UserName: employee.userName,
-                    FirstName: employee.firstName,
-                    LastName: employee.lastName,
-                    Salary: employee.salary,
-                    Gender: employee.gender,
-                    DateOfBirth: employee.dateOfBirth,
-                    DateOfEmployment: employee.dateOfEmployment
+                    UserName: customer.userName,
+                    FirstName: customer.firstName,
+                    MiddleName: customer.middleName,
+                    LastName: customer.lastName,
+                    NationalId: customer.nationalId,
+                    DateOfBirth: customer.dateOfBirth,
+                    CityOfBirth: customer.cityOfBirth,
+                    FathersName: customer.fathersName,
                 })
             })
             .catch(error => {
                 console.log(error)
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [axios, employeeId])
+    }, [axios, customerId])
 
     return (
         <Col xs={11} sm={8} md={6} lg={5} xxl={4} className="mx-auto my-5 bg-light rounded-3 p-5 shadow">
-            <h3 className="mb-4">Update employee details</h3>
+            <h3 className="mb-4">Update customer details</h3>
             {serverError && <Alert variant="danger" className="text-center">{serverError}</Alert>}
             <Form onSubmit={formik.handleSubmit} noValidate>
                 <FloatingLabel controlId="inputUserName" label="Username" className="mb-3">
@@ -147,6 +149,18 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.FirstName}</Form.Control.Feedback>
                 </FloatingLabel>
+                <FloatingLabel controlId="inputSecondName" label="Middle name" className="mb-3">
+                    <Form.Control
+                        type="text"
+                        name="MiddleName"
+                        placeholder="Middle name"
+                        onChange={formik.handleChange}
+                        value={formik.values.MiddleName}
+                        // isValid={formik.touched.MiddleName && !formik.errors.MiddleName}
+                        isInvalid={formik.touched.MiddleName && !!formik.errors.MiddleName}
+                    />
+                    <Form.Control.Feedback type="invalid">{formik.errors.MiddleName}</Form.Control.Feedback>
+                </FloatingLabel>
                 <FloatingLabel controlId="inputLastName" label="Last name" className="mb-3">
                     <Form.Control
                         type="text"
@@ -159,44 +173,18 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.LastName}</Form.Control.Feedback>
                 </FloatingLabel>
-                <Form.Floating className="mb-3 flex-grow-1 input-group">
+                <FloatingLabel controlId="inputNationalId" label="National ID" className="mb-3">
                     <Form.Control
-                        type="number"
-                        name="Salary"
-                        id="inputSalary"
-                        placeholder="Salary"
-                        min={0}
-                        step={100}
+                        type="text"
+                        name="NationalId"
+                        placeholder="National ID"
                         onChange={formik.handleChange}
-                        value={formik.values.Salary}
-                        // isValid={formik.touched.Salary && !formik.errors.Salary}
-                        isInvalid={formik.touched.Salary && !!formik.errors.Salary}
+                        value={formik.values.NationalId}
+                        // isValid={formik.touched.NationalId && !formik.errors.NationalId}
+                        isInvalid={formik.touched.NationalId && !!formik.errors.NationalId}
                     />
-                    <InputGroup.Text className="rounded-end">PLN</InputGroup.Text>
-                    <label htmlFor="inputSalary" className="z-index-3">Salary</label>
-                    <Form.Control.Feedback type="invalid">{formik.errors.Salary}</Form.Control.Feedback>
-                </Form.Floating>
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="inputPriority">Gender</Form.Label>
-                    <ButtonGroup className="mb-3 d-flex" id="inputPriority">
-                        <Button
-                            name="Gender"
-                            variant="outline-primary"
-                            active={formik.values.Gender === 'F'}
-                            value={'F'}
-                            onClick={formik.handleChange}>
-                            Female
-                        </Button>
-                        <Button
-                            name="Gender"
-                            variant="outline-primary"
-                            active={formik.values.Gender === 'M'}
-                            value={'M'}
-                            onClick={formik.handleChange}>
-                            Male
-                        </Button>
-                    </ButtonGroup>
-                </Form.Group>
+                    <Form.Control.Feedback type="invalid">{formik.errors.NationalId}</Form.Control.Feedback>
+                </FloatingLabel>
                 <FloatingLabel controlId="inputDateOfBirth" label="Date of birth" className="mb-3">
                     <Form.Control
                         type="date"
@@ -208,16 +196,29 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
                     />
                     <Form.Control.Feedback type="invalid">{formik.errors.DateOfBirth}</Form.Control.Feedback>
                 </FloatingLabel>
-                <FloatingLabel controlId="inputDateOfEmployment" label="Date of employment" className="mb-3">
+                <FloatingLabel controlId="inputCityOfBirth" label="City of birth" className="mb-3">
                     <Form.Control
-                        type="date"
-                        name="DateOfEmployment"
+                        type="text"
+                        name="CityOfBirth"
+                        placeholder="City of birth"
                         onChange={formik.handleChange}
-                        value={moment(formik.values.DateOfEmployment).format("YYYY-MM-DD")}
-                        // isValid={formik.touched.DateOfEmployment && !formik.errors.DateOfEmployment}
-                        isInvalid={formik.touched.DateOfEmployment && !!formik.errors.DateOfEmployment}
+                        value={formik.values.CityOfBirth}
+                        // isValid={formik.touched.CityOfBirth && !formik.errors.CityOfBirth}
+                        isInvalid={formik.touched.CityOfBirth && !!formik.errors.CityOfBirth}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.DateOfEmployment}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.CityOfBirth}</Form.Control.Feedback>
+                </FloatingLabel>
+                <FloatingLabel controlId="inputFathersName" label="Father's name" className="mb-3">
+                    <Form.Control
+                        type="text"
+                        name="FathersName"
+                        placeholder="Father's name"
+                        onChange={formik.handleChange}
+                        value={formik.values.FathersName}
+                        // isValid={formik.touched.FathersName && !formik.errors.FathersName}
+                        isInvalid={formik.touched.FathersName && !!formik.errors.FathersName}
+                    />
+                    <Form.Control.Feedback type="invalid">{formik.errors.FathersName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">
@@ -234,4 +235,4 @@ const EditEmployee: FC<EditEmployeeProps> = () => {
     );
 }
 
-export default EditEmployee;
+export default EditCustomer;
