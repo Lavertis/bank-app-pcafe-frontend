@@ -11,11 +11,12 @@ import CustomerList from "./components/Employee/CustomerList/CustomerList";
 import AddCustomer from "./components/Employee/AddCustomer";
 import AddAccount from "./components/Employee/AddAccount";
 import AccountTable from "./components/Employee/AccountTable/AccountTable";
-import NotYetImplemented from "./components/NotYetImplemented";
 import Dashboard from "./components/Customer/Dashboard/Dashboard";
 import NewTransfer from "./components/Customer/NewTransfer";
 import EditAccountByCustomer from "./components/Customer/EditAccountByCustomer";
 import EditAccountByEmployee from "./components/Employee/EditAccountByEmployee";
+import EditEmployee from "./components/Admin/EditEmployee";
+import EditCustomer from "./components/Employee/EditCustomer";
 
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
@@ -45,13 +46,13 @@ function App() {
                     <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
                         <Route path="/employees" element={<EmployeeTable/>}/>
                         <Route path="/employees/create" element={<AddEmployee/>}/>
-                        <Route path="/employees/:employeeId/edit" element={<NotYetImplemented/>}/>
+                        <Route path="/employees/:employeeId/edit" element={<EditEmployee/>}/>
                     </Route>
 
                     <Route element={<ProtectedRoute allowedRoles={['Employee']}/>}>
                         <Route path="/customers" element={<CustomerList/>}/>
                         <Route path="/customers/create" element={<AddCustomer/>}/>
-                        <Route path="/customers/:customerId/edit" element={<NotYetImplemented/>}/>
+                        <Route path="/customers/:customerId/edit" element={<EditCustomer/>}/>
                         <Route path="/customers/:customerId/accounts" element={<AccountTable/>}/>
                         <Route path="/customers/:customerId/accounts/create" element={<AddAccount/>}/>
 
