@@ -16,6 +16,7 @@ import Dashboard from "./components/Customer/Dashboard/Dashboard";
 import NewTransfer from "./components/Customer/NewTransfer";
 import EditAccountByCustomer from "./components/Customer/EditAccountByCustomer";
 import EditAccountByEmployee from "./components/Employee/EditAccountByEmployee";
+import EditEmployee from "./components/Admin/EditEmployee";
 
 
 export const TokenContext = React.createContext<{ token: string; setToken: Dispatch<SetStateAction<string>>; }>(
@@ -45,7 +46,7 @@ function App() {
                     <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
                         <Route path="/employees" element={<EmployeeTable/>}/>
                         <Route path="/employees/create" element={<AddEmployee/>}/>
-                        <Route path="/employees/:employeeId/edit" element={<NotYetImplemented/>}/>
+                        <Route path="/employees/:employeeId/edit" element={<EditEmployee/>}/>
                     </Route>
 
                     <Route element={<ProtectedRoute allowedRoles={['Employee']}/>}>
