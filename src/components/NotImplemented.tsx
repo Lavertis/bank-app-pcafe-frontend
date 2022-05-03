@@ -2,10 +2,10 @@ import React, {FC} from 'react';
 import {Alert, Col} from "react-bootstrap";
 
 
-interface NotYetImplementedProps {
+interface NotImplementedProps {
 }
 
-const NotYetImplemented: FC<NotYetImplementedProps> = () => (
+const NotImplemented: FC<NotImplementedProps> = () => (
     <Col className="mx-auto mt-5">
         <Alert variant="primary" className="text-center">
             This feature is not yet implemented
@@ -13,4 +13,4 @@ const NotYetImplemented: FC<NotYetImplementedProps> = () => (
     </Col>
 );
 
-export default NotYetImplemented;
+export default NotImplemented;
