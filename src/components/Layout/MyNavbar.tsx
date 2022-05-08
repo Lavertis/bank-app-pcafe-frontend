@@ -1,7 +1,7 @@
 import React, {FC, useContext} from 'react';
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
-import {getClaimFromToken, getRoleFromToken} from "../../helpers/token-helper";
+import {getClaimFromToken, getRoleFromToken} from "../../utils/tokenUtils";
 import {TokenContext} from "../../App";
 import {useNavigate} from "react-router-dom";
 

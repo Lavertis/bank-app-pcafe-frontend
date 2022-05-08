@@ -3,7 +3,7 @@ import useAxios from "../../hooks/useAxios";
 import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import moment from "moment";
-import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
 import {Alert, Button, ButtonGroup, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import YupPassword from "yup-password";
 import * as yup from "yup";
