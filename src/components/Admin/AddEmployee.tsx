@@ -6,7 +6,7 @@ import {Alert, Button, ButtonGroup, Col, FloatingLabel, Form, InputGroup} from "
 import moment from "moment";
 import * as yup from 'yup';
 import YupPassword from 'yup-password'
-import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
 
 YupPassword(yup);
 const addEmployeeValidationSchema = yup.object().shape({

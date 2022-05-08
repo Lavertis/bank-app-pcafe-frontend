@@ -5,7 +5,7 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {Account} from "../../types/Account";
-import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
 
 const editAccountByCustomerValidationSchema = yup.object().shape({
     Balance: yup.number().required().min(0).label('Balance'),

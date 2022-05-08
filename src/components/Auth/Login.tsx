@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {TokenContext} from "../../App";
 import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
-import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
 
 const loginValidationSchema = yup.object().shape({
     UserName: yup.string().required().label('Username'),

@@ -5,7 +5,7 @@ import * as yup from "yup";
 import {useFormik} from "formik";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {Account} from "../../types/Account";
-import {getErrorsWithFirstMessages} from "../../helpers/fluent-validation";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
 
 const transferValidationSchema = yup.object().shape({
     Amount: yup.number().required().positive().label('Amount'),
