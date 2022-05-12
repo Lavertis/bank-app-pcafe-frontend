@@ -6,7 +6,7 @@ import {useFormik} from "formik";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {AccountType} from "../../types/AccountType";
 import {Currency} from "../../types/Currency";
-import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorUtils";
 
 
 const accountValidationSchema = yup.object().shape({

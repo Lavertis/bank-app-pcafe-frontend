@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import {Account} from "../../types/Account";
 import {useFormik} from "formik";
-import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorUtils";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import * as yup from "yup";
 

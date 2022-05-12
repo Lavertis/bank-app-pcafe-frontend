@@ -6,7 +6,7 @@ import {useFormik} from "formik";
 import moment from "moment";
 import {Alert, Button, Col, FloatingLabel, Form} from "react-bootstrap";
 import YupPassword from "yup-password";
-import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorUtils";
 
 YupPassword(yup);
 const addCustomerValidationSchema = yup.object().shape({
