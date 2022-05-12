@@ -11,25 +11,25 @@ import {Customer} from "../../types/Customer";
 
 YupPassword(yup);
 const addCustomerValidationSchema = yup.object().shape({
-    UserName: yup.string().required().min(4).max(16).label('Username'),
-    Password: yup.string().password().label('Password'),
-    PasswordConfirmation: yup.string()
-        .oneOf([yup.ref('Password')], 'Passwords must match')
-        .when('Password', {
+    userName: yup.string().required().min(4).max(16).label('Username'),
+    password: yup.string().password().label('Password'),
+    passwordConfirmation: yup.string()
+        .oneOf([yup.ref('password')], 'Passwords must match')
+        .when('password', {
             is: (val: string) => val && val.length > 0,
             then: yup.string().required()
         })
         .label('Password confirmation'),
-    FirstName: yup.string().required().minUppercase(1).min(2).max(50).label('First name'),
-    MiddleName: yup.string().required().minUppercase(1).min(2).max(50).label('Second name'),
-    LastName: yup.string().required().minUppercase(1).min(2).max(50).label('Last name'),
-    NationalId: yup.string().required().length(11).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
-    DateOfBirth: yup.date()
+    firstName: yup.string().required().minUppercase(1).min(2).max(50).label('First name'),
+    middleName: yup.string().required().minUppercase(1).min(2).max(50).label('Second name'),
+    lastName: yup.string().required().minUppercase(1).min(2).max(50).label('Last name'),
+    nationalId: yup.string().required().length(11).matches(/^\d*$/, 'National ID must be a number').label('National ID'),
+    dateOfBirth: yup.date()
         .required()
         .max(moment().subtract(18, 'years').format("YYYY-MM-DD"), 'Customer must be at least 18 years old')
         .label('Date of birth'),
-    CityOfBirth: yup.string().required().minUppercase(1).min(1).max(50).label('City of birth'),
-    FathersName: yup.string().required().minUppercase(1).min(2).max(50).label('Father\'s name'),
+    cityOfBirth: yup.string().required().minUppercase(1).min(1).max(50).label('City of birth'),
+    fathersName: yup.string().required().minUppercase(1).min(2).max(50).label('Father\'s name'),
 });
 
 interface EditCustomerProps {
@@ -43,23 +43,23 @@ const EditCustomer: FC<EditCustomerProps> = () => {
 
     const formik = useFormik({
         initialValues: {
-            CustomerId: customerId,
-            UserName: '',
-            Password: '',
-            PasswordConfirmation: '',
-            FirstName: '',
-            MiddleName: '',
-            LastName: '',
-            NationalId: '',
-            DateOfBirth: moment().subtract(18, 'years').format("YYYY-MM-DD"),
-            CityOfBirth: '',
-            FathersName: '',
+            customerId: customerId,
+            userName: '',
+            password: '',
+            passwordConfirmation: '',
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            nationalId: '',
+            dateOfBirth: moment().subtract(18, 'years').format("YYYY-MM-DD"),
+            cityOfBirth: '',
+            fathersName: '',
         },
         validationSchema: addCustomerValidationSchema,
         onSubmit: values => {
             axios.patch(`customer-management/customers/${customerId}`, {
                 ...values,
-                DateOfBirth: moment(values.DateOfBirth).utc()
+                dateOfBirth: moment(values.dateOfBirth).utc()
             })
                 .then(() => {
                     navigate('/customers')
@@ -80,14 +80,14 @@ const EditCustomer: FC<EditCustomerProps> = () => {
                 const customer = response.data as Customer
                 formik.setValues({
                     ...formik.values,
-                    UserName: customer.userName,
-                    FirstName: customer.firstName,
-                    MiddleName: customer.middleName,
-                    LastName: customer.lastName,
-                    NationalId: customer.nationalId,
-                    DateOfBirth: customer.dateOfBirth,
-                    CityOfBirth: customer.cityOfBirth,
-                    FathersName: customer.fathersName,
+                    userName: customer.userName,
+                    firstName: customer.firstName,
+                    middleName: customer.middleName,
+                    lastName: customer.lastName,
+                    nationalId: customer.nationalId,
+                    dateOfBirth: customer.dateOfBirth,
+                    cityOfBirth: customer.cityOfBirth,
+                    fathersName: customer.fathersName,
                 })
             })
             .catch(error => {
@@ -104,121 +104,121 @@ const EditCustomer: FC<EditCustomerProps> = () => {
                 <FloatingLabel controlId="inputUserName" label="Username" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="UserName"
+                        name="userName"
                         placeholder="Username"
                         onChange={formik.handleChange}
-                        value={formik.values.UserName}
-                        // isValid={formik.touched.UserName && !formik.errors.UserName}
-                        isInvalid={formik.touched.UserName && !!formik.errors.UserName}
+                        value={formik.values.userName}
+                        // isValid={formik.touched.userName && !formik.errors.userName}
+                        isInvalid={formik.touched.userName && !!formik.errors.userName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.UserName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.userName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputPassword" label="Password" className="mb-3">
                     <Form.Control
                         type="password"
-                        name="Password"
+                        name="password"
                         placeholder="Password"
                         onChange={formik.handleChange}
-                        value={formik.values.Password}
-                        // isValid={formik.touched.Password && !formik.errors.Password}
-                        isInvalid={formik.touched.Password && !!formik.errors.Password}
+                        value={formik.values.password}
+                        // isValid={formik.touched.password && !formik.errors.password}
+                        isInvalid={formik.touched.password && !!formik.errors.password}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.Password}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputPasswordConfirmation" label="Password confirmation" className="mb-3">
                     <Form.Control
                         type="password"
-                        name="PasswordConfirmation"
+                        name="passwordConfirmation"
                         placeholder="Password confirmation"
                         onChange={formik.handleChange}
-                        value={formik.values.PasswordConfirmation}
-                        // isValid={formik.touched.PasswordConfirmation && !formik.errors.PasswordConfirmation}
-                        isInvalid={formik.touched.PasswordConfirmation && !!formik.errors.PasswordConfirmation}
+                        value={formik.values.passwordConfirmation}
+                        // isValid={formik.touched.passwordConfirmation && !formik.errors.passwordConfirmation}
+                        isInvalid={formik.touched.passwordConfirmation && !!formik.errors.passwordConfirmation}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.PasswordConfirmation}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.passwordConfirmation}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputFirstName" label="First name" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="FirstName"
+                        name="firstName"
                         placeholder="First name"
                         onChange={formik.handleChange}
-                        value={formik.values.FirstName}
-                        // isValid={formik.touched.FirstName && !formik.errors.FirstName}
-                        isInvalid={formik.touched.FirstName && !!formik.errors.FirstName}
+                        value={formik.values.firstName}
+                        // isValid={formik.touched.firstName && !formik.errors.firstName}
+                        isInvalid={formik.touched.firstName && !!formik.errors.firstName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.FirstName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.firstName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputSecondName" label="Middle name" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="MiddleName"
+                        name="middleName"
                         placeholder="Middle name"
                         onChange={formik.handleChange}
-                        value={formik.values.MiddleName}
-                        // isValid={formik.touched.MiddleName && !formik.errors.MiddleName}
-                        isInvalid={formik.touched.MiddleName && !!formik.errors.MiddleName}
+                        value={formik.values.middleName}
+                        // isValid={formik.touched.middleName && !formik.errors.middleName}
+                        isInvalid={formik.touched.middleName && !!formik.errors.middleName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.MiddleName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.middleName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputLastName" label="Last name" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="LastName"
+                        name="lastName"
                         placeholder="Last name"
                         onChange={formik.handleChange}
-                        value={formik.values.LastName}
-                        // isValid={formik.touched.LastName && !formik.errors.LastName}
-                        isInvalid={formik.touched.LastName && !!formik.errors.LastName}
+                        value={formik.values.lastName}
+                        // isValid={formik.touched.lastName && !formik.errors.lastName}
+                        isInvalid={formik.touched.lastName && !!formik.errors.lastName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.LastName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.lastName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputNationalId" label="National ID" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="NationalId"
+                        name="nationalId"
                         placeholder="National ID"
                         onChange={formik.handleChange}
-                        value={formik.values.NationalId}
-                        // isValid={formik.touched.NationalId && !formik.errors.NationalId}
-                        isInvalid={formik.touched.NationalId && !!formik.errors.NationalId}
+                        value={formik.values.nationalId}
+                        // isValid={formik.touched.nationalId && !formik.errors.nationalId}
+                        isInvalid={formik.touched.nationalId && !!formik.errors.nationalId}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.NationalId}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.nationalId}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputDateOfBirth" label="Date of birth" className="mb-3">
                     <Form.Control
                         type="date"
-                        name="DateOfBirth"
+                        name="dateOfBirth"
                         onChange={formik.handleChange}
-                        value={moment(formik.values.DateOfBirth).format("YYYY-MM-DD")}
-                        // isValid={formik.touched.DateOfBirth && !formik.errors.DateOfBirth}
-                        isInvalid={formik.touched.DateOfBirth && !!formik.errors.DateOfBirth}
+                        value={moment(formik.values.dateOfBirth).format("YYYY-MM-DD")}
+                        // isValid={formik.touched.dateOfBirth && !formik.errors.dateOfBirth}
+                        isInvalid={formik.touched.dateOfBirth && !!formik.errors.dateOfBirth}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.DateOfBirth}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.dateOfBirth}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputCityOfBirth" label="City of birth" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="CityOfBirth"
+                        name="cityOfBirth"
                         placeholder="City of birth"
                         onChange={formik.handleChange}
-                        value={formik.values.CityOfBirth}
-                        // isValid={formik.touched.CityOfBirth && !formik.errors.CityOfBirth}
-                        isInvalid={formik.touched.CityOfBirth && !!formik.errors.CityOfBirth}
+                        value={formik.values.cityOfBirth}
+                        // isValid={formik.touched.cityOfBirth && !formik.errors.cityOfBirth}
+                        isInvalid={formik.touched.cityOfBirth && !!formik.errors.cityOfBirth}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.CityOfBirth}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.cityOfBirth}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputFathersName" label="Father's name" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="FathersName"
+                        name="fathersName"
                         placeholder="Father's name"
                         onChange={formik.handleChange}
-                        value={formik.values.FathersName}
-                        // isValid={formik.touched.FathersName && !formik.errors.FathersName}
-                        isInvalid={formik.touched.FathersName && !!formik.errors.FathersName}
+                        value={formik.values.fathersName}
+                        // isValid={formik.touched.fathersName && !formik.errors.fathersName}
+                        isInvalid={formik.touched.fathersName && !!formik.errors.fathersName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.FathersName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.fathersName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">
