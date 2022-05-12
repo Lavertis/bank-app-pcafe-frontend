@@ -3,14 +3,14 @@ import {useNavigate, useParams} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import {Account} from "../../types/Account";
 import {useFormik} from "formik";
-import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorUtils";
 import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import * as yup from "yup";
 
 const editAccountByEmployeeValidationSchema = yup.object().shape({
-    Balance: yup.number().required().min(0).label('Balance'),
-    TransferLimit: yup.number().required().min(10).label('Transfer Limit'),
-    IsActive: yup.boolean().required().label('Is Active')
+    balance: yup.number().required().min(0).label('Balance'),
+    transferLimit: yup.number().required().min(10).label('Transfer Limit'),
+    isActive: yup.boolean().required().label('Is Active')
 });
 
 interface EditAccountByEmployeeProps {
@@ -25,9 +25,9 @@ const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
 
     const formik = useFormik({
         initialValues: {
-            Balance: 0,
-            TransferLimit: 0,
-            IsActive: false
+            balance: 0,
+            transferLimit: 0,
+            isActive: false
         },
         validationSchema: editAccountByEmployeeValidationSchema,
         onSubmit: values => {
@@ -49,9 +49,9 @@ const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
         axios.get(`account-management/accounts/${accountId}`)
             .then(response => {
                 setAccount(response.data)
-                formik.setFieldValue('Balance', response.data.balance)
-                formik.setFieldValue('TransferLimit', response.data.transferLimit)
-                formik.setFieldValue('IsActive', response.data.isActive)
+                formik.setFieldValue('balance', response.data.balance)
+                formik.setFieldValue('transferLimit', response.data.transferLimit)
+                formik.setFieldValue('isActive', response.data.isActive)
             })
             .catch(error => {
                 console.log(error)
@@ -76,50 +76,50 @@ const EditAccountByEmployee: FC<EditAccountByEmployeeProps> = () => {
                 <Form.Floating className="mb-3 flex-grow-1 input-group">
                     <Form.Control
                         type="number"
-                        name="Balance"
+                        name="balance"
                         id="inputBalance"
                         placeholder="Balance"
                         min={0}
                         step={100}
                         onChange={formik.handleChange}
-                        value={formik.values.Balance}
-                        isValid={formik.touched.Balance && !formik.errors.Balance}
-                        isInvalid={formik.touched.Balance && !!formik.errors.Balance}
+                        value={formik.values.balance}
+                        isValid={formik.touched.balance && !formik.errors.balance}
+                        isInvalid={formik.touched.balance && !!formik.errors.balance}
                     />
                     <InputGroup.Text className="rounded-end">{account?.currencyCode}</InputGroup.Text>
                     <label htmlFor="inputBalance" className="z-index-3">Balance</label>
-                    <Form.Control.Feedback type="invalid">{formik.errors.Balance}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.balance}</Form.Control.Feedback>
                 </Form.Floating>
                 <Form.Floating className="mb-3 flex-grow-1 input-group">
                     <Form.Control
                         type="number"
-                        name="TransferLimit"
+                        name="transferLimit"
                         id="inputTransferLimit"
                         placeholder="Transfer limit"
                         min={0}
                         step={10}
                         onChange={formik.handleChange}
-                        value={formik.values.TransferLimit}
-                        isValid={formik.touched.TransferLimit && !formik.errors.TransferLimit}
-                        isInvalid={formik.touched.TransferLimit && !!formik.errors.TransferLimit}
+                        value={formik.values.transferLimit}
+                        isValid={formik.touched.transferLimit && !formik.errors.transferLimit}
+                        isInvalid={formik.touched.transferLimit && !!formik.errors.transferLimit}
                     />
                     <InputGroup.Text className="rounded-end">{account?.currencyCode}</InputGroup.Text>
                     <label htmlFor="inputTransferLimit" className="z-index-3">Transfer limit</label>
-                    <Form.Control.Feedback type="invalid">{formik.errors.TransferLimit}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.transferLimit}</Form.Control.Feedback>
                 </Form.Floating>
                 <Form.Group className="mb-3 d-flex justify-content-center">
                     <Form.Check
                         type="switch"
                         id="inputIsActive"
-                        name="IsActive"
-                        label={formik.values.IsActive ? 'Active' : 'Inactive'}
+                        name="isActive"
+                        label={formik.values.isActive ? 'Active' : 'Inactive'}
                         className="mb-3"
                         onChange={formik.handleChange}
-                        checked={formik.values.IsActive}
-                        // isValid={formik.touched.IsActive && !formik.errors.IsActive}
-                        isInvalid={formik.touched.IsActive && !!formik.errors.IsActive}
+                        checked={formik.values.isActive}
+                        // isValid={formik.touched.isActive && !formik.errors.isActive}
+                        isInvalid={formik.touched.isActive && !!formik.errors.isActive}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.IsActive}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.isActive}</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="d-grid mt-4">
                     <Col className="d-flex justify-content-end">

@@ -5,11 +5,11 @@ import {useNavigate} from "react-router-dom";
 import {TokenContext} from "../../App";
 import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
-import {getErrorsWithFirstMessages} from "../../utils/validationErrorsUtils";
+import {getErrorsWithFirstMessages} from "../../utils/validationErrorUtils";
 
 const loginValidationSchema = yup.object().shape({
-    UserName: yup.string().required().label('Username'),
-    Password: yup.string().required().label('Password')
+    userName: yup.string().required().label('Username'),
+    password: yup.string().required().label('Password')
 });
 
 interface LoginProps {
@@ -24,8 +24,8 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
 
     const formik = useFormik({
         initialValues: {
-            UserName: '',
-            Password: ''
+            userName: '',
+            password: ''
         },
         validationSchema: loginValidationSchema,
         onSubmit: values => {
@@ -54,24 +54,24 @@ const Login: FC<LoginProps> = ({redirectTo}) => {
                 <FloatingLabel controlId="inputUserName" label="Username" className="mb-3">
                     <Form.Control
                         type="text"
-                        name="UserName"
+                        name="userName"
                         placeholder="Username"
                         onChange={formik.handleChange}
-                        value={formik.values.UserName}
-                        isInvalid={formik.touched.UserName && !!formik.errors.UserName}
+                        value={formik.values.userName}
+                        isInvalid={formik.touched.userName && !!formik.errors.userName}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.UserName}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.userName}</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="inputPassword" label="Password" className="mb-3">
                     <Form.Control
                         type="password"
-                        name="Password"
+                        name="password"
                         placeholder="Password"
                         onChange={formik.handleChange}
-                        value={formik.values.Password}
-                        isInvalid={formik.touched.Password && !!formik.errors.Password}
+                        value={formik.values.password}
+                        isInvalid={formik.touched.password && !!formik.errors.password}
                     />
-                    <Form.Control.Feedback type="invalid">{formik.errors.Password}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
                 </FloatingLabel>
                 <Form.Group className="d-grid mt-4">
                     <Button type="submit" variant="primary">Sign In</Button>
