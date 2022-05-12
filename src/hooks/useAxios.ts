@@ -18,12 +18,12 @@ const useAxios = () => {
         const responseIntercept = myAxios.interceptors.response.use(
             response => response,
             async (error) => {
-                const prevRequest = error?.config;
-                if (error?.response?.status === 401 && !prevRequest?.sent) {
-                    prevRequest.sent = true;
+                const prevConfig = error.config;
+                if (error.response.status === 401 && !prevConfig._retry) {
+                    prevConfig._retry = true;
                     const newAccessToken = await refreshToken();
-                    prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-                    return myAxios(prevRequest);
+                    prevConfig.headers['Authorization'] = `Bearer ${newAccessToken}`;
+                    return myAxios(prevConfig);
                 }
                 return Promise.reject(error);
             }
