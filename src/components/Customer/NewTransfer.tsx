@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import * as yup from "yup";
 import {useFormik} from "formik";
-import {Alert, Button, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
+import {Alert, Button, ButtonGroup, Col, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import {Account} from "../../types/Account";
 import {getErrorsWithFirstMessages} from "../../utils/validationErrorUtils";
 
@@ -28,6 +28,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [serverError, setServerError] = useState<string>('')
+    const [transferType, setTransferType] = useState<'own' | 'foreign'>('foreign')
 
     const formik = useFormik({
         initialValues: {
@@ -58,6 +59,13 @@ const NewTransfer: FC<NewTransferProps> = () => {
             ?? accounts[0]?.currencyCode
     }
 
+    const changeTransferType = (type: 'own' | 'foreign') => {
+        setTransferType(type)
+        const senderAccountId = formik.values.senderAccountId
+        formik.resetForm()
+        formik.setFieldValue("senderAccountId", senderAccountId)
+    }
+
     useEffect(() => {
         axios.get(`account-management/customers/auth/accounts`)
             .then(response => {
@@ -85,6 +93,22 @@ const NewTransfer: FC<NewTransferProps> = () => {
                     <h3 className="mb-4">Send transfer</h3>
                     {serverError && <Alert variant="danger" className="text-center">{serverError}</Alert>}
                     <Form onSubmit={formik.handleSubmit} noValidate>
+                        <ButtonGroup className="mb-3 d-flex" id="inputPriority">
+                            <Button
+                                name="accountType"
+                                variant="outline-primary"
+                                active={transferType === 'own'}
+                                onClick={() => changeTransferType('own')}>
+                                Own account
+                            </Button>
+                            <Button
+                                name="accountType"
+                                variant="outline-primary"
+                                active={transferType === 'foreign'}
+                                onClick={() => changeTransferType('foreign')}>
+                                Foreign account
+                            </Button>
+                        </ButtonGroup>
                         <Form.Floating className="mb-3 flex-grow-1 input-group">
                             <Form.Control
                                 type="number"
@@ -122,17 +146,32 @@ const NewTransfer: FC<NewTransferProps> = () => {
                         </FloatingLabel>
                         <FloatingLabel controlId="inputReceiverAccountNumber" label="Receiver's account number"
                                        className="mb-3">
-                            <Form.Control
-                                type="text"
-                                name="receiverAccountNumber"
-                                placeholder="Receiver's account number"
-                                onChange={formik.handleChange}
-                                value={formik.values.receiverAccountNumber}
-                                // isValid={formik.touched.receiverAccountNumber && !formik.errors.receiverAccountNumber}
-                                isInvalid={formik.touched.receiverAccountNumber && !!formik.errors.receiverAccountNumber}
-                            />
-                            <Form.Control.Feedback
-                                type="invalid">{formik.errors.receiverAccountNumber}</Form.Control.Feedback>
+                            {transferType === 'foreign' ?
+                                <Form.Control
+                                    type="text"
+                                    name="receiverAccountNumber"
+                                    placeholder="Receiver's account number"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.receiverAccountNumber}
+                                    // isValid={formik.touched.receiverAccountNumber && !formik.errors.receiverAccountNumber}
+                                    isInvalid={formik.touched.receiverAccountNumber && !!formik.errors.receiverAccountNumber}
+                                />
+                                :
+                                <Form.Select
+                                    name="receiverAccountNumber"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.receiverAccountNumber}
+                                    // isValid={formik.touched.senderAccountId && !formik.errors.senderAccountId}
+                                    isInvalid={formik.touched.receiverAccountNumber && !!formik.errors.receiverAccountNumber}>
+                                    {accounts.map(account => (
+                                        account.isActive &&
+                                        <option key={account.id} value={account.number}>{account.number}</option>
+                                    ))}
+                                </Form.Select>
+                            }
+                            <Form.Control.Feedback type="invalid">
+                                {formik.errors.receiverAccountNumber}
+                            </Form.Control.Feedback>
                         </FloatingLabel>
                         <FloatingLabel controlId="inputReceiverName" label="Receiver's name" className="mb-3">
                             <Form.Control
@@ -144,8 +183,7 @@ const NewTransfer: FC<NewTransferProps> = () => {
                                 isValid={formik.touched.receiverName && !formik.errors.receiverName}
                                 isInvalid={formik.touched.receiverName && !!formik.errors.receiverName}
                             />
-                            <Form.Control.Feedback
-                                type="invalid">{formik.errors.receiverName}</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{formik.errors.receiverName}</Form.Control.Feedback>
                         </FloatingLabel>
                         <FloatingLabel controlId="inputTitle" label="Title" className="mb-3">
                             <Form.Control
